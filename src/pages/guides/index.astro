@@ -1,0 +1,16 @@
+---
+import Base from '@/layouts/Base.astro';
+import { SITE } from '@/config/site';
+import { GUIDES } from '@/data/guides';
+---
+<Base title={`PDF guides | ${SITE.name}`} description="Practical guides to working with PDFs privately: merging, compressing, unlocking, and checking what online tools do with your files.">
+  <div class="wrap prose">
+    <h1>Guides</h1>
+    <p>Practical, no-nonsense guides to working with PDFs without handing them to a server.</p>
+    <ul class="guide-list">
+      {GUIDES.map((g) => (
+        <li><a href={`/guides/${g.slug}/`}>{g.title}</a><p>{g.description}</p></li>
+      ))}
+    </ul>
+  </div>
+</Base>

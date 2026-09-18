@@ -1,0 +1,41 @@
+---
+import Guide from '@/layouts/Guide.astro';
+---
+<Guide slug="compress-pdf-for-email">
+  <p>“Message size exceeds the limit.” The PDF is 38 MB and the recipient’s mail server wants 10. Here is how big an attachment can be, why your PDF is that large in the first place, and the quickest ways to shrink it — without uploading a confidential document to a compression website.</p>
+
+  <h2>How big can an email attachment be?</h2>
+  <ul>
+    <li><b>Gmail:</b> 25 MB per message. Larger files are turned into Google Drive links.</li>
+    <li><b>Outlook.com:</b> 20 MB.</li>
+    <li><b>Company mail servers:</b> whatever the administrator chose, and 10 MB is a common setting. The limit that matters is the <em>recipient’s</em>, which you usually cannot see.</li>
+  </ul>
+  <p>Email also inflates attachments by roughly a third while encoding them, so a 19 MB file can bounce off a 25 MB limit. A good target is <b>under 10 MB</b> if you do not know the recipient’s limit, and under 5 MB for application portals and government forms, which often say so explicitly.</p>
+
+  <h2>Why is my PDF so big?</h2>
+  <p>Almost always: images. A PDF exported from a word processor is mostly text and is typically well under 1 MB. A PDF that came from a scanner or a phone camera is a stack of photographs, often at 300 dpi or more in full color, and runs to several megabytes <em>per page</em>. Presentations and brochures with full-page photos behave the same way. Embedded fonts add a little; redundant internal data left behind by editing tools adds a little more.</p>
+  <p>That tells you which kind of compression will work.</p>
+
+  <h2>Step 1: try lossless compression</h2>
+  <p>In <a href="/compress-pdf/">Compress PDF</a>, Light mode rebuilds the file’s structure and removes redundant data. Nothing visible changes and text stays selectable. Expect 5–30%, occasionally more on files that have been edited many times. If that gets you under the limit, stop here — you have lost nothing.</p>
+
+  <h2>Step 2: for scans, reduce the images</h2>
+  <p>If the document is scanned or photo-heavy, Light mode will barely move it. Strong mode re-renders every page as a JPEG at a resolution you choose:</p>
+  <ul>
+    <li><b>150 dpi</b> — still prints acceptably; good for documents someone may print.</li>
+    <li><b>110 dpi</b> — comfortable to read on screen; the sensible default for email.</li>
+    <li><b>72 dpi</b> — smallest; fine for a quick read, small print gets soft.</li>
+  </ul>
+  <p>Reductions of 50–90% are normal for scans. The trade-off is real, though: pages become pictures, so text can no longer be selected or searched. Keep the original, and send the compressed copy.</p>
+  <p>ShyPDF shows the before and after sizes, and if a mode would not make the file smaller it hands back your original rather than a bigger “compressed” one. Both modes run in your browser; the PDF is not uploaded.</p>
+
+  <h2>Step 3: if it is still too big</h2>
+  <ul>
+    <li><b>Send only what is needed.</b> Use <a href="/split-pdf/">Split PDF</a> to extract the relevant pages, or split the document into parts and send two emails.</li>
+    <li><b>Fix it at the source.</b> If you are scanning, 150 dpi grayscale is enough for text documents and produces files a fraction of the size of 300 dpi color.</li>
+    <li><b>Send a link instead.</b> For very large files, a share link from the cloud storage you already use is the normal answer. For confidential documents, <a href="/protect-pdf/">add a password</a> first and send the password separately.</li>
+  </ul>
+
+  <h2>Built-in alternatives</h2>
+  <p>On a Mac, Preview can do this too: <i>File → Export…</i>, then choose <i>Reduce File Size</i> under Quartz Filter. It is convenient, but there is only one setting and it is aggressive, so check the result is still legible. Windows has no built-in PDF compressor.</p>
+</Guide>

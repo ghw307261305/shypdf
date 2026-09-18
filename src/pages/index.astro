@@ -4,15 +4,17 @@ import ToolCard from '@/components/ToolCard.astro';
 import AdSlot from '@/components/AdSlot.astro';
 import { SITE } from '@/config/site';
 import { toolsByCategory, type Category } from '@/data/tools';
+import { GUIDES } from '@/data/guides';
 const order: Category[] = ['edit', 'convert', 'optimize', 'security'];
 const all = order.flatMap((c) => toolsByCategory(c));
 const groups = [
   { key: 'live', name: 'All tools', note: 'No upload, no sign-up', tools: all.filter((t) => t.phase === 1) },
   { key: 'soon', name: 'Coming soon', note: 'On the roadmap', tools: all.filter((t) => t.phase !== 1) },
 ];
+const jsonLd = { '@context': 'https://schema.org', '@type': 'WebSite', name: SITE.name, url: SITE.url, description: SITE.description };
 const check = '<path d="M5 12l5 5 9-10"/>';
 ---
-<Base title={`${SITE.name} — Free PDF tools that run in your browser`} current="home">
+<Base title={`${SITE.name} — Free PDF tools that run in your browser`} current="home" jsonLd={jsonLd}>
   <section class="hero">
     <div class="wrap">
       <h1>{SITE.tagline}</h1>
@@ -38,6 +40,11 @@ const check = '<path d="M5 12l5 5 9-10"/>';
       </section>
     ))}
     <p id="no-result" class="is-hidden" style="padding:32px 0;color:var(--muted)">No tools match your search.</p>
+
+    <section class="section">
+      <div class="section-head"><h2>Guides</h2><span><a href="/guides/">See all</a></span></div>
+      <div class="home-guides">{GUIDES.slice(0, 4).map((g) => <a href={`/guides/${g.slug}/`}><b>{g.title}</b><small>{g.description}</small></a>)}</div>
+    </section>
 
     <section class="pitch">
       <div><b>Your files never leave your device</b><p>Every tool runs inside your browser. Nothing is uploaded and nothing is stored on a server — close the tab and it’s gone.</p></div>

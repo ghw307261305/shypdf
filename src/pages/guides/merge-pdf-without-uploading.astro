@@ -1,0 +1,36 @@
+---
+import Guide from '@/layouts/Guide.astro';
+---
+<Guide slug="merge-pdf-without-uploading">
+  <p>The documents people most often need to combine — a signed contract and its annexes, three months of bank statements, a passport scan and a visa form — are exactly the ones that should not be uploaded to a website just to be stapled together. Here is every practical way to merge PDFs while keeping them on your own device.</p>
+
+  <h2>In any browser, on any computer</h2>
+  <p><a href="/merge-pdf/">ShyPDF’s Merge PDF</a> does the work inside the browser tab. Choose your files, drag the cards into order, and click “Merge PDF”; the combined file is saved to your downloads folder. The PDFs are read into your device’s memory and joined there — they are never sent to a server. It works the same on Windows, macOS, Linux and Chromebooks, and there is nothing to install or sign up for.</p>
+  <p>Do not take “never sent to a server” on trust, from us or anyone else. <a href="/guides/check-if-pdf-tool-uploads-files/">This guide shows how to check it yourself</a> in about thirty seconds.</p>
+
+  <h2>On a Mac: Preview</h2>
+  <ol>
+    <li>Open the first PDF in Preview and choose <i>View → Thumbnails</i>.</li>
+    <li>Drag the second PDF’s file icon from Finder into the thumbnail sidebar, dropping it where you want its pages to go.</li>
+    <li>Reorder pages by dragging thumbnails, then <i>File → Export as PDF…</i> to save a new file.</li>
+  </ol>
+  <p>It is built in and entirely offline. The catch is that it is easy to drop the pages <em>inside</em> the wrong spot or to overwrite the original by saving instead of exporting, so work on a copy.</p>
+
+  <h2>On an iPhone or iPad: the Files app</h2>
+  <ol>
+    <li>Put the PDFs in the same folder in Files and make sure their names sort in the order you want.</li>
+    <li>Tap <i>Select</i>, tick the files, then tap the <i>⋯</i> menu and choose <i>Create PDF</i>.</li>
+  </ol>
+  <p>Files are combined in the order they are listed, normally by name, so rename them first (1-cover, 2-form, 3-annex) if the order matters.</p>
+
+  <h2>On Windows and Chromebooks</h2>
+  <p>Neither has a built-in way to merge PDFs. “Microsoft Print to PDF” can turn one document into a PDF, but it cannot join several. Your realistic options are a browser-based tool that works locally, as above, or installing a desktop application such as the open-source PDFsam Basic.</p>
+
+  <h2>Things that go wrong</h2>
+  <ul>
+    <li><b>One of the files asks for a password.</b> Encrypted PDFs cannot be merged as they are. If it is your document and you know the password, <a href="/unlock-pdf/">save an unlocked copy</a> first.</li>
+    <li><b>You only need some pages.</b> <a href="/split-pdf/">Extract them</a> first, or merge everything and then <a href="/organize-pdf/">delete the extra pages</a> by looking at the thumbnails.</li>
+    <li><b>The result is too large to send.</b> Merging never shrinks anything. Run the merged file through <a href="/compress-pdf/">Compress PDF</a>, or see <a href="/guides/compress-pdf-for-email/">how to make a PDF small enough to email</a>.</li>
+    <li><b>Pages are sideways.</b> Common with scans. <a href="/rotate-pdf/">Rotate them permanently</a> rather than just turning the view in your reader.</li>
+  </ul>
+</Guide>

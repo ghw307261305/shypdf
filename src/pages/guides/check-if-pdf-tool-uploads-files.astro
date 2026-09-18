@@ -1,0 +1,43 @@
+---
+import Guide from '@/layouts/Guide.astro';
+---
+<Guide slug="check-if-pdf-tool-uploads-files">
+  <p>Plenty of PDF sites say “your files are safe” or “we delete everything after one hour”. You cannot check a deletion promise. You <em>can</em> check whether a file leaves your computer in the first place, and it takes about thirty seconds. Here is how — including where the quick test falls short, and what a stronger guarantee looks like.</p>
+
+  <h2>The 30-second test: watch the network</h2>
+  <ol>
+    <li>Open the tool in Chrome, Edge or Firefox and press <b>F12</b> (on a Mac, <b>⌥⌘I</b>). Choose the <b>Network</b> tab.</li>
+    <li>Tick <b>Preserve log</b> and click the clear button, so the requests made while the page loaded do not distract you.</li>
+    <li>Now use the tool normally: select a PDF — use an unimportant one for the test — and click merge, compress or whatever the tool does.</li>
+    <li>Look at what appeared in the list.</li>
+  </ol>
+  <p>If the tool uploads, you will see a <b>POST</b> or <b>PUT</b> request whose request size is roughly the size of your file, usually to an address containing a word like <i>upload</i>, <i>task</i> or <i>process</i>, followed a little later by a download of the result. Click it and open the <b>Payload</b> tab to see your file’s name inside.</p>
+  <p>If the tool works locally, you will see either nothing at all or a handful of <b>GET</b> requests for files ending in <code>.js</code> or <code>.wasm</code>. Those are the tool downloading its own code <em>to</em> you, not your file going out: the request is tiny and the response is large, the opposite of an upload. Also glance at the <b>WS</b> (WebSocket) filter, the other route a page can use to send data; it should be empty.</p>
+
+  <h2>What this test cannot tell you</h2>
+  <p>The Network tab shows what happened once, with one file, today. It cannot show that the site behaves the same way for every visitor, or that it will tomorrow. And on most websites, the page is not the only code running: analytics, advertising and chat widgets are scripts from other companies, loaded fresh on every visit, with the same access to the page — and to a file you drop into it — as the site’s own code. A local-only tool that embeds third-party scripts is making a promise on behalf of companies it does not control.</p>
+
+  <h2>A stronger signal: the Content Security Policy</h2>
+  <p>Websites can send a response header called <code>Content-Security-Policy</code> that tells your browser what the page is allowed to do. The browser enforces it; the page’s own code cannot switch it off. To see it, stay in the Network tab, reload, click the very first request (the page itself) and look under <b>Response Headers</b>.</p>
+  <p>The part that matters here is <code>connect-src</code>, which lists the servers the page may exchange data with. A policy containing</p>
+  <pre><code>default-src 'self'; connect-src 'self'; form-action 'self'</code></pre>
+  <p>means scripts on the page can only talk to the site’s own address. Requests to any other server — an analytics service, an ad network, a storage bucket — are blocked by the browser before they are sent. It also means the site cannot be quietly loading third-party scripts, because those would be blocked as well.</p>
+  <p>Many sites have no such header, or one so permissive (<code>*</code>, or a long list of ad and tracking domains) that it rules nothing out. That does not prove they upload your files. It does mean nothing is stopping them, or the scripts they embed.</p>
+
+  <h2>The remaining question: can the site’s own server receive files?</h2>
+  <p><code>connect-src 'self'</code> still allows the page to talk to its own server, so the last thing to check is whether that server accepts uploads. For a static site — plain files on a content delivery network, with no application behind them — it does not. You can ask it directly from a terminal:</p>
+  <pre><code>curl -i -X POST -d "test" https://shypdf.com/</code></pre>
+  <p>A static host answers <code>405 Method Not Allowed</code>: there is nothing on the other end to receive a file.</p>
+
+  <h2>How ShyPDF does on its own test</h2>
+  <p>Run all three checks on this site. The Network tab shows only downloads of code from shypdf.com. The response header is <code>default-src 'self'</code> with <code>connect-src 'self'</code>, so there are no third-party scripts, no analytics and no ad networks — the browser would refuse to load them. And the server answers POST and PUT requests with 405. We would rather you verify that than take our word for it.</p>
+
+  <h2>Quick checklist</h2>
+  <ul>
+    <li>No POST/PUT request the size of your file appears when you run the tool.</li>
+    <li>The WebSocket list stays empty.</li>
+    <li>The page sends a Content-Security-Policy with a tight <code>connect-src</code>.</li>
+    <li>No third-party domains show up in the Network tab at all.</li>
+    <li>For anything truly sensitive, use an unimportant file first, and keep your originals.</li>
+  </ul>
+</Guide>
