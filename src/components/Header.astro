@@ -1,0 +1,34 @@
+---
+import { SITE } from '@/config/site';
+import { toolBySlug } from '@/data/tools';
+interface Props { current?: string }
+const { current } = Astro.props;
+const nav = [
+  { href: '/', label: 'All tools', key: 'home' },
+  { href: '/merge-pdf/', label: 'Merge', key: 'merge-pdf' },
+  { href: '/split-pdf/', label: 'Split', key: 'split-pdf' },
+  { href: '/compress-pdf/', label: 'Compress', key: 'compress-pdf' },
+  { href: '/jpg-to-pdf/', label: 'Convert', key: 'jpg-to-pdf' },
+];
+// 图标只在手机端底部标签栏显示
+const gridIcon = '<rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><rect x="14" y="14" width="6" height="6" rx="1"/>';
+const iconOf = (key: string) => toolBySlug(key)?.icon ?? gridIcon;
+---
+<header class="site-header">
+  <div class="wrap">
+    <div class="header-left">
+      <a class="brand" href="/"><img class="brand-mark" src="/favicon.svg" width="28" height="28" alt="" /><span>{SITE.name}</span></a>
+      <nav class="nav" aria-label="Main">
+        {nav.map((n) => (
+          <a href={n.href} aria-current={current === n.key ? 'page' : undefined}>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={iconOf(n.key)} />
+            {n.label}
+          </a>
+        ))}
+      </nav>
+    </div>
+    <div class="header-cta">
+      <!-- 一期先不放登录/升级；需要时在这里加 .btn -->
+    </div>
+  </div>
+</header>

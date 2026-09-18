@@ -1,0 +1,38 @@
+---
+import Base from '@/layouts/Base.astro';
+import { SITE } from '@/config/site';
+// 这份政策描述的是「无统计、无广告、无 Cookie」的现状。
+// 接入统计或广告（SITE.ads）之前，必须先更新 “What we collect” 和 “Advertising” 两节，并更新 SITE.legalUpdated。
+---
+<Base title={`Privacy Policy | ${SITE.name}`} description={`How ${SITE.name} handles your data: your files are processed in your browser and never uploaded.`}>
+  <div class="wrap prose">
+    <h1>Privacy Policy</h1>
+    <p>Last updated: {SITE.legalUpdated}</p>
+
+    <h2>The short version</h2>
+    <p>{SITE.name} processes your files inside your browser. They are never uploaded to us or to anyone else. We have no accounts, set no cookies, and run no analytics or advertising trackers.</p>
+
+    <h2>Who we are</h2>
+    <p>{SITE.name} ({new URL(SITE.url).host}) is run by an independent developer, who is the data controller for the limited data described below. You can reach us at <a href={`mailto:${SITE.contactEmail}`}>{SITE.contactEmail}</a>.</p>
+
+    <h2>Your files</h2>
+    <p>Every tool on this site runs locally, using JavaScript and WebAssembly in your browser. The files you select are read into your device’s memory, processed there, and offered back to you as a download. They are not sent over the network, and the passwords you type into the Protect and Unlock tools are not sent either. When you close or reload the page, the data is released.</p>
+    <p>The site is also served with a Content Security Policy that prevents its pages from sending data to any other server.</p>
+
+    <h2>What we collect</h2>
+    <p>We do not ask for your name, email address or any other personal information, and we do not use cookies, local storage, analytics or fingerprinting.</p>
+    <p>Like every website, ours is delivered by a hosting provider. We use Cloudflare, which processes technical request data — such as your IP address, browser type, the page requested and the time — in order to deliver the site and to protect it from abuse. We do not combine this data with anything else or use it to identify you. For visitors in the EEA and the UK, the legal basis is our legitimate interest in running a secure website. See <a href="https://www.cloudflare.com/privacypolicy/" rel="noopener">Cloudflare’s privacy policy</a> for how it handles this data, including transfers outside your country.</p>
+
+    <h2>Advertising</h2>
+    <p>{SITE.name} does not currently show ads. If that changes, we will update this policy first and, where the law requires it, ask for your consent before any advertising cookies are set.</p>
+
+    <h2>Your rights</h2>
+    <p>Depending on where you live, you may have the right to access, correct, delete or object to the processing of your personal data, and to complain to your local data protection authority. We do not sell or share personal information. To exercise any right, email <a href={`mailto:${SITE.contactEmail}`}>{SITE.contactEmail}</a>.</p>
+
+    <h2>Children</h2>
+    <p>{SITE.name} is a general-purpose tool and is not directed at children. We do not knowingly collect personal data from anyone.</p>
+
+    <h2>Changes</h2>
+    <p>If we change this policy, we will post the new version here and update the date above.</p>
+  </div>
+</Base>

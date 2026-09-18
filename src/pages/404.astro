@@ -1,0 +1,17 @@
+---
+import Base from '@/layouts/Base.astro';
+import ToolCard from '@/components/ToolCard.astro';
+import { SITE } from '@/config/site';
+import { liveTools } from '@/data/tools';
+---
+<Base title={`Page not found | ${SITE.name}`} noindex>
+  <div class="wrap">
+    <section class="notfound">
+      <h1>This page is a little too shy</h1>
+      <p>We couldn’t find it. Every tool is still right here:</p>
+    </section>
+    <section class="section">
+      <div class="tool-grid">{liveTools().map((t) => <ToolCard tool={t} />)}</div>
+    </section>
+  </div>
+</Base>

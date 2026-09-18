@@ -1,0 +1,28 @@
+---
+import Base from '@/layouts/Base.astro';
+import { SITE } from '@/config/site';
+// 许可证原文在 public/licenses/（从 node_modules 和 public/vendor 拷贝）。升级依赖后重新拷一次。
+const libs = [
+  { name: 'pdf-lib', by: 'Andrew Dillon', license: 'MIT', url: 'https://github.com/Hopding/pdf-lib', file: 'pdf-lib.txt', use: 'Creating and editing PDFs' },
+  { name: 'PDF.js', by: 'Mozilla', license: 'Apache-2.0', url: 'https://github.com/mozilla/pdf.js', file: 'pdfjs.txt', use: 'Rendering page previews and images' },
+  { name: 'qpdf', by: 'Jay Berkenbilt', license: 'Apache-2.0', url: 'https://github.com/qpdf/qpdf', file: 'qpdf.txt', use: 'Encryption and decryption, compiled to WebAssembly' },
+  { name: 'JSZip', by: 'Stuart Knightley and contributors', license: 'MIT (dual-licensed MIT / GPL-3.0; used under MIT)', url: 'https://github.com/Stuk/jszip', file: 'jszip.txt', use: 'Zip downloads' },
+  { name: 'Inter', by: 'The Inter Project Authors', license: 'SIL Open Font License 1.1', url: 'https://github.com/rsms/inter', file: 'inter.txt', use: 'Typeface' },
+  { name: 'Astro', by: 'Astro contributors', license: 'MIT', url: 'https://github.com/withastro/astro', file: 'astro.txt', use: 'Site generator' },
+];
+---
+<Base title={`Open-source licenses | ${SITE.name}`} description={`The open-source software that ${SITE.name} is built on, and its licenses.`}>
+  <div class="wrap prose">
+    <h1>Open-source licenses</h1>
+    <p>{SITE.name} is built on the work of these open-source projects. Each remains under its own license.</p>
+    <ul class="lib-list">
+      {libs.map((l) => (
+        <li>
+          <b><a href={l.url} rel="noopener">{l.name}</a></b> — {l.use}.<br />
+          © {l.by}. {l.license}. <a href={`/licenses/${l.file}`}>License text</a>
+        </li>
+      ))}
+    </ul>
+    <p>The qpdf WebAssembly build includes zlib and libjpeg. This software is based in part on the work of the Independent JPEG Group.</p>
+  </div>
+</Base>

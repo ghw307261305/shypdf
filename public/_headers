@@ -1,0 +1,16 @@
+# Cloudflare Pages 响应头。
+# CSP 是「文件不上传」承诺的技术保证：connect-src / form-action 只允许本站，页面无法把数据发往别处。
+# 隐私政策里写了这一点 —— 接入统计或广告（AdSense 需要放开 script-src / frame-src / connect-src / img-src）时，
+# 必须同时改这里和 src/pages/privacy.astro。
+/*
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data:; font-src 'self'; connect-src 'self' blob:; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), interest-cohort=()
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/vendor/*
+  Cache-Control: public, max-age=604800

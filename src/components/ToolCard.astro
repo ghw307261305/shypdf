@@ -1,0 +1,11 @@
+---
+import type { ToolMeta } from '@/data/tools';
+import ToolIcon from './ToolIcon.astro';
+interface Props { tool: ToolMeta }
+const { tool } = Astro.props;
+const live = tool.phase === 1;
+---
+<a class:list={['tool-card', { 'is-soon': !live }]} href={live ? `/${tool.slug}/` : undefined} data-name={tool.name} data-short={tool.short} aria-disabled={!live}>
+  <ToolIcon tool={tool} />
+  <span><b>{tool.name}</b><small>{tool.short}</small></span>
+</a>

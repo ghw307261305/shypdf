@@ -1,0 +1,71 @@
+---
+import Base from '@/layouts/Base.astro';
+import ToolCard from '@/components/ToolCard.astro';
+import AdSlot from '@/components/AdSlot.astro';
+import { SITE } from '@/config/site';
+import { toolsByCategory, type Category } from '@/data/tools';
+const order: Category[] = ['edit', 'convert', 'optimize', 'security'];
+const all = order.flatMap((c) => toolsByCategory(c));
+const groups = [
+  { key: 'live', name: 'All tools', note: 'No upload, no sign-up', tools: all.filter((t) => t.phase === 1) },
+  { key: 'soon', name: 'Coming soon', note: 'On the roadmap', tools: all.filter((t) => t.phase !== 1) },
+];
+const check = '<path d="M5 12l5 5 9-10"/>';
+---
+<Base title={`${SITE.name} — Free PDF tools that run in your browser`} current="home">
+  <section class="hero">
+    <div class="wrap">
+      <h1>{SITE.tagline}</h1>
+      <p>{SITE.description}</p>
+      <div class="search">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+        <label for="q" class="sr-only">Search tools</label>
+        <input id="q" type="search" placeholder="Search tools, e.g. “merge”" autocomplete="off" />
+      </div>
+      <ul class="badges">
+        {['Files never leave your device', 'Free, no sign-up', 'No upload wait'].map((b) => (
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={check} />{b}</li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <div class="wrap">
+    {groups.map((g) => (
+      <section class="section" data-group={g.key}>
+        <div class="section-head"><h2>{g.name}</h2><span>{g.note}</span></div>
+        <div class="tool-grid">{g.tools.map((t) => <ToolCard tool={t} />)}</div>
+      </section>
+    ))}
+    <p id="no-result" class="is-hidden" style="padding:32px 0;color:var(--muted)">No tools match your search.</p>
+
+    <section class="pitch">
+      <div><b>Your files never leave your device</b><p>Every tool runs inside your browser. Nothing is uploaded and nothing is stored on a server — close the tab and it’s gone.</p></div>
+      <div><b>Free, no sign-up</b><p>Open a tool and use it. No account, no email address, no watermark on your files.</p></div>
+      <div><b>No waiting on uploads</b><p>Your files don’t travel over the network, so merging a dozen PDFs takes a second or two, even on a slow connection.</p></div>
+    </section>
+    <div style="margin-top:48px;display:flex;justify-content:center"><AdSlot width={970} height={90} /></div>
+  </div>
+
+  <script>
+    // 首页搜索：按名称/简介过滤卡片，隐藏空分组
+    const q = document.getElementById('q') as HTMLInputElement;
+    const cards = Array.from(document.querySelectorAll<HTMLElement>('.tool-card'));
+    const sections = Array.from(document.querySelectorAll<HTMLElement>('.section[data-group]'));
+    const empty = document.getElementById('no-result')!;
+    q.addEventListener('input', () => {
+      const s = q.value.trim().toLowerCase();
+      let any = false;
+      for (const c of cards) {
+        const hit = !s || (c.dataset.name + ' ' + c.dataset.short + ' ' + (c.getAttribute('href') || '')).toLowerCase().includes(s);
+        c.classList.toggle('is-hidden', !hit);
+        if (hit) any = true;
+      }
+      for (const sec of sections) {
+        const visible = sec.querySelectorAll('.tool-card:not(.is-hidden)').length > 0;
+        sec.classList.toggle('is-hidden', !visible);
+      }
+      empty.classList.toggle('is-hidden', any);
+    });
+  </script>
+</Base>

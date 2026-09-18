@@ -1,0 +1,15 @@
+---
+// 广告位。SITE.ads 为 false 时不渲染任何东西；审核通过后把广告代码贴到下面的 <slot/> 位置。
+import { SITE } from '@/config/site';
+interface Props { width: number; height: number; label?: string }
+const { width, height, label = 'Advertisement' } = Astro.props;
+---
+{SITE.ads && (
+  <div class="ad-wrap" style={`width:${width}px;max-width:100%`}>
+    {/* 合规：广告必须有用户可见的标识，不要删 */}
+    <span class="ad-label">{label}</span>
+    <div class="ad-slot" style={`height:${height}px`}>
+      {/* TODO: 在这里贴 AdSense <ins> 代码 */}
+    </div>
+  </div>
+)}

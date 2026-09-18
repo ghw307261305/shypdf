@@ -1,0 +1,9 @@
+---
+import { CATEGORIES, type ToolMeta } from '@/data/tools';
+interface Props { tool: ToolMeta; size?: number }
+const { tool, size = 24 } = Astro.props;
+const c = CATEGORIES[tool.category];
+---
+<span class="tool-icon" style={`background:${c.tint}`} aria-hidden="true">
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={c.ink} stroke-width="2" stroke-linecap="round" stroke-linejoin="round" set:html={tool.icon} />
+</span>

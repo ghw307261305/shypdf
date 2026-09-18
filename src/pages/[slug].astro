@@ -1,0 +1,116 @@
+---
+import Base from '@/layouts/Base.astro';
+import AdSlot from '@/components/AdSlot.astro';
+import { SITE } from '@/config/site';
+import { liveTools, toolBySlug, CATEGORIES } from '@/data/tools';
+
+export function getStaticPaths() {
+  return liveTools().map((t) => ({ params: { slug: t.slug } }));
+}
+const tool = toolBySlug(Astro.params.slug!)!;
+const related = tool.related.map(toolBySlug).filter((t) => t && t.phase === 1) as NonNullable<ReturnType<typeof toolBySlug>>[];
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    { '@type': 'WebApplication', name: tool.name, applicationCategory: 'UtilitiesApplication', operatingSystem: 'Any',
+      offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' }, description: tool.description, url: new URL(`/${tool.slug}/`, SITE.url).href },
+    { '@type': 'FAQPage', mainEntity: tool.faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) },
+  ],
+};
+---
+<Base title={`${tool.name} — free, no upload | ${SITE.name}`} description={tool.description} current={tool.slug} jsonLd={jsonLd}>
+  <div class:list={['wrap', 'tool-page', { 'no-aside': !SITE.ads }]}>
+    <div class="tool-main"
+         id="tool-app"
+         data-slug={tool.slug}
+         data-accept={tool.accept}
+         data-multiple={String(tool.multiple)}
+         data-min-files={String(tool.minFiles ?? 1)}
+         data-button={tool.button}
+         data-max-mb={String(SITE.limits.maxFileMB)}
+         data-max-files={String(SITE.limits.maxFiles)}>
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> › {CATEGORIES[tool.category].name} › {tool.name}</nav>
+
+      <!-- 阶段 A：上传 -->
+      <section id="stage-upload">
+        <div class="tool-title"><h1>{tool.name}</h1><p>{tool.description}</p></div>
+        <div class="stage">
+          <div class="dropzone" id="dropzone">
+            <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 16V4"/><path d="M7 9l5-5 5 5"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg>
+            <button type="button" class="btn-primary" id="pick">{tool.multiple ? 'Choose files' : 'Choose file'}</button>
+            <input type="file" id="file-input" class="sr-only" accept={tool.accept} multiple={tool.multiple} tabindex="-1" aria-hidden="true" />
+            <p>{tool.multiple ? 'or drop files here' : 'or drop a file here'}</p>
+            <small>{tool.multiple ? `Up to ${SITE.limits.maxFiles} files · ${SITE.limits.maxFileMB} MB each` : `Up to ${SITE.limits.maxFileMB} MB`}</small>
+            <div id="upload-alert" class="alert is-hidden" role="alert"></div>
+          </div>
+        </div>
+        <ol class="steps">
+          {tool.steps.map((s, i) => <li><span class="step-n">{i + 1}</span><b>{['Choose', 'Adjust', 'Download'][i]}</b><p>{s}</p></li>)}
+        </ol>
+        <section class="faq">
+          <h2>Questions</h2>
+          {tool.faq.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}
+        </section>
+        <section class="related">
+          <h2>Related tools</h2>
+          <div class="chips">{related.map((r) => <a href={`/${r.slug}/`}>{r.name}</a>)}</div>
+        </section>
+      </section>
+
+      <!-- 阶段 B：文件列表 + 选项 -->
+      <section id="stage-files" class="is-hidden">
+        <div class="work">
+          <div class="work-main">
+            <div class="work-head">
+              <div><h2 style="font-size:24px;display:inline">{tool.name}</h2> <span class="meta" id="files-meta"></span></div>
+              <div class="actions">
+                <button type="button" class="btn" id="sort-name">Sort by name</button>
+                <button type="button" class="btn" id="clear-all">Clear all</button>
+              </div>
+            </div>
+            <div class="items" id="items"></div>
+            <p class="work-note" id="work-note"></p>
+          </div>
+          <aside class="work-side">
+            <h2>Options</h2>
+            <form id="options" novalidate></form>
+            <div class="run-box">
+              <div id="run-alert" class="alert is-hidden" role="alert"></div>
+              <button type="button" class="btn-primary" id="run">{tool.button}</button>
+              <div class="progress" id="progress" aria-live="polite"></div>
+              <div class="progress-bar" aria-hidden="true"><i id="progress-bar"></i></div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <!-- 阶段 C：完成 -->
+      <section id="stage-result" class="is-hidden">
+        <div class="result">
+          <div class="result-preview" id="result-preview"></div>
+          <div class="result-body">
+            <div class="result-title"><span class="ok-mark" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg></span><h2>Done</h2></div>
+            <div class="result-meta" id="result-meta"></div>
+            <div class="result-actions" id="result-actions"></div>
+            <div class="result-links">
+              <button type="button" id="back">← Back to options</button>
+              <button type="button" id="restart">Start over</button>
+            </div>
+          </div>
+        </div>
+        <section class="next-tools">
+          <h2>Keep going</h2>
+          <div class="next-grid">{related.map((r) => <a href={`/${r.slug}/`}><b>{r.name}</b><small>{r.short}</small></a>)}</div>
+        </section>
+      </section>
+    </div>
+
+    {SITE.ads && (
+      <aside class="tool-aside">
+        <AdSlot width={300} height={600} /><div style="height:24px"></div><AdSlot width={300} height={250} />
+      </aside>
+    )}
+  </div>
+
+  <script src="@/scripts/tool-app.ts"></script>
+</Base>
