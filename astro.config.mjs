@@ -8,6 +8,11 @@ export default defineConfig({
   vite: {
     // 不内联任何脚本：public/_headers 的 CSP 是 script-src 'self'，内联脚本会被拦
     build: { assetsInlineLimit: 0 },
-    optimizeDeps: { exclude: ['pdfjs-dist'] },
+    // include：启动时就预打包，避免首次打开某个工具时中途重新优化依赖，
+    // 导致动态 import 报 "Failed to fetch dynamically imported module"（504 Outdated Optimize Dep）
+    optimizeDeps: {
+      exclude: ['pdfjs-dist'],
+      include: ['pdf-lib', '@pdf-lib/fontkit', 'jszip', 'tesseract.js'],
+    },
   },
 });
