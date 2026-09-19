@@ -35,6 +35,7 @@ let items: Item[] = [];
 let nextId = 1;
 let outputs: OutputFile[] = [];
 let busy = false;
+let closeWorkspace: (() => void) | void;
 
 function show(stage: keyof typeof stages) {
   for (const [k, el] of Object.entries(stages)) el.classList.toggle('is-hidden', k !== stage);
@@ -87,6 +88,17 @@ async function acceptFiles(files: File[]) {
     bindConditionalFields();
   }
   if (!cfg.multiple) items = [];
+  if (tool.workspace) {
+    // 工具自己画工作区（lib/types.ts 的 workspace）
+    items = [{ id: nextId++, file: ok[0], rotation: 0 }];
+    show('files');
+    render();
+    closeWorkspace?.();
+    itemsEl.innerHTML = '';
+    try { closeWorkspace = await tool.workspace(itemsEl, ok[0], optionsForm); }
+    catch (e) { reset(); alertIn(uploadAlert, t('app.cantOpen', { msg: (e as Error).message })); }
+    return;
+  }
   if (tool.mode === 'pages') {
     items = [];
     await expandPages(ok[0]);
@@ -117,13 +129,13 @@ async function expandPages(file: File) {
   } finally { setProgress(''); }
 }
 
-// 选项面板里 data-show-when="name=value" 的字段随选择显示/隐藏
+// 选项面板里 data-show-when="name=value"（或 "name!=value"）的字段随选择显示/隐藏
 function bindConditionalFields() {
   const update = () => {
     const data = new FormData(optionsForm);
     optionsForm.querySelectorAll<HTMLElement>('[data-show-when]').forEach((el) => {
-      const [k, v] = el.dataset.showWhen!.split('=');
-      el.classList.toggle('is-hidden', String(data.get(k)) !== v);
+      const [, k, op, v] = /^([^!=]+)(!?=)(.*)$/.exec(el.dataset.showWhen!)!;
+      el.classList.toggle('is-hidden', (String(data.get(k)) === v) !== (op === '='));
     });
   };
   optionsForm.addEventListener('change', update);
@@ -133,8 +145,10 @@ function bindConditionalFields() {
 // ---------- 阶段 B：列表渲染与排序 ----------
 function render() {
   const isPages = tool?.mode === 'pages';
-  itemsEl.innerHTML = '';
-  items.forEach((it, idx) => {
+  const custom = !!tool?.workspace;
+  itemsEl.classList.toggle('is-workspace', custom);
+  if (!custom) itemsEl.innerHTML = '';
+  if (!custom) items.forEach((it, idx) => {
     const pageLabel = isPages ? th('app.page', { n: it.pageIndex! + 1 }) : '';
     const card = document.createElement('div');
     card.className = 'item';
@@ -150,7 +164,7 @@ function render() {
           <button type="button" class="icon-btn" data-act="remove" aria-label="${th('app.remove')}">×</button>
         </span>
       </div>
-      <div class="thumb">${isPages ? pageLabel : th('app.preview')}</div>
+      <div class="thumb">${isPages ? pageLabel : previewable(it.file) ? th('app.preview') : badge(it.file.name)}</div>
       <div class="item-name" title="${escapeHtml(it.file.name)}">${isPages ? pageLabel : escapeHtml(it.file.name)}</div>
       <div class="item-meta">${isPages ? (it.rotation ? th('app.rotated', { deg: it.rotation }) : '') : formatBytes(it.file.size)}</div>`;
     if (it.thumb) {
@@ -161,7 +175,7 @@ function render() {
     }
     itemsEl.appendChild(card);
   });
-  if (cfg.multiple || tool?.mode === 'pages') {
+  if (!custom && (cfg.multiple || tool?.mode === 'pages')) {
     const add = document.createElement('button');
     add.type = 'button';
     add.className = 'item-add';
@@ -221,7 +235,8 @@ itemsEl.addEventListener('drop', (e) => {
 itemsEl.addEventListener('dragend', () => { dragFrom = null; itemsEl.querySelectorAll('.is-dragging,.is-target').forEach((c) => c.classList.remove('is-dragging', 'is-target')); });
 
 $('sort-name').addEventListener('click', () => { items.sort((a, b) => a.file.name.localeCompare(b.file.name, document.documentElement.lang, { numeric: true, sensitivity: 'base' })); render(); });
-$('clear-all').addEventListener('click', () => { items = []; show('upload'); });
+function reset() { closeWorkspace?.(); closeWorkspace = undefined; items = []; outputs = []; show('upload'); }
+$('clear-all').addEventListener('click', reset);
 
 // 缩略图：pdf 首页 / 各页用 pdf.js，图片用 <img>
 async function loadThumbs() {
@@ -241,6 +256,7 @@ async function loadThumbs() {
   const docs = new Map<File, any>();
   for (const it of pending) {
     if (!items.includes(it)) continue;
+    if (!previewable(it.file)) continue;
     try {
       let doc = (root as any).__pdfDoc && tool?.mode === 'pages' ? (root as any).__pdfDoc : docs.get(it.file);
       if (!doc) { doc = await openWithPdfjs(it.file); docs.set(it.file, doc); }
@@ -253,6 +269,11 @@ async function loadThumbs() {
   }
   for (const d of docs.values()) d.loadingTask.destroy();
 }
+
+// Word 等格式没有缩略图，用扩展名徽标代替
+const extOf = (name: string) => (name.includes('.') ? name.split('.').pop()! : '').toUpperCase().slice(0, 5);
+const badge = (name: string) => `<span class="file-badge">${escapeHtml(extOf(name))}</span>`;
+const previewable = (f: File) => f.type.startsWith('image/') || f.type === 'application/pdf' || /\.pdf$/i.test(f.name);
 
 // ---------- 运行 ----------
 runBtn.addEventListener('click', async () => {
@@ -317,9 +338,9 @@ async function showResult(inputs: File[]) {
       doc.loadingTask.destroy();
     } else if (first.blob.type.startsWith('image/')) {
       const img = new Image(); img.src = URL.createObjectURL(first.blob); preview.appendChild(img);
-    } else { preview.textContent = 'zip'; }
+    } else { preview.innerHTML = badge(outputs.length > 1 ? '.zip' : first.name); }
   } catch { preview.textContent = ''; }
 }
 
 $('back').addEventListener('click', () => show('files'));
-$('restart').addEventListener('click', () => { items = []; outputs = []; show('upload'); });
+$('restart').addEventListener('click', reset);

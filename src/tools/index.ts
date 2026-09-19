@@ -10,9 +10,13 @@ const loaders: Record<string, () => Promise<{ default: ToolModule }>> = {
   'add-watermark': () => import('./add-watermark'),
   'jpg-to-pdf': () => import('./jpg-to-pdf'),
   'pdf-to-jpg': () => import('./pdf-to-jpg'),
+  'pdf-to-word': () => import('./pdf-to-word'),
+  'word-to-pdf': () => import('./word-to-pdf'),
   'compress-pdf': () => import('./compress-pdf'),
+  'ocr-pdf': () => import('./ocr-pdf'),
   'unlock-pdf': () => import('./unlock-pdf'),
   'protect-pdf': () => import('./protect-pdf'),
+  'sign-pdf': () => import('./sign-pdf'),
 };
 
 export async function loadTool(slug: string): Promise<ToolModule> {

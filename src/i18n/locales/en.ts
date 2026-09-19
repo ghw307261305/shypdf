@@ -82,7 +82,7 @@ const en = {
       whyBody: 'Most online PDF tools start by uploading your file to their servers. For contracts, financial statements or a scan of your passport, that is a lot of trust to place in a website. Doing the work in the browser removes the question entirely — a PDF that is shy about leaving home.',
       howTitle: 'How it works',
       // {link} 会被替换成指向开源许可页的链接，链接文字是 howLink
-      howBody: 'The tools are built on open-source libraries — pdf-lib, PDF.js and qpdf compiled to WebAssembly — that your browser downloads once and then runs locally. See {link} for the full list.',
+      howBody: 'The tools are built on open-source libraries — pdf-lib, PDF.js, and qpdf and Tesseract compiled to WebAssembly — that your browser downloads once and then runs locally. See {link} for the full list.',
       howLink: 'Open-source licenses',
       contactTitle: 'Contact',
       contactBody: 'Questions, bugs or ideas:',
@@ -160,6 +160,25 @@ const en = {
       faq: [PRIVACY_FAQ,
         { q: 'Which resolution should I pick?', a: 'Standard (150 dpi) is right for screens. High (300 dpi) is better for print but makes larger files and takes longer.' }],
     },
+    'pdf-to-word': {
+      name: 'PDF to Word', short: 'Editable .docx from a PDF',
+      description: `Turn a PDF into an editable Word document (.docx): paragraphs, headings, simple tables and images are rebuilt so you can edit them. ${LOCAL}`,
+      button: 'Convert to Word',
+      steps: ['Choose a PDF that contains real, selectable text.', 'Decide whether to keep the images.', 'Click “Convert to Word” and open the .docx in Word, Google Docs or LibreOffice.'],
+      faq: [PRIVACY_FAQ,
+        { q: 'Will the Word file look exactly like the PDF?', a: 'Close, but not identical. A PDF only stores where each character sits on the page, so ShyPDF rebuilds paragraphs, headings, alignment, tables and images from that. Text-heavy documents — letters, contracts, reports, CVs — convert well. Magazine-style layouts, forms and pages with text over pictures are simplified.' },
+        { q: 'Can I convert a scanned PDF?', a: 'Not directly: a scan is a picture of text, so there is nothing to edit. Run it through OCR PDF first, then convert the searchable PDF it gives you.' }],
+    },
+    'word-to-pdf': {
+      name: 'Word to PDF', short: 'DOCX to PDF, text stays text',
+      description: `Convert a Word document (.docx) to a PDF with selectable text, embedded fonts, tables, images, headers, footers and page numbers. ${LOCAL}`,
+      button: 'Convert to PDF',
+      steps: ['Choose a .docx file.', 'There is nothing to set up — the page size and margins come from the document.', 'Click “Convert to PDF” and download the result.'],
+      faq: [PRIVACY_FAQ,
+        { q: 'Will the PDF look the same as in Word?', a: 'For typical documents, very close. ShyPDF lays the document out itself, and swaps Calibri, Arial, Times New Roman and Courier New for open-source fonts with identical character widths, so lines and pages break in nearly the same places. Text boxes, multi-column sections, charts and SmartArt are not supported yet; text inside text boxes is kept as ordinary paragraphs.' },
+        { q: 'Does it work with .doc files?', a: 'Only .docx. Open an old .doc file in Word, Google Docs or LibreOffice, save it as .docx, and convert that.' },
+        { q: 'Which languages are supported?', a: 'Latin, Greek and Cyrillic scripts, plus Chinese, Japanese and Korean. Right-to-left scripts such as Arabic and Hebrew are not supported yet.' }],
+    },
     'compress-pdf': {
       name: 'Compress PDF', short: 'Smaller files for email',
       description: `Make a PDF smaller. Light mode keeps text selectable and searchable; Strong mode turns pages into images for the smallest file. ${LOCAL}`,
@@ -168,6 +187,16 @@ const en = {
       faq: [PRIVACY_FAQ,
         { q: 'What is the difference between Light and Strong?', a: 'Light rebuilds the file structure and drops redundant data. Text stays selectable and searchable, and files usually shrink by 5–30%. Strong renders each page as an image, which can cut size by 50% or more, but text is no longer selectable. Strong works best on scanned documents.' },
         { q: 'Why did my file barely shrink?', a: 'It was probably optimized already, or most of its size comes from embedded fonts. Light mode can’t do much in that case — try Strong.' }],
+    },
+    'ocr-pdf': {
+      name: 'OCR PDF', short: 'Make scans searchable',
+      description: `Recognize the text in a scanned PDF so you can search, select and copy it — or export it as plain text. ${LOCAL}`,
+      button: 'Recognize text',
+      steps: ['Choose a scanned PDF.', 'Pick the language of the document and the output: a searchable PDF or plain text.', 'Click “Recognize text”. Expect a few seconds per page.'],
+      faq: [PRIVACY_FAQ,
+        { q: 'Does the PDF look different afterwards?', a: 'No. The pages are left exactly as they are; ShyPDF only adds an invisible text layer on top of them, so the scan keeps its quality and the file grows very little.' },
+        { q: 'How accurate is it?', a: 'Clean, straight scans at 200 dpi or more are recognized very well. Blurry phone photos, handwriting, stamps and unusual fonts are much less reliable. Choosing the right language matters more than anything else.' },
+        { q: 'Why does the first run take longer?', a: 'The recognition engine and the language data (roughly 5–10 MB) are downloaded from this site the first time and then kept in your browser. The PDF itself is never uploaded.' }],
     },
     'unlock-pdf': {
       name: 'Unlock PDF', short: 'Remove PDF restrictions',
@@ -187,15 +216,19 @@ const en = {
         { q: 'What encryption is used?', a: 'AES-256, as defined by the PDF 2.0 standard. All mainstream PDF readers support it.' },
         { q: 'What if I forget the password?', a: 'There is no way to recover it. Keep it somewhere safe, such as a password manager.' }],
     },
+    'sign-pdf': {
+      name: 'Sign PDF', short: 'Draw, type or upload a signature',
+      description: `Add your signature to a PDF: draw it, type it, or use a photo of it, then drag it into place. ${LOCAL}`,
+      button: 'Sign PDF',
+      steps: ['Choose the PDF you need to sign.', 'Draw, type or upload your signature, then drag it to the right spot and resize it.', 'Click “Sign PDF” and download the signed copy.'],
+      faq: [PRIVACY_FAQ,
+        { q: 'Is this a legally valid signature?', a: 'It is an electronic signature: an image of your signature placed on the document, like signing a printout and scanning it. Many everyday documents accept that, but the rules depend on the country and the kind of document. It is not a certificate-based digital signature, so it does not prove who signed or that the file is unchanged. Check what the recipient requires.' },
+        { q: 'Is my signature stored anywhere?', a: 'No. It exists only in this browser tab and is gone when you close or reload the page. Nothing is uploaded and nothing is saved for next time.' }],
+    },
   },
 
-  // 二期占位工具：首页灰显，只需要名字
-  soon: {
-    'pdf-to-word': 'PDF to Word',
-    'word-to-pdf': 'Word to PDF',
-    'ocr-pdf': 'OCR PDF',
-    'sign-pdf': 'Sign PDF',
-  },
+  // 占位工具（data/tools.ts 里用 SOON 登记的）：首页灰显，只需要名字。目前没有。
+  soon: {},
 
   client: {
     // ---- 工具页通用 UI（scripts/tool-app.ts） ----
@@ -233,6 +266,7 @@ const en = {
     'lib.rangeOutside': 'Page range “{part}” is outside this document (pages: {n}).',
     'lib.rangeEmpty': 'Enter a page range.',
     'lib.qpdfLoad': 'Could not load the qpdf engine. Check your connection and try again.',
+    'lib.vendorLoad': 'Could not download a file this tool needs. Check your connection and try again.',
 
     // ---- 多个工具共用的选项 ----
     'opt.outputName': 'Output file name',
@@ -320,6 +354,19 @@ const en = {
     'pdf-to-jpg.rendering': 'Rendering page {page} ({i}/{n})',
     'pdf-to-jpg.zipping': 'Zipping…',
 
+    'pdf-to-word.images': 'Include images',
+    'pdf-to-word.hint': 'Works best on PDFs exported from Word, Google Docs and similar apps. Scanned PDFs need OCR PDF first.',
+    'pdf-to-word.reading': 'Reading page {i} of {n}',
+    'pdf-to-word.writing': 'Writing the Word document…',
+    'pdf-to-word.noText': 'This PDF has no selectable text — it is probably a scan. Run it through OCR PDF first, then convert the result.',
+
+    'word-to-pdf.hint': 'Calibri, Arial, Times New Roman and Courier New are replaced with open-source fonts of the same width, so lines and pages break where Word breaks them. The fonts are downloaded from this site the first time (1–2 MB; more for Chinese, Japanese or Korean).',
+    'word-to-pdf.reading': 'Reading the document…',
+    'word-to-pdf.fonts': 'Loading fonts…',
+    'word-to-pdf.typesetting': 'Laying out pages…',
+    'word-to-pdf.legacyDoc': 'This is an old .doc file. Open it in Word or Google Docs, save it as .docx, and try again.',
+    'word-to-pdf.notDocx': 'This file is not a valid .docx document.',
+
     'compress-pdf.mode': 'Compression mode',
     'compress-pdf.light': 'Light — keeps text selectable and searchable, about 5–30% smaller',
     'compress-pdf.strong': 'Strong — turns pages into images; smallest file, text no longer selectable',
@@ -332,6 +379,18 @@ const en = {
     'compress-pdf.unchangedStrong': 'This file is already smaller than an image-based copy would be, so it was left unchanged.',
     'compress-pdf.unchangedLight': 'This file is already compact, so it was left unchanged. Strong mode may still shrink it.',
     'compress-pdf.result': '{before} → {after}, {pct}% smaller',
+
+    'ocr-pdf.language': 'Document language',
+    'ocr-pdf.alsoEnglish': 'Also recognize English',
+    'ocr-pdf.output': 'Output',
+    'ocr-pdf.outPdf': 'Searchable PDF — looks the same, text becomes selectable',
+    'ocr-pdf.outTxt': 'Plain text (.txt)',
+    'ocr-pdf.skipText': 'Skip pages that already have selectable text',
+    'ocr-pdf.hint': 'The first run downloads the recognition engine and language data (about 5–10 MB) from this site. Your PDF is not uploaded.',
+    'ocr-pdf.nothingToDo': 'Every page already has selectable text, so there is nothing to recognize. Untick “Skip pages that already have selectable text” to run OCR anyway.',
+    'ocr-pdf.loading': 'Loading the recognition engine…',
+    'ocr-pdf.recognizing': 'Recognizing page {i} of {n}',
+    'ocr-pdf.writing': 'Writing file…',
 
     'unlock-pdf.password': 'Open password (only if the file needs one to open)',
     'unlock-pdf.passwordPlaceholder': 'Leave empty if there is none',
@@ -353,6 +412,32 @@ const en = {
     'protect-pdf.needInput': 'Enter an open password or select at least one restriction.',
     'protect-pdf.mustDiffer': 'The permissions password must differ from the open password.',
     'protect-pdf.encrypting': 'Encrypting…',
+
+    'sign-pdf.signature': 'Signature',
+    'sign-pdf.draw': 'Draw',
+    'sign-pdf.type': 'Type',
+    'sign-pdf.image': 'Image',
+    'sign-pdf.padLabel': 'Signature pad',
+    'sign-pdf.drawHint': 'Sign with your mouse, finger or stylus',
+    'sign-pdf.clear': 'Clear',
+    'sign-pdf.yourName': 'Your name',
+    'sign-pdf.style': 'Style',
+    'sign-pdf.styleHand': 'Handwriting',
+    'sign-pdf.styleSerif': 'Serif italic',
+    'sign-pdf.stylePlain': 'Plain',
+    'sign-pdf.imageLabel': 'Picture of your signature (PNG or JPG)',
+    'sign-pdf.cutout': 'Remove the white paper background',
+    'sign-pdf.ink': 'Ink color',
+    'sign-pdf.black': 'Black',
+    'sign-pdf.blue': 'Blue',
+    'sign-pdf.allPages': 'Put it on every page (for initials)',
+    'sign-pdf.prevPage': 'Previous page',
+    'sign-pdf.nextPage': 'Next page',
+    'sign-pdf.pageOf': 'Page {i} of {n}',
+    'sign-pdf.placeholder': 'Your signature goes here',
+    'sign-pdf.placeHint': 'Drag the signature to where it belongs. Drag the round handle to resize it.',
+    'sign-pdf.needSignature': 'Create your signature first: draw it, type it, or choose an image.',
+    'sign-pdf.signing': 'Adding the signature…',
   },
 };
 

@@ -91,6 +91,34 @@ const content: Record<string, ToolContent> = {
         'Las páginas las dibuja tu propio navegador con el mismo motor de código abierto (PDF.js) que usa el visor de PDF de Firefox. El PDF nunca se sube. Cuando conviertes más de una página, las imágenes se agrupan en una sola descarga zip.' ] },
     ],
   },
+  'pdf-to-word': {
+    seoTitle: 'Convertir PDF a Word gratis, sin subir archivos | ShyPDF',
+    sections: [
+      { h: 'Un documento editable, no una foto del documento', p: [
+        'ShyPDF lee el texto de tu PDF junto con su posición, su fuente y su tamaño, y con eso reconstruye contenido real de Word: párrafos continuos que puedes reescribir, títulos que aparecen en el panel de navegación de Word, negrita y cursiva, alineación, sangrías, tablas sencillas e imágenes. El tamaño de página y los márgenes se mantienen, y cada página del PDF empieza en una página nueva en Word.',
+        'Un PDF no guarda párrafos ni tablas, solo dónde se dibuja cada carácter, así que la conversión es una reconstrucción bien fundamentada. Funciona mejor con documentos que salieron de un procesador de textos: cartas, contratos, informes, trabajos y currículums. Los diseños en varias columnas se leen columna por columna. Las páginas muy diseñadas, los formularios y el texto colocado sobre imágenes quedan simplificados.' ] },
+      { h: 'El archivo que conviertes suele ser justo el delicado', p: [
+        'La gente convierte PDF a Word para editar contratos, completar datos en cartas oficiales o actualizar un currículum. Con la mayoría de los convertidores en línea, eso implica subir el documento a una empresa de la que no sabes nada. Aquí la conversión se hace dentro de la pestaña de tu navegador y el PDF nunca sale de tu dispositivo.',
+        'Si el resultado indica que tu PDF no tiene texto seleccionable, es un escaneo. Usa OCR PDF para reconocer primero el texto y luego convierte el PDF con búsqueda.' ] },
+    ],
+    faq: [
+      { q: '¿Qué aplicaciones pueden abrir el resultado?', a: 'Es un archivo .docx estándar, así que lo abren Microsoft Word, Google Docs, LibreOffice Writer, Apple Pages y WPS Office.' },
+    ],
+  },
+  'word-to-pdf': {
+    seoTitle: 'Convertir Word a PDF gratis, sin subir archivos | ShyPDF',
+    sections: [
+      { h: 'Un PDF de verdad, creado en tu propio dispositivo', p: [
+        'ShyPDF lee el archivo .docx, compone él mismo cada página y crea un PDF con texto seleccionable, en el que se puede buscar, y con las fuentes incrustadas: no una captura de pantalla del documento. Se conservan los estilos, los títulos, las listas con viñetas y numeradas, las tablas con bordes y sombreado, las imágenes, los hipervínculos, los encabezados, los pies de página y los números de página, con el tamaño de página y los márgenes definidos en el documento.',
+        'No se envía nada a ningún servidor. Eso importa con los documentos que se suelen pasar a PDF antes de enviarlos: ofertas, facturas, contratos, currículums y cartas de presentación.' ] },
+      { h: 'Por qué los saltos de página coinciden con los de Word', p: [
+        'Los documentos de Word suelen indicar fuentes que solo vienen con Microsoft Office. ShyPDF las sustituye por fuentes de código abierto diseñadas para tener exactamente los mismos anchos de carácter (Carlito por Calibri, Arimo por Arial, Tinos por Times New Roman, Cousine por Courier New), así que las líneas se cortan en las mismas palabras y las páginas saltan casi en los mismos sitios. La forma de las letras cambia un poco; la maquetación, no. El texto en chino, japonés y coreano usa Noto Sans.',
+        'Algunas cosas todavía no se admiten: las secciones en varias columnas, el texto que rodea imágenes flotantes, los gráficos, los SmartArt y las escrituras de derecha a izquierda. El texto de los cuadros de texto se conserva, pero se coloca en el flujo normal de la página. Si tu documento depende de esos elementos, exportarlo a PDF desde el propio Word dará un resultado más fiel.' ] },
+    ],
+    faq: [
+      { q: '¿Se incluyen los cambios con seguimiento y los comentarios?', a: 'El PDF muestra el documento con todos los cambios con seguimiento aceptados: el texto insertado se incluye y el eliminado, no. Los comentarios se omiten.' },
+    ],
+  },
   'compress-pdf': {
     seoTitle: 'Comprimir PDF online gratis, sin subir archivos | ShyPDF',
     sections: [
@@ -103,6 +131,20 @@ const content: Record<string, ToolContent> = {
     ],
     faq: [
       { q: '¿Cuánto tiene que pesar un PDF para enviarlo por correo?', a: 'Gmail acepta adjuntos de hasta 25 MB y Outlook.com de hasta 20 MB, pero muchos servidores de correo de empresa ponen límites más bajos, con frecuencia de 10 MB. Si el modo Fuerte a 110 dpi sigue siendo demasiado, prueba con 72 dpi, o divide el documento y envíalo por partes.' },
+    ],
+  },
+  'ocr-pdf': {
+    seoTitle: 'OCR PDF: busca texto en PDF escaneados sin subirlos | ShyPDF',
+    sections: [
+      { h: 'Convierte un escaneo en un PDF en el que puedes buscar', p: [
+        'Un PDF escaneado es una pila de imágenes: no puedes buscar en él, seleccionar una frase ni copiar un número. El OCR (reconocimiento óptico de caracteres) lee el texto de esas imágenes. ShyPDF coloca las palabras reconocidas como una capa invisible justo encima de las escaneadas, de modo que Ctrl+F, la selección de texto y copiar y pegar funcionan mientras la página se ve exactamente igual que antes.',
+        'Las páginas originales no se vuelven a comprimir ni a dibujar, así que no se pierde calidad y el archivo solo crece lo que ocupa el texto. Si solo quieres las palabras, elige «Texto sin formato (.txt)». De forma predeterminada se omiten las páginas que ya contienen texto seleccionable, lo que acelera los documentos mixtos.' ] },
+      { h: 'Cómo obtener buenos resultados', p: [
+        'Elige el idioma en el que está escrito el documento: es el factor que más influye en la precisión. Están disponibles inglés, español, portugués, francés, alemán, italiano, japonés y chino simplificado, y «Reconocer también inglés» ayuda con los documentos que mezclan términos en inglés con otro idioma.',
+        'El reconocimiento se hace en tu navegador con Tesseract, un motor de OCR de código abierto con una larga trayectoria, compilado a WebAssembly. Calcula unos segundos por página, según tu dispositivo. Los escaneos de extractos bancarios, documentos de identidad, historiales médicos y contratos firmados son justo el tipo de archivo que no debería subirse a un servicio de OCR; aquí nunca salen de tu dispositivo.' ] },
+    ],
+    faq: [
+      { q: '¿Puedo aplicar OCR a una foto o a un JPG?', a: 'Sí, en dos pasos: convierte las imágenes en un PDF con JPG a PDF y luego pasa ese PDF por OCR PDF.' },
     ],
   },
   'unlock-pdf': {
@@ -128,6 +170,17 @@ const content: Record<string, ToolContent> = {
     ],
     faq: [
       { q: '¿Cómo es una buena contraseña para un PDF?', a: 'Lo que más importa es la longitud. Cuatro o cinco palabras al azar, o 14 caracteres aleatorios o más generados por un gestor de contraseñas, son mucho más fuertes que una contraseña corta con símbolos. Evita las fechas de nacimiento y los números de identificación, que son lo primero que prueba un atacante.' },
+    ],
+  },
+  'sign-pdf': {
+    seoTitle: 'Firmar PDF online gratis, sin subirlo y sin cuenta | ShyPDF',
+    sections: [
+      { h: 'Firma sin imprimir, sin escanear y sin registrarte', p: [
+        'Abre el PDF, crea tu firma y arrástrala hasta la línea de firma. Puedes dibujarla con el ratón, el dedo o un lápiz óptico, escribir tu nombre con un estilo de letra manuscrita o subir una foto de tu firma sobre papel blanco: ShyPDF quita el fondo del papel para que solo quede la tinta. Usa las flechas de página para llegar a la página correcta, arrastra el tirador para cambiar el tamaño y marca «Ponerla en todas las páginas» cuando un documento necesite tus iniciales en cada hoja.',
+        'La firma se dibuja dentro de la propia página, así que aparece en todos los lectores de PDF y al imprimir. Tu archivo original no se modifica; descargas una copia firmada.' ] },
+      { h: 'Tu firma no es algo que convenga subir', p: [
+        'Una firma junto a un contrato firmado es de lo más delicado que hay en materia de documentos. La mayoría de los sitios de firma electrónica guardan ambas cosas en sus servidores, y muchos exigen crear una cuenta. ShyPDF hace todo el trabajo en tu navegador: el PDF y la firma se quedan en tu dispositivo, no se guarda nada entre una visita y otra, y no hay cuentas.',
+        'Se trata de una firma electrónica simple, el equivalente a firmar una copia impresa, y no de una firma digital basada en certificado. Se acepta de forma generalizada para el papeleo cotidiano, pero algunos documentos exigen legalmente algo más; si tienes dudas, pregunta al destinatario. Para evitar que el archivo firmado se edite después, pásalo por Proteger PDF y restringe la edición.' ] },
     ],
   },
 };

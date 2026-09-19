@@ -3,6 +3,9 @@ import type { PDFDocumentProxy } from 'pdfjs-dist';
 
 let lib: typeof import('pdfjs-dist') | null = null;
 
+/** Node 测试用：注入 pdfjs-dist 的 legacy 构建 */
+export function setPdfjs(l: typeof import('pdfjs-dist')) { lib = l; }
+
 export async function getPdfjs() {
   if (lib) return lib;
   lib = await import('pdfjs-dist');

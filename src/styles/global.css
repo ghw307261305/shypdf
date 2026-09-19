@@ -156,6 +156,26 @@ button { cursor: pointer; }
 .item-add { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; min-height: 240px; background: transparent; border: 2px dashed #c9c6bd; border-radius: var(--radius); color: var(--muted); font-weight: 500; }
 .item-add:hover { border-color: var(--accent); color: var(--accent-ink); }
 .work-note { font-size: 13px; color: var(--muted); margin-top: 16px; }
+/* 没有缩略图的文件（Word、txt、zip）显示扩展名 */
+.file-badge { display: inline-flex; align-items: center; justify-content: center; min-width: 64px; height: 36px; padding: 0 12px; border-radius: 6px; background: var(--ink); color: #fff; font-size: 13px; font-weight: 700; letter-spacing: 0.04em; }
+/* 自定义工作区（lib/types.ts 的 workspace）：签名的页面预览 */
+.items.is-workspace { display: block; }
+.sign-ws { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.sign-nav { display: flex; align-items: center; gap: 8px; font-size: 14px; color: var(--muted); }
+.sign-nav .icon-btn { border: 1px solid var(--line-2); background: var(--bg); font-size: 18px; }
+.sign-stage { width: 100%; display: flex; justify-content: center; }
+.sign-page { position: relative; display: inline-block; max-width: min(100%, 760px); line-height: 0; background: #fff; border: 1px solid var(--line-2); box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06); user-select: none; -webkit-user-select: none; }
+.sign-page canvas { display: block; width: 100%; height: auto; }
+.sig-box { position: absolute; display: flex; align-items: center; justify-content: center; border: 1.5px dashed var(--accent); border-radius: 4px; background: rgba(200, 65, 47, 0.04); cursor: move; touch-action: none; line-height: 1.2; }
+.sig-box img { width: 100%; height: 100%; object-fit: fill; pointer-events: none; }
+.sig-box span { display: none; font-size: 12px; color: var(--accent-ink); text-align: center; padding: 0 6px; pointer-events: none; }
+.sig-box.is-empty img { display: none; }
+.sig-box.is-empty span { display: block; }
+.sig-handle { position: absolute; right: -9px; bottom: -9px; width: 18px; height: 18px; border-radius: 50%; background: var(--accent); border: 2px solid #fff; cursor: nwse-resize; touch-action: none; }
+.sig-pad { width: 100%; height: 150px; border: 1px solid var(--line-2); border-radius: var(--radius-s); background: #fff linear-gradient(var(--line-2), var(--line-2)) no-repeat 50% 78% / 86% 1px; touch-action: none; cursor: crosshair; }
+.sig-pad-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.sig-pad-row .btn { height: 32px; padding: 0 12px; font-size: 13px; }
+input[type="file"] { font-size: 13px; max-width: 100%; }
 #options { display: flex; flex-direction: column; gap: 16px; }
 .opt-group { display: flex; flex-direction: column; gap: 8px; border: none; padding: 0; margin: 0; min-width: 0; }
 .opt-group legend, .opt-group > label:not(.check) { font-size: 14px; font-weight: 500; padding: 0; margin-bottom: 2px; }
@@ -247,6 +267,8 @@ input[type="color"] { height: 44px; width: 100%; padding: 4px; border: 1px solid
   .tool-aside { display: none; }
   .work { flex-direction: column; }
   .work-side { width: auto; border-left: none; border-top: 1px solid var(--line); }
+  /* 自定义工作区（签名）：先做签名、再往下拖放位置，所以选项排到预览上面 */
+  .work:has(.items.is-workspace) .work-side { order: -1; border-top: none; border-bottom: 1px solid var(--line); }
   /* 选项排到文件列表下面后，执行按钮吸在屏幕底部 */
   .run-box { position: fixed; left: 0; right: 0; bottom: 0; z-index: 20; margin: 0; padding: 12px 24px calc(12px + env(safe-area-inset-bottom, 0px)); background: var(--bg); border-top: 1px solid var(--line); gap: 8px; }
   .run-box > * { width: 100%; max-width: 560px; margin-inline: auto; }

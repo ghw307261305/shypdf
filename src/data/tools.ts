@@ -12,7 +12,7 @@ export interface ToolMeta {
   short: string;           // 卡片一句话
   description: string;     // 页面副标题，也用于 <meta description>
   category: Category;
-  phase: Phase;            // 1 = 已实现；2/3 = 首页灰显占位，无独立页面
+  phase: Phase;            // 1 = 已实现；2/3 = 首页灰显占位，无独立页面（目前没有，机制保留）
   icon: string;            // 内联 SVG 的 path 内容（24x24 viewBox）
   accept: string;          // <input type=file accept>
   multiple: boolean;       // 是否允许多文件
@@ -44,13 +44,16 @@ const ICONS = {
   image: '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 16l5-5 4 4 3-3 6 6"/><circle cx="16" cy="9" r="1.5"/>',
   pdfToImage: '<path d="M8 3h5l5 5v13H8z"/><path d="M13 3v5h5"/><path d="M4 15l3 3 3-3"/><path d="M7 18V9"/>',
   word: '<path d="M6 3h12v18H6z"/><path d="M9 9l1.5 6 1.5-4 1.5 4L15 9"/>',
+  pdfToWord: '<path d="M8 3h5l5 5v13H8z"/><path d="M13 3v5h5"/><path d="M10.5 12l1 5 1.5-3.5 1.5 3.5 1-5"/>',
   ocr: '<path d="M4 8V4h4"/><path d="M20 8V4h-4"/><path d="M4 16v4h4"/><path d="M20 16v4h-4"/><path d="M8 12h8"/>',
   sign: '<path d="M4 18c4-6 6-8 8-8s2 6 4 6 3-4 4-4"/><path d="M4 21h16"/>',
 };
 
 type ToolDef = Pick<ToolMeta, 'slug' | 'category' | 'phase' | 'icon' | 'accept' | 'multiple' | 'minFiles' | 'related'>;
 const PDF = '.pdf,application/pdf';
-const SOON = { phase: 2 as Phase, accept: '', multiple: false, related: [] };
+const DOCX = '.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document';
+// 占位工具（首页灰显、没有页面）这样写：{ slug, category, icon, ...SOON }，名字放在字典的 soon 里
+export const SOON = { phase: 2 as Phase, accept: '', multiple: false, related: [] };
 
 const DEFS: ToolDef[] = [
   // ---------- Organize & edit（一期） ----------
@@ -61,17 +64,17 @@ const DEFS: ToolDef[] = [
   { slug: 'add-page-numbers', category: 'edit', phase: 1, icon: ICONS.pageNumbers, accept: PDF, multiple: false, related: ['add-watermark', 'organize-pdf', 'merge-pdf', 'rotate-pdf'] },
   { slug: 'add-watermark', category: 'edit', phase: 1, icon: ICONS.watermark, accept: PDF, multiple: false, related: ['add-page-numbers', 'merge-pdf', 'compress-pdf', 'unlock-pdf'] },
   // ---------- Convert ----------
-  { slug: 'jpg-to-pdf', category: 'convert', phase: 1, icon: ICONS.image, accept: 'image/jpeg,image/png,image/webp,.jpg,.jpeg,.png,.webp', multiple: true, minFiles: 1, related: ['pdf-to-jpg', 'merge-pdf', 'compress-pdf', 'organize-pdf'] },
+  { slug: 'jpg-to-pdf', category: 'convert', phase: 1, icon: ICONS.image, accept: 'image/jpeg,image/png,image/webp,.jpg,.jpeg,.png,.webp', multiple: true, minFiles: 1, related: ['pdf-to-jpg', 'ocr-pdf', 'merge-pdf', 'compress-pdf'] },
   { slug: 'pdf-to-jpg', category: 'convert', phase: 1, icon: ICONS.pdfToImage, accept: PDF, multiple: false, related: ['jpg-to-pdf', 'split-pdf', 'compress-pdf', 'rotate-pdf'] },
-  { slug: 'pdf-to-word', category: 'convert', icon: ICONS.word, ...SOON },
-  { slug: 'word-to-pdf', category: 'convert', icon: ICONS.word, ...SOON },
+  { slug: 'pdf-to-word', category: 'convert', phase: 1, icon: ICONS.pdfToWord, accept: PDF, multiple: false, related: ['word-to-pdf', 'ocr-pdf', 'pdf-to-jpg', 'compress-pdf'] },
+  { slug: 'word-to-pdf', category: 'convert', phase: 1, icon: ICONS.word, accept: DOCX, multiple: false, related: ['pdf-to-word', 'merge-pdf', 'compress-pdf', 'protect-pdf'] },
   // ---------- Optimize ----------
   { slug: 'compress-pdf', category: 'optimize', phase: 1, icon: ICONS.compress, accept: PDF, multiple: false, related: ['merge-pdf', 'pdf-to-jpg', 'split-pdf', 'organize-pdf'] },
-  { slug: 'ocr-pdf', category: 'optimize', icon: ICONS.ocr, ...SOON },
+  { slug: 'ocr-pdf', category: 'optimize', phase: 1, icon: ICONS.ocr, accept: PDF, multiple: false, related: ['pdf-to-word', 'jpg-to-pdf', 'compress-pdf', 'split-pdf'] },
   // ---------- Security ----------
-  { slug: 'unlock-pdf', category: 'security', phase: 1, icon: ICONS.unlock, accept: PDF, multiple: false, related: ['protect-pdf', 'merge-pdf', 'compress-pdf', 'add-watermark'] },
-  { slug: 'protect-pdf', category: 'security', phase: 1, icon: ICONS.lock, accept: PDF, multiple: false, related: ['unlock-pdf', 'add-watermark', 'merge-pdf', 'compress-pdf'] },
-  { slug: 'sign-pdf', category: 'security', icon: ICONS.sign, ...SOON },
+  { slug: 'unlock-pdf', category: 'security', phase: 1, icon: ICONS.unlock, accept: PDF, multiple: false, related: ['protect-pdf', 'sign-pdf', 'merge-pdf', 'compress-pdf'] },
+  { slug: 'protect-pdf', category: 'security', phase: 1, icon: ICONS.lock, accept: PDF, multiple: false, related: ['unlock-pdf', 'sign-pdf', 'add-watermark', 'compress-pdf'] },
+  { slug: 'sign-pdf', category: 'security', phase: 1, icon: ICONS.sign, accept: PDF, multiple: false, related: ['protect-pdf', 'add-watermark', 'merge-pdf', 'compress-pdf'] },
 ];
 
 /** 某个语言下的完整工具列表（元数据 + 文案） */

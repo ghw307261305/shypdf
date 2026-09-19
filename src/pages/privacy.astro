@@ -16,7 +16,8 @@ import { SITE } from '@/config/site';
     <p>{SITE.name} ({new URL(SITE.url).host}) is run by an independent developer, who is the data controller for the limited data described below. You can reach us at <a href={`mailto:${SITE.contactEmail}`}>{SITE.contactEmail}</a>.</p>
 
     <h2>Your files</h2>
-    <p>Every tool on this site runs locally, using JavaScript and WebAssembly in your browser. The files you select are read into your device’s memory, processed there, and offered back to you as a download. They are not sent over the network, and the passwords you type into the Protect and Unlock tools are not sent either. When you close or reload the page, the data is released.</p>
+    <p>Every tool on this site runs locally, using JavaScript and WebAssembly in your browser. The files you select are read into your device’s memory, processed there, and offered back to you as a download. They are not sent over the network, and neither are the passwords you type into the Protect and Unlock tools or the signature you create in Sign PDF. When you close or reload the page, the data is released.</p>
+    <p>A few tools fetch extra components from this site the first time you use them: the text-recognition engine and its language data for OCR PDF, and the fonts used by Word to PDF. These are ordinary downloads to your browser. Nothing about your document is sent in return.</p>
     <p>The site is also served with a Content Security Policy that prevents its pages from sending data to any other server.</p>
 
     <h2>What we collect</h2>

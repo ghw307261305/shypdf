@@ -14,10 +14,11 @@ const h = d.ui.home;
 const order: Category[] = ['edit', 'convert', 'optimize', 'security'];
 const all = order.flatMap((c) => toolsByCategory(c, locale));
 const enNames = new Map(order.flatMap((c) => toolsByCategory(c, DEFAULT_LOCALE)).map((t) => [t.slug, t.name]));
+// 单页分组：按分类各起一节（标题可作 /#convert 锚点），占位工具仍集中在「Coming soon」
 const groups = [
-  { key: 'live', name: h.liveName, note: h.liveNote, tools: all.filter((t) => t.phase === 1) },
+  ...order.map((c) => ({ key: c, name: d.ui.categories[c], note: c === order[0] ? h.liveNote : undefined, tools: all.filter((t) => t.category === c && t.phase === 1) })),
   { key: 'soon', name: h.soonName, note: h.soonNote, tools: all.filter((t) => t.phase !== 1) },
-];
+].filter((g) => g.tools.length);
 const jsonLd = { '@context': 'https://schema.org', '@type': 'WebSite', name: SITE.name, url: new URL(localePath(locale), SITE.url).href, description: d.site.description, inLanguage: LOCALE_INFO[locale].htmlLang };
 const check = '<path d="M5 12l5 5 9-10"/>';
 ---
@@ -41,8 +42,8 @@ const check = '<path d="M5 12l5 5 9-10"/>';
 
   <div class="wrap">
     {groups.map((g) => (
-      <section class="section" data-group={g.key}>
-        <div class="section-head"><h2>{g.name}</h2><span>{g.note}</span></div>
+      <section class="section" id={g.key} data-group={g.key}>
+        <div class="section-head"><h2>{g.name}</h2>{g.note && <span>{g.note}</span>}</div>
         <div class="tool-grid">{g.tools.map((t) => <ToolCard tool={t} locale={locale} enName={locale === DEFAULT_LOCALE ? undefined : enNames.get(t.slug)} />)}</div>
       </section>
     ))}

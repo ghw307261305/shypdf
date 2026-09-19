@@ -2,11 +2,21 @@
 import Base from '@/layouts/Base.astro';
 import { SITE } from '@/config/site';
 // 许可证原文在 public/licenses/（从 node_modules 和 public/vendor 拷贝）。升级依赖后重新拷一次。
+// 字体的许可证来自 @expo-google-fonts/<name>/LICENSE_FONT；HarfBuzz 的来自其仓库的 COPYING。
 const libs = [
   { name: 'pdf-lib', by: 'Andrew Dillon', license: 'MIT', url: 'https://github.com/Hopding/pdf-lib', file: 'pdf-lib.txt', use: 'Creating and editing PDFs' },
   { name: 'PDF.js', by: 'Mozilla', license: 'Apache-2.0', url: 'https://github.com/mozilla/pdf.js', file: 'pdfjs.txt', use: 'Rendering page previews and images' },
   { name: 'qpdf', by: 'Jay Berkenbilt', license: 'Apache-2.0', url: 'https://github.com/qpdf/qpdf', file: 'qpdf.txt', use: 'Encryption and decryption, compiled to WebAssembly' },
+  { name: 'Tesseract.js', by: 'Tesseract.js contributors', license: 'Apache-2.0', url: 'https://github.com/naptha/tesseract.js', file: 'tesseract-js.txt', use: 'Text recognition (OCR) in the browser' },
+  { name: 'Tesseract OCR', by: 'Google and the Tesseract authors', license: 'Apache-2.0', url: 'https://github.com/tesseract-ocr/tesseract', file: 'tesseract-core.txt', use: 'The OCR engine, compiled to WebAssembly (tesseract.js-core), with language data from tessdata' },
+  { name: 'HarfBuzz', by: 'The HarfBuzz authors', license: 'Old MIT', url: 'https://github.com/harfbuzz/harfbuzz', file: 'harfbuzz.txt', use: 'Font subsetting for Word to PDF, compiled to WebAssembly (harfbuzzjs)' },
+  { name: 'fontkit', by: 'Devon Govett and contributors', license: 'MIT', url: 'https://github.com/foliojs/fontkit', file: 'fontkit.txt', use: 'Reading font metrics' },
   { name: 'JSZip', by: 'Stuart Knightley and contributors', license: 'MIT (dual-licensed MIT / GPL-3.0; used under MIT)', url: 'https://github.com/Stuk/jszip', file: 'jszip.txt', use: 'Zip downloads' },
+  { name: 'Carlito', by: 'The Carlito Project Authors', license: 'SIL Open Font License 1.1', url: 'https://github.com/googlefonts/carlito', file: 'carlito.txt', use: 'Embedded in converted PDFs in place of Calibri' },
+  { name: 'Arimo', by: 'The Arimo Project Authors', license: 'SIL Open Font License 1.1', url: 'https://github.com/googlefonts/arimo', file: 'arimo.txt', use: 'Embedded in converted PDFs in place of Arial' },
+  { name: 'Tinos', by: 'The Tinos Project Authors', license: 'SIL Open Font License 1.1', url: 'https://github.com/googlefonts/tinos', file: 'tinos.txt', use: 'Embedded in converted PDFs in place of Times New Roman' },
+  { name: 'Cousine', by: 'The Cousine Project Authors', license: 'SIL Open Font License 1.1', url: 'https://github.com/googlefonts/cousine', file: 'cousine.txt', use: 'Embedded in converted PDFs in place of Courier New' },
+  { name: 'Noto Sans JP / SC / KR', by: 'Adobe and Google', license: 'SIL Open Font License 1.1', url: 'https://github.com/notofonts/noto-cjk', file: 'noto-sans-cjk.txt', use: 'Embedded in converted PDFs for Japanese, Chinese and Korean text' },
   { name: 'Inter', by: 'The Inter Project Authors', license: 'SIL Open Font License 1.1', url: 'https://github.com/rsms/inter', file: 'inter.txt', use: 'Typeface' },
   { name: 'Astro', by: 'Astro contributors', license: 'MIT', url: 'https://github.com/withastro/astro', file: 'astro.txt', use: 'Site generator' },
 ];

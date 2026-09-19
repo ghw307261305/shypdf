@@ -101,6 +101,34 @@ const content: Record<string, ToolContent> = {
         'Pages are drawn by your own browser, using the same open-source engine (PDF.js) that powers the PDF viewer in Firefox. The PDF is never uploaded. When you convert more than one page, the images are bundled into a single zip download.' ] },
     ],
   },
+  'pdf-to-word': {
+    seoTitle: 'PDF to Word Converter — Free, No Upload | ShyPDF',
+    sections: [
+      { h: 'An editable document, not a picture of one', p: [
+        'ShyPDF reads the text in your PDF together with its position, font and size, and rebuilds real Word content from it: flowing paragraphs you can retype, headings that appear in Word’s navigation pane, bold and italic, alignment, indents, simple tables and pictures. The page size and margins are carried over, and each PDF page starts on a new page in Word.',
+        'A PDF does not store paragraphs or tables — only where each character is drawn — so the conversion is an informed reconstruction. It works best on documents that came from a word processor in the first place: letters, contracts, reports, essays and CVs. Multi-column layouts are read column by column. Heavily designed pages, forms and text laid over images come out simplified.' ] },
+      { h: 'The file you are converting is often the sensitive one', p: [
+        'People convert PDFs to Word to edit contracts, fill in details on official letters, or update a CV. With most online converters that means uploading the document to a company you know nothing about. Here the conversion runs inside your browser tab, and the PDF never leaves your device.',
+        'If the result says your PDF has no selectable text, it is a scan. Use OCR PDF to recognize the text first, then convert the searchable PDF.' ] },
+    ],
+    faq: [
+      { q: 'Which apps can open the result?', a: 'It is a standard .docx file, so Microsoft Word, Google Docs, LibreOffice Writer, Apple Pages and WPS Office all open it.' },
+    ],
+  },
+  'word-to-pdf': {
+    seoTitle: 'Word to PDF Converter — Free, No Upload | ShyPDF',
+    sections: [
+      { h: 'A real PDF, produced on your own device', p: [
+        'ShyPDF reads the .docx file, lays out every page itself, and writes a PDF with selectable, searchable text and embedded fonts — not a screenshot of the document. Styles, headings, bulleted and numbered lists, tables with borders and shading, pictures, hyperlinks, headers, footers and page numbers are all carried over, using the page size and margins set in the document.',
+        'Nothing is sent to a server. That matters for the documents people usually turn into PDFs before sending: offers, invoices, contracts, CVs and cover letters.' ] },
+      { h: 'Why the page breaks match Word', p: [
+        'Word documents usually name fonts that only ship with Microsoft Office. ShyPDF substitutes open-source fonts designed to have exactly the same character widths — Carlito for Calibri, Arimo for Arial, Tinos for Times New Roman, Cousine for Courier New — so text wraps at the same words and pages break in nearly the same places. Letter shapes differ slightly; the layout does not. Chinese, Japanese and Korean text uses Noto Sans.',
+        'Some things are not supported yet: multi-column sections, text wrapped around floating pictures, charts, SmartArt and right-to-left scripts. Text inside text boxes is kept, but placed in the normal flow of the page. For a document that depends on those, exporting to PDF from Word itself will be more faithful.' ] },
+    ],
+    faq: [
+      { q: 'Are tracked changes and comments included?', a: 'The PDF shows the document with all tracked changes accepted: inserted text is included, deleted text is not. Comments are left out.' },
+    ],
+  },
   'compress-pdf': {
     seoTitle: 'Compress PDF Online — Free, No Upload | ShyPDF',
     sections: [
@@ -113,6 +141,20 @@ const content: Record<string, ToolContent> = {
     ],
     faq: [
       { q: 'How small does a PDF need to be for email?', a: 'Gmail accepts attachments up to 25 MB and Outlook.com up to 20 MB, but many company mail servers set lower limits, commonly 10 MB. If Strong mode at 110 dpi is still too big, try 72 dpi, or split the document and send it in parts.' },
+    ],
+  },
+  'ocr-pdf': {
+    seoTitle: 'OCR PDF — Make Scanned PDFs Searchable, No Upload | ShyPDF',
+    sections: [
+      { h: 'Turn a scan into a PDF you can search', p: [
+        'A scanned PDF is a stack of pictures: you cannot search it, select a sentence, or copy a number out of it. OCR (optical character recognition) reads the text in those pictures. ShyPDF places the recognized words as an invisible layer exactly on top of the scanned ones, so Ctrl+F, text selection and copy-and-paste work while the page looks exactly as it did.',
+        'The original pages are not re-compressed or redrawn, so there is no loss of quality and the file only grows by the size of the text. If you just want the words, choose “Plain text (.txt)” instead. Pages that already contain selectable text are skipped by default, which makes mixed documents faster.' ] },
+      { h: 'Getting good results', p: [
+        'Pick the language the document is written in — it is the single biggest factor in accuracy. English, Spanish, Portuguese, French, German, Italian, Japanese and Simplified Chinese are available, and “Also recognize English” helps with documents that mix English terms into another language.',
+        'Recognition runs in your browser using Tesseract, a long-established open-source OCR engine, compiled to WebAssembly. Expect a few seconds per page, depending on your device. Scans of bank statements, IDs, medical records and signed contracts are exactly the kind of file that should not be uploaded to an OCR service; here they never leave your device.' ] },
+    ],
+    faq: [
+      { q: 'Can I run OCR on a photo or a JPG?', a: 'Yes, in two steps: turn the images into a PDF with JPG to PDF, then run that PDF through OCR PDF.' },
     ],
   },
   'unlock-pdf': {
@@ -138,6 +180,17 @@ const content: Record<string, ToolContent> = {
     ],
     faq: [
       { q: 'What makes a good PDF password?', a: 'Length matters most. Four or five random words, or 14+ random characters from a password manager, is far stronger than a short password with symbols. Avoid birthdays and ID numbers, which are the first things an attacker tries.' },
+    ],
+  },
+  'sign-pdf': {
+    seoTitle: 'Sign PDF Online — Free, No Upload, No Account | ShyPDF',
+    sections: [
+      { h: 'Sign without printing, scanning or signing up', p: [
+        'Open the PDF, create your signature, and drag it onto the signature line. You can draw it with a mouse, finger or stylus, type your name in a handwriting style, or upload a photo of your signature on white paper — ShyPDF removes the paper background so only the ink remains. Use the page arrows to reach the right page, drag the handle to resize, and tick “Put it on every page” when a document needs initials throughout.',
+        'The signature is drawn into the page itself, so it shows up in every PDF reader and when printed. Your original file is not changed; you download a signed copy.' ] },
+      { h: 'Your signature is not something to upload', p: [
+        'A signature plus a signed contract is about as sensitive as documents get. Most e-signing sites store both on their servers, and many require an account. ShyPDF does the whole job in your browser: the PDF and the signature stay on your device, nothing is stored between visits, and there is no account.',
+        'This is a simple electronic signature — the equivalent of signing a printout — and not a certificate-based digital signature. It is widely accepted for everyday paperwork, but some documents legally require more; ask the recipient if you are unsure. To stop the signed file from being edited afterwards, run it through Protect PDF and restrict editing.' ] },
     ],
   },
 };
