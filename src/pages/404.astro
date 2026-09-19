@@ -3,15 +3,18 @@ import Base from '@/layouts/Base.astro';
 import ToolCard from '@/components/ToolCard.astro';
 import { SITE } from '@/config/site';
 import { liveTools } from '@/data/tools';
+import { getDict, fmt } from '@/i18n';
+// 静态托管只有一个 /404.html，所以 404 页只有英文版
+const n = getDict('en').ui.notFound;
 ---
-<Base title={`Page not found | ${SITE.name}`} noindex>
+<Base title={fmt(n.title, { site: SITE.name })} noindex translated={false}>
   <div class="wrap">
     <section class="notfound">
-      <h1>This page is a little too shy</h1>
-      <p>We couldn’t find it. Every tool is still right here:</p>
+      <h1>{n.heading}</h1>
+      <p>{n.body}</p>
     </section>
     <section class="section">
-      <div class="tool-grid">{liveTools().map((t) => <ToolCard tool={t} />)}</div>
+      <div class="tool-grid">{liveTools('en').map((t) => <ToolCard tool={t} locale="en" />)}</div>
     </section>
   </div>
 </Base>

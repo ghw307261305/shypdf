@@ -2,6 +2,7 @@
 // 广告位。SITE.ads 为 false 时不渲染任何东西；审核通过后把广告代码贴到下面的 <slot/> 位置。
 import { SITE } from '@/config/site';
 interface Props { width: number; height: number; label?: string }
+// label：调用方传当前语言的 ui.adLabel
 const { width, height, label = 'Advertisement' } = Astro.props;
 ---
 {SITE.ads && (

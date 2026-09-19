@@ -1,9 +1,11 @@
 import type { OutputFile } from './types';
+import { t, formatNumber } from './i18n-client';
 
 export function formatBytes(n: number): string {
-  if (n < 1024) return `${n} B`;
-  if (n < 1024 * 1024) return `${(n / 1024).toFixed(1)} KB`;
-  return `${(n / 1024 / 1024).toFixed(1)} MB`;
+  // 单位和小数点随语言变：1.5 MB / 1,5 MB / 1,5 Mo
+  if (n < 1024) return t('lib.bytes', { n });
+  if (n < 1024 * 1024) return t('lib.kb', { n: formatNumber(n / 1024, 1) });
+  return t('lib.mb', { n: formatNumber(n / 1024 / 1024, 1) });
 }
 
 export function stripExt(name: string): string {
@@ -39,12 +41,12 @@ export function parseRanges(text: string, pageCount: number): number[][] {
     let from: number, to: number;
     if (m) { from = +m[1]; to = +m[2]; }
     else if (/^\d+$/.test(part)) { from = to = +part; }
-    else throw new Error(`Can’t read the page range “${part}”. Use a format like 1-3, 5.`);
-    if (from < 1 || to > pageCount || from > to) throw new Error(`Page range “${part}” is outside this document (${pageCount} pages).`);
+    else throw new Error(t('lib.rangeUnreadable', { part }));
+    if (from < 1 || to > pageCount || from > to) throw new Error(t('lib.rangeOutside', { part, n: pageCount }));
     const g: number[] = [];
     for (let i = from; i <= to; i++) g.push(i - 1);
     groups.push(g);
   }
-  if (!groups.length) throw new Error('Enter a page range.');
+  if (!groups.length) throw new Error(t('lib.rangeEmpty'));
   return groups;
 }

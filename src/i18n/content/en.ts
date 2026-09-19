@@ -1,17 +1,17 @@
-// 工具页的 SEO 内容：<title>、正文小节、追加的 FAQ。和 tools.ts 分开放，免得注册表太长。
+// 工具页的 SEO 内容（英文源）：<title>、正文小节、追加的 FAQ。其它语言在同目录的 <locale>.ts，结构必须一致。
 // 写作原则：只写工具真实的行为（不要写「离线可用」「保留表单」这类没验证过的话）；
-// 每段都要对用户有用，不堆关键词。
+// 每段都要对用户有用，不堆关键词。引用的按钮 / 选项名要和 locales/<locale>.ts 里的译法一致。
 
 export interface ToolContent {
   /** <title>，控制在 60 字符以内，主关键词放最前 */
   seoTitle: string;
   /** 正文小节，显示在步骤和 FAQ 之间 */
   sections: { h: string; p: string[] }[];
-  /** 追加到 tools.ts 的 faq 后面 */
+  /** 追加到 locales/<locale>.ts 里该工具 faq 的后面 */
   faq?: { q: string; a: string }[];
 }
 
-export const TOOL_CONTENT: Record<string, ToolContent> = {
+const content: Record<string, ToolContent> = {
   'merge-pdf': {
     seoTitle: 'Merge PDF Files Online — Free, No Upload | ShyPDF',
     sections: [
@@ -141,3 +141,5 @@ export const TOOL_CONTENT: Record<string, ToolContent> = {
     ],
   },
 };
+
+export default content;

@@ -1,15 +1,26 @@
 ---
 import { SITE } from '@/config/site';
 import { liveTools } from '@/data/tools';
+import { DEFAULT_LOCALE, getDict, localePath, type Locale } from '@/i18n';
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const d = getDict(locale);
+const f = d.ui.footer;
 const year = new Date().getFullYear();
 ---
 <footer class="site-footer">
-  <nav class="wrap footer-tools" aria-label="All tools">
-    <b>PDF tools</b>
-    {liveTools().map((t) => <a href={`/${t.slug}/`}>{t.name}</a>)}
+  <nav class="wrap footer-tools" aria-label={d.ui.nav.all}>
+    <b>{f.tools}</b>
+    {liveTools(locale).map((t) => <a href={localePath(locale, `/${t.slug}/`)}>{t.name}</a>)}
   </nav>
   <div class="wrap">
-    <div>© {year} {SITE.name}<a href="/guides/" style="margin-left:14px">Guides</a><a href="/about/">About</a><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a><a href="/licenses/">Open source</a></div>
-    <div>Your files never leave your device</div>
+    <div>
+      <span class="footer-copy">© {year} {SITE.name}</span>
+      {/* 指南和法律页只有英文版：指南链接只在英文站显示，法律页各语言都链到英文版 */}
+      {locale === DEFAULT_LOCALE && <a href="/guides/">{f.guides}</a>}
+      <a href={localePath(locale, '/about/')}>{f.about}</a>
+      <a href="/privacy/">{f.privacy}</a><a href="/terms/">{f.terms}</a><a href="/licenses/">{f.licenses}</a>
+    </div>
+    <div>{f.promise}</div>
   </div>
 </footer>

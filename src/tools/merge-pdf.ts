@@ -1,6 +1,7 @@
 import { PDFDocument, PDFName, PDFDict, PDFArray, PDFString, PDFNumber, type PDFRef } from 'pdf-lib';
 import type { ToolModule } from '@/lib/types';
 import { stripExt } from '@/lib/files';
+import { t, th } from '@/lib/i18n-client';
 
 /** 给合并后的文档加一级书签（每个源文件一条）。pdf-lib 没有高层 API，这里直接写对象。 */
 function addOutlines(doc: PDFDocument, entries: { title: string; pageIndex: number }[]) {
@@ -30,20 +31,20 @@ function addOutlines(doc: PDFDocument, entries: { title: string; pageIndex: numb
 
 const mod: ToolModule = {
   mode: 'files',
-  optionsHtml: `
+  optionsHtml: () => `
     <fieldset class="opt-group">
-      <legend>Extras</legend>
-      <label class="check"><input type="checkbox" name="bookmarks" checked> Add a bookmark for each file</label>
+      <legend>${th('merge-pdf.extras')}</legend>
+      <label class="check"><input type="checkbox" name="bookmarks" checked> ${th('merge-pdf.bookmarks')}</label>
     </fieldset>
     <div class="opt-group">
-      <label for="opt-filename">Output file name</label>
-      <input id="opt-filename" name="filename" type="text" value="merged.pdf">
+      <label for="opt-filename">${th('opt.outputName')}</label>
+      <input id="opt-filename" name="filename" type="text" value="${th('merge-pdf.defaultName')}">
     </div>`,
   async run(files, options, ctx) {
     const out = await PDFDocument.create();
     const entries: { title: string; pageIndex: number }[] = [];
     for (let i = 0; i < files.length; i++) {
-      ctx.progress(`Reading ${files[i].name} (${i + 1}/${files.length})`, i / files.length);
+      ctx.progress(t('merge-pdf.reading', { name: files[i].name, i: i + 1, n: files.length }), i / files.length);
       const src = await PDFDocument.load(await files[i].arrayBuffer(), { ignoreEncryption: false });
       const indices = src.getPageIndices();
       const copied = await out.copyPages(src, indices);
@@ -51,9 +52,9 @@ const mod: ToolModule = {
       copied.forEach((p) => out.addPage(p));
     }
     if (options.get('bookmarks')) addOutlines(out, entries);
-    ctx.progress('Writing file…', 0.95);
+    ctx.progress(t('merge-pdf.writing'), 0.95);
     const bytes = await out.save({ useObjectStreams: true });
-    let name = String(options.get('filename') || 'merged.pdf').trim();
+    let name = String(options.get('filename') || t('merge-pdf.defaultName')).trim();
     if (!name.toLowerCase().endsWith('.pdf')) name += '.pdf';
     return [{ name, blob: new Blob([bytes as BlobPart], { type: 'application/pdf' }) }];
   },

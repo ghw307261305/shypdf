@@ -1,6 +1,7 @@
 import type { ToolModule } from '@/lib/types';
 import { runQpdf } from '@/lib/qpdf';
 import { stripExt } from '@/lib/files';
+import { t, th } from '@/lib/i18n-client';
 
 function randomPassword(len = 24) {
   const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz23456789';
@@ -10,30 +11,30 @@ function randomPassword(len = 24) {
 
 const mod: ToolModule = {
   mode: 'files',
-  optionsHtml: `
+  optionsHtml: () => `
     <div class="opt-group">
-      <label for="opt-user">Open password</label>
-      <input id="opt-user" name="user" type="password" autocomplete="new-password" placeholder="Needed to open the file">
+      <label for="opt-user">${th('protect-pdf.user')}</label>
+      <input id="opt-user" name="user" type="password" autocomplete="new-password" placeholder="${th('protect-pdf.userPlaceholder')}">
     </div>
     <div class="opt-group">
-      <label for="opt-owner">Permissions password (optional)</label>
-      <input id="opt-owner" name="owner" type="password" autocomplete="new-password" placeholder="Leave empty to auto-generate">
+      <label for="opt-owner">${th('protect-pdf.owner')}</label>
+      <input id="opt-owner" name="owner" type="password" autocomplete="new-password" placeholder="${th('protect-pdf.ownerPlaceholder')}">
     </div>
     <fieldset class="opt-group">
-      <legend>Restrictions</legend>
-      <label class="check"><input type="checkbox" name="noPrint"> Block printing</label>
-      <label class="check"><input type="checkbox" name="noCopy"> Block copying text and images</label>
-      <label class="check"><input type="checkbox" name="noModify"> Block editing</label>
+      <legend>${th('protect-pdf.restrictions')}</legend>
+      <label class="check"><input type="checkbox" name="noPrint"> ${th('protect-pdf.noPrint')}</label>
+      <label class="check"><input type="checkbox" name="noCopy"> ${th('protect-pdf.noCopy')}</label>
+      <label class="check"><input type="checkbox" name="noModify"> ${th('protect-pdf.noModify')}</label>
     </fieldset>`,
   async run(files, options, ctx) {
     const file = files[0];
     const user = String(options.get('user') || '');
     let owner = String(options.get('owner') || '');
     const noPrint = !!options.get('noPrint'), noCopy = !!options.get('noCopy'), noModify = !!options.get('noModify');
-    if (!user && !noPrint && !noCopy && !noModify) throw new Error('Enter an open password or select at least one restriction.');
+    if (!user && !noPrint && !noCopy && !noModify) throw new Error(t('protect-pdf.needInput'));
     if (!owner) owner = randomPassword();
-    if (user && user === owner) throw new Error('The permissions password must differ from the open password.');
-    ctx.progress('Encrypting…', 0.4);
+    if (user && user === owner) throw new Error(t('protect-pdf.mustDiffer'));
+    ctx.progress(t('protect-pdf.encrypting'), 0.4);
     const args = ['--encrypt', user, owner, '256',
       `--print=${noPrint ? 'none' : 'full'}`,
       `--modify=${noModify ? 'none' : 'all'}`,

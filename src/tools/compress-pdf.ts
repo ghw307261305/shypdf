@@ -2,6 +2,7 @@ import { PDFDocument } from 'pdf-lib';
 import type { ToolModule } from '@/lib/types';
 import { openWithPdfjs, renderPage, canvasToBlob } from '@/lib/pdfjs';
 import { stripExt, formatBytes } from '@/lib/files';
+import { t, th } from '@/lib/i18n-client';
 
 // summary() 拿不到选项，用它记住上一次 run 的模式
 let lastMode: 'light' | 'strong' = 'light';
@@ -11,24 +12,24 @@ const keepSmaller = async (file: File, bytes: Uint8Array, name: string) =>
 
 const mod: ToolModule = {
   mode: 'files',
-  optionsHtml: `
+  optionsHtml: () => `
     <fieldset class="opt-group">
-      <legend>Compression mode</legend>
-      <label class="check"><input type="radio" name="mode" value="light" checked> Light — keeps text selectable and searchable, about 5–30% smaller</label>
-      <label class="check"><input type="radio" name="mode" value="strong"> Strong — turns pages into images; smallest file, text no longer selectable</label>
+      <legend>${th('compress-pdf.mode')}</legend>
+      <label class="check"><input type="radio" name="mode" value="light" checked> ${th('compress-pdf.light')}</label>
+      <label class="check"><input type="radio" name="mode" value="strong"> ${th('compress-pdf.strong')}</label>
     </fieldset>
     <fieldset class="opt-group" data-show-when="mode=strong">
-      <legend>Image quality (Strong mode)</legend>
-      <label class="check"><input type="radio" name="dpi" value="72"> Smallest (72 dpi, screen only)</label>
-      <label class="check"><input type="radio" name="dpi" value="110" checked> Balanced (110 dpi)</label>
-      <label class="check"><input type="radio" name="dpi" value="150"> Sharper (150 dpi)</label>
+      <legend>${th('compress-pdf.quality')}</legend>
+      <label class="check"><input type="radio" name="dpi" value="72"> ${th('compress-pdf.q72')}</label>
+      <label class="check"><input type="radio" name="dpi" value="110" checked> ${th('compress-pdf.q110')}</label>
+      <label class="check"><input type="radio" name="dpi" value="150"> ${th('compress-pdf.q150')}</label>
     </fieldset>`,
   async run(files, options, ctx) {
     const file = files[0];
     const base = stripExt(file.name);
     lastMode = options.get('mode') === 'strong' ? 'strong' : 'light';
     if (lastMode !== 'strong') {
-      ctx.progress('Rebuilding file structure…', 0.3);
+      ctx.progress(t('compress-pdf.rebuilding'), 0.3);
       const doc = await PDFDocument.load(await file.arrayBuffer(), { updateMetadata: false });
       const bytes = await doc.save({ useObjectStreams: true, addDefaultPage: false });
       return keepSmaller(file, bytes, `${base}_compressed.pdf`);
@@ -37,7 +38,7 @@ const mod: ToolModule = {
     const src = await openWithPdfjs(file);
     const out = await PDFDocument.create();
     for (let i = 0; i < src.numPages; i++) {
-      ctx.progress(`Compressing page ${i + 1} of ${src.numPages}`, i / src.numPages);
+      ctx.progress(t('compress-pdf.compressing', { i: i + 1, n: src.numPages }), i / src.numPages);
       const page = await src.getPage(i + 1);
       const vp = page.getViewport({ scale: 1 });
       page.cleanup();
@@ -55,10 +56,8 @@ const mod: ToolModule = {
   summary(inputs, outputs) {
     const before = inputs.reduce((s, f) => s + f.size, 0);
     const after = outputs.reduce((s, o) => s + o.blob.size, 0);
-    if (after >= before) return lastMode === 'strong'
-      ? 'This file is already smaller than an image-based copy would be, so it was left unchanged.'
-      : 'This file is already compact, so it was left unchanged. Strong mode may still shrink it.';
-    return `${formatBytes(before)} → ${formatBytes(after)}, ${Math.round((1 - after / before) * 100)}% smaller`;
+    if (after >= before) return t(lastMode === 'strong' ? 'compress-pdf.unchangedStrong' : 'compress-pdf.unchangedLight');
+    return t('compress-pdf.result', { before: formatBytes(before), after: formatBytes(after), pct: Math.round((1 - after / before) * 100) });
   },
 };
 export default mod;

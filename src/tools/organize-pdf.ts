@@ -1,21 +1,22 @@
 import { PDFDocument, degrees } from 'pdf-lib';
 import type { ToolModule } from '@/lib/types';
 import { stripExt } from '@/lib/files';
+import { t, th } from '@/lib/i18n-client';
 
 const mod: ToolModule = {
   mode: 'pages',
-  optionsHtml: `
-    <p class="hint">Drag thumbnails to reorder. Use ↻ to rotate a page and × to delete it.</p>
+  optionsHtml: () => `
+    <p class="hint">${th('organize-pdf.hint')}</p>
     <div class="opt-group">
-      <label for="opt-filename">Output file name</label>
+      <label for="opt-filename">${th('opt.outputName')}</label>
       <input id="opt-filename" name="filename" type="text" value="">
     </div>`,
   async run(files, options, ctx) {
     const file = files[0];
     const src = await PDFDocument.load(await file.arrayBuffer());
     const order = ctx.pageOrder ?? src.getPageIndices();
-    if (!order.length) throw new Error('Keep at least one page.');
-    ctx.progress('Rebuilding pages…', 0.3);
+    if (!order.length) throw new Error(t('organize-pdf.keepOne'));
+    ctx.progress(t('organize-pdf.rebuilding'), 0.3);
     const out = await PDFDocument.create();
     const pages = await out.copyPages(src, order);
     pages.forEach((p, i) => {

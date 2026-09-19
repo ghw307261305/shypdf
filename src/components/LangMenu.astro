@@ -1,0 +1,18 @@
+---
+// 语言切换：<details> 下拉，不依赖 JS（scripts/lang.ts 只负责记住选择、点外面收起）。
+import { LOCALE_INFO, getDict, type Locale } from '@/i18n';
+interface Props { locale: Locale; alternates: { locale: Locale; path: string }[] }
+const { locale, alternates } = Astro.props;
+const d = getDict(locale);
+---
+<details class="lang-menu">
+  <summary aria-label={d.ui.lang.label}>
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a14 14 0 0 1 0 18a14 14 0 0 1 0-18"/></svg>
+    <span>{LOCALE_INFO[locale].name}</span>
+  </summary>
+  <ul>
+    {alternates.map((a) => (
+      <li><a href={a.path} lang={LOCALE_INFO[a.locale].htmlLang} hreflang={LOCALE_INFO[a.locale].htmlLang} data-locale={a.locale} data-suggest={getDict(a.locale).ui.lang.suggest} aria-current={a.locale === locale ? 'true' : undefined}>{LOCALE_INFO[a.locale].name}</a></li>
+    ))}
+  </ul>
+</details>

@@ -1,5 +1,6 @@
 import { PDFDocument, PageSizes } from 'pdf-lib';
 import type { ToolModule } from '@/lib/types';
+import { t, th } from '@/lib/i18n-client';
 
 /** 读取图片；WebP 或需要压缩时经 canvas 重新编码为 JPEG */
 async function loadImage(file: File, compress: boolean): Promise<{ bytes: Uint8Array; kind: 'jpg' | 'png' }> {
@@ -24,26 +25,26 @@ async function loadImage(file: File, compress: boolean): Promise<{ bytes: Uint8A
 
 const mod: ToolModule = {
   mode: 'files',
-  optionsHtml: `
+  optionsHtml: () => `
     <fieldset class="opt-group">
-      <legend>Page size</legend>
-      <label class="check"><input type="radio" name="pagesize" value="fit" checked> Same as image</label>
-      <label class="check"><input type="radio" name="pagesize" value="a4"> A4 (image scaled to fit)</label>
-      <label class="check"><input type="radio" name="pagesize" value="letter"> Letter (image scaled to fit)</label>
+      <legend>${th('jpg-to-pdf.pageSize')}</legend>
+      <label class="check"><input type="radio" name="pagesize" value="fit" checked> ${th('jpg-to-pdf.fit')}</label>
+      <label class="check"><input type="radio" name="pagesize" value="a4"> ${th('jpg-to-pdf.a4')}</label>
+      <label class="check"><input type="radio" name="pagesize" value="letter"> ${th('jpg-to-pdf.letter')}</label>
     </fieldset>
     <fieldset class="opt-group">
-      <legend>Orientation</legend>
-      <label class="check"><input type="radio" name="orient" value="auto" checked> Match image</label>
-      <label class="check"><input type="radio" name="orient" value="portrait"> Portrait</label>
-      <label class="check"><input type="radio" name="orient" value="landscape"> Landscape</label>
+      <legend>${th('jpg-to-pdf.orientation')}</legend>
+      <label class="check"><input type="radio" name="orient" value="auto" checked> ${th('jpg-to-pdf.auto')}</label>
+      <label class="check"><input type="radio" name="orient" value="portrait"> ${th('jpg-to-pdf.portrait')}</label>
+      <label class="check"><input type="radio" name="orient" value="landscape"> ${th('jpg-to-pdf.landscape')}</label>
     </fieldset>
     <div class="opt-row">
-      <div class="opt-group"><label for="opt-margin">Margin (pt)</label><input id="opt-margin" name="margin" type="number" value="0" min="0" max="100"></div>
-      <div class="opt-group"><label class="check"><input type="checkbox" name="compress"> Compress images</label></div>
+      <div class="opt-group"><label for="opt-margin">${th('opt.margin')}</label><input id="opt-margin" name="margin" type="number" value="0" min="0" max="100"></div>
+      <div class="opt-group"><label class="check"><input type="checkbox" name="compress"> ${th('jpg-to-pdf.compress')}</label></div>
     </div>
     <div class="opt-group">
-      <label for="opt-filename">Output file name</label>
-      <input id="opt-filename" name="filename" type="text" value="images.pdf">
+      <label for="opt-filename">${th('opt.outputName')}</label>
+      <input id="opt-filename" name="filename" type="text" value="${th('jpg-to-pdf.defaultName')}">
     </div>`,
   async run(files, options, ctx) {
     const doc = await PDFDocument.create();
@@ -53,7 +54,7 @@ const mod: ToolModule = {
     const compress = !!options.get('compress');
 
     for (let i = 0; i < files.length; i++) {
-      ctx.progress(`Adding ${files[i].name} (${i + 1}/${files.length})`, i / files.length);
+      ctx.progress(t('jpg-to-pdf.adding', { name: files[i].name, i: i + 1, n: files.length }), i / files.length);
       const { bytes, kind } = await loadImage(files[i], compress);
       const img = kind === 'jpg' ? await doc.embedJpg(bytes) : await doc.embedPng(bytes);
       let pw: number, ph: number;
@@ -68,7 +69,7 @@ const mod: ToolModule = {
       page.drawImage(img, { x: (pw - w) / 2, y: (ph - h) / 2, width: w, height: h });
     }
     const bytes = await doc.save({ useObjectStreams: true });
-    let name = String(options.get('filename') || 'images.pdf').trim();
+    let name = String(options.get('filename') || t('jpg-to-pdf.defaultName')).trim();
     if (!name.toLowerCase().endsWith('.pdf')) name += '.pdf';
     return [{ name, blob: new Blob([bytes as BlobPart], { type: 'application/pdf' }) }];
   },

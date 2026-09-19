@@ -1,26 +1,27 @@
 import type { ToolModule, OutputFile } from '@/lib/types';
 import { openWithPdfjs, renderPage, canvasToBlob } from '@/lib/pdfjs';
 import { stripExt, zipOutputs, parseRanges } from '@/lib/files';
+import { t, th } from '@/lib/i18n-client';
 
 const mod: ToolModule = {
   mode: 'files',
-  optionsHtml: `
+  optionsHtml: () => `
     <fieldset class="opt-group">
-      <legend>Format</legend>
+      <legend>${th('pdf-to-jpg.format')}</legend>
       <div class="seg" role="radiogroup">
         <label><input type="radio" name="format" value="jpg" checked><span>JPG</span></label>
         <label><input type="radio" name="format" value="png"><span>PNG</span></label>
       </div>
     </fieldset>
     <fieldset class="opt-group">
-      <legend>Resolution</legend>
-      <label class="check"><input type="radio" name="dpi" value="96"> Web (96 dpi)</label>
-      <label class="check"><input type="radio" name="dpi" value="150" checked> Standard (150 dpi)</label>
-      <label class="check"><input type="radio" name="dpi" value="300"> High (300 dpi)</label>
+      <legend>${th('pdf-to-jpg.resolution')}</legend>
+      <label class="check"><input type="radio" name="dpi" value="96"> ${th('pdf-to-jpg.web')}</label>
+      <label class="check"><input type="radio" name="dpi" value="150" checked> ${th('pdf-to-jpg.standard')}</label>
+      <label class="check"><input type="radio" name="dpi" value="300"> ${th('pdf-to-jpg.high')}</label>
     </fieldset>
     <div class="opt-group">
-      <label for="opt-pages">Pages (leave empty for all)</label>
-      <input id="opt-pages" name="pages" type="text" placeholder="e.g. 1-3, 5">
+      <label for="opt-pages">${th('pdf-to-jpg.pages')}</label>
+      <input id="opt-pages" name="pages" type="text" placeholder="${th('pdf-to-jpg.pagesPlaceholder')}">
     </div>`,
   async run(files, options, ctx) {
     const file = files[0];
@@ -37,7 +38,7 @@ const mod: ToolModule = {
     const outputs: OutputFile[] = [];
     for (let k = 0; k < indices.length; k++) {
       const i = indices[k];
-      ctx.progress(`Rendering page ${i + 1} (${k + 1}/${indices.length})`, k / indices.length);
+      ctx.progress(t('pdf-to-jpg.rendering', { page: i + 1, i: k + 1, n: indices.length }), k / indices.length);
       const canvas = await renderPage(doc, i, { scale: dpi / 72 });
       const blob = await canvasToBlob(canvas, fmt === 'png' ? 'image/png' : 'image/jpeg', 0.9);
       outputs.push({ name: `${base}_p${i + 1}.${fmt}`, blob });
@@ -45,7 +46,7 @@ const mod: ToolModule = {
     }
     await doc.loadingTask.destroy();
     if (outputs.length === 1) return outputs;
-    ctx.progress('Zipping…', 0.98);
+    ctx.progress(t('pdf-to-jpg.zipping'), 0.98);
     return [await zipOutputs(outputs, `${base}_images.zip`)];
   },
 };

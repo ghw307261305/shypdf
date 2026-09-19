@@ -1,6 +1,7 @@
 import { PDFDocument } from 'pdf-lib';
 import type { ToolModule, OutputFile } from '@/lib/types';
 import { parseRanges, stripExt } from '@/lib/files';
+import { t, th } from '@/lib/i18n-client';
 
 async function extract(src: PDFDocument, indices: number[]): Promise<Uint8Array> {
   const doc = await PDFDocument.create();
@@ -11,15 +12,15 @@ async function extract(src: PDFDocument, indices: number[]): Promise<Uint8Array>
 
 const mod: ToolModule = {
   mode: 'files',
-  optionsHtml: `
+  optionsHtml: () => `
     <fieldset class="opt-group">
-      <legend>Split mode</legend>
-      <label class="check"><input type="radio" name="mode" value="ranges" checked> By page range</label>
-      <input name="ranges" type="text" placeholder="e.g. 1-3, 5, 8-10" aria-label="Page ranges">
-      <p class="hint">Each comma-separated part becomes its own file.</p>
-      <label class="check"><input type="radio" name="mode" value="each"> One file per page</label>
-      <label class="check"><input type="radio" name="mode" value="odd"> Odd pages only</label>
-      <label class="check"><input type="radio" name="mode" value="even"> Even pages only</label>
+      <legend>${th('split-pdf.mode')}</legend>
+      <label class="check"><input type="radio" name="mode" value="ranges" checked> ${th('split-pdf.byRange')}</label>
+      <input name="ranges" type="text" placeholder="${th('split-pdf.rangesPlaceholder')}" aria-label="${th('opt.pageRanges')}">
+      <p class="hint">${th('split-pdf.hint')}</p>
+      <label class="check"><input type="radio" name="mode" value="each"> ${th('split-pdf.each')}</label>
+      <label class="check"><input type="radio" name="mode" value="odd"> ${th('split-pdf.odd')}</label>
+      <label class="check"><input type="radio" name="mode" value="even"> ${th('split-pdf.even')}</label>
     </fieldset>`,
   async run(files, options, ctx) {
     const file = files[0];
@@ -36,19 +37,19 @@ const mod: ToolModule = {
       const groups = parseRanges(String(options.get('ranges') || ''), n);
       for (let i = 0; i < groups.length; i++) {
         const g = groups[i];
-        ctx.progress(`Extracting pages ${g[0] + 1}–${g[g.length - 1] + 1} (${i + 1}/${groups.length})`, i / groups.length);
+        ctx.progress(t('split-pdf.extracting', { from: g[0] + 1, to: g[g.length - 1] + 1, i: i + 1, n: groups.length }), i / groups.length);
         const label = g.length === 1 ? `p${g[0] + 1}` : `p${g[0] + 1}-${g[g.length - 1] + 1}`;
         await push(g, `${base}_${label}.pdf`);
       }
     } else if (mode === 'each') {
       for (let i = 0; i < n; i++) {
-        ctx.progress(`Splitting page ${i + 1} of ${n}`, i / n);
+        ctx.progress(t('split-pdf.splitting', { i: i + 1, n }), i / n);
         await push([i], `${base}_p${i + 1}.pdf`);
       }
     } else {
       const want = mode === 'odd' ? 0 : 1; // 0 起索引：奇数页 = 偶数索引
       const idx = src.getPageIndices().filter((i) => i % 2 === want);
-      if (!idx.length) throw new Error('No pages match.');
+      if (!idx.length) throw new Error(t('split-pdf.noMatch'));
       await push(idx, `${base}_${mode === 'odd' ? 'odd-pages' : 'even-pages'}.pdf`);
     }
     return outputs;

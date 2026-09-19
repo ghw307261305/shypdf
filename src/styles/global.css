@@ -16,7 +16,7 @@
   --radius-s: 8px;
   --maxw: 1200px;
   --maxw-narrow: 1040px;
-  --font: "Inter Variable", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font: "Inter Variable", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Hiragino Sans", "Noto Sans JP", "Yu Gothic", Meiryo, sans-serif;
 }
 * { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
@@ -50,6 +50,21 @@ button { cursor: pointer; }
 .site-footer { border-top: 1px solid var(--line); margin-top: 64px; }
 .site-footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; padding: 32px 24px; font-size: 13px; color: var(--muted); }
 .site-footer a { margin-right: 14px; }
+.footer-copy { margin-right: 14px; }
+
+/* ---------- 语言切换 ---------- */
+.lang-menu { position: relative; font-size: 14px; }
+.lang-menu summary { display: flex; align-items: center; gap: 6px; height: 36px; padding: 0 10px; border-radius: var(--radius-s); color: var(--muted); cursor: pointer; list-style: none; white-space: nowrap; }
+.lang-menu summary::-webkit-details-marker { display: none; }
+.lang-menu summary:hover, .lang-menu[open] summary { background: var(--ground); color: var(--ink); }
+.lang-menu ul { position: absolute; right: 0; top: calc(100% + 6px); z-index: 30; min-width: 160px; margin: 0; padding: 6px; list-style: none; background: var(--bg); border: 1px solid var(--line-2); border-radius: var(--radius-s); box-shadow: 0 8px 24px rgba(28, 27, 25, 0.12); }
+.lang-menu li a { display: block; padding: 8px 10px; border-radius: 6px; }
+.lang-menu li a:hover { background: var(--ground); color: var(--ink); }
+.lang-menu li a[aria-current] { color: var(--accent-ink); font-weight: 600; }
+.lang-suggest { display: flex; align-items: center; justify-content: center; gap: 12px; padding: 8px 16px; background: var(--accent-tint); color: var(--accent-ink); font-size: 14px; font-weight: 500; }
+.lang-suggest a { text-decoration: underline; text-underline-offset: 3px; }
+.lang-suggest button { width: 28px; height: 28px; border: none; border-radius: 6px; background: none; font-size: 18px; line-height: 1; color: inherit; }
+.lang-suggest button:hover { background: var(--accent-line); }
 
 /* ---------- 首页 ---------- */
 .hero { background: var(--ground); padding: 44px 0 36px; text-align: center; }
@@ -240,7 +255,7 @@ input[type="color"] { height: 44px; width: 100%; padding: 4px; border: 1px solid
   body:has(#stage-files:not(.is-hidden)) .site-footer { padding-bottom: 120px; }
 }
 @media (max-width: 720px) {
-  .header-cta { display: none; }
+  .lang-menu summary { padding: 0 6px; }
   .site-header .wrap { height: 56px; }
   .brand { font-size: 17px; }
   /* 导航变成底部标签栏；进入文件列表阶段时隐藏，把位置让给执行按钮 */

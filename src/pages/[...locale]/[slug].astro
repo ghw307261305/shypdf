@@ -2,33 +2,44 @@
 import Base from '@/layouts/Base.astro';
 import AdSlot from '@/components/AdSlot.astro';
 import { SITE } from '@/config/site';
-import { liveTools, toolBySlug, CATEGORIES } from '@/data/tools';
-import { TOOL_CONTENT } from '@/data/tool-content';
+import { LIVE_SLUGS, liveTools, toolBySlug } from '@/data/tools';
 import { guidesForTool } from '@/data/guides';
+import { LOCALES, DEFAULT_LOCALE, LOCALE_INFO, getDict, getToolContent, clientDict, fmt, localePath, type Locale } from '@/i18n';
 
 export function getStaticPaths() {
-  return liveTools().map((t) => ({ params: { slug: t.slug } }));
+  return LOCALES.flatMap((locale) => LIVE_SLUGS.map((slug) => ({
+    params: { locale: locale === DEFAULT_LOCALE ? undefined : locale, slug },
+    props: { locale },
+  })));
 }
-const tool = toolBySlug(Astro.params.slug!)!;
-const content = TOOL_CONTENT[tool.slug];
+const { locale } = Astro.props as { locale: Locale };
+const d = getDict(locale);
+const ui = d.ui.tool;
+const tool = toolBySlug(Astro.params.slug!, locale)!;
+const content = getToolContent(locale, tool.slug);
 const faq = [...tool.faq, ...(content?.faq ?? [])];
-const guides = guidesForTool(tool.slug);
-const pageUrl = new URL(`/${tool.slug}/`, SITE.url).href;
-const related = tool.related.map(toolBySlug).filter((t) => t && t.phase === 1) as NonNullable<ReturnType<typeof toolBySlug>>[];
+// 指南目前只有英文版
+const guides = locale === DEFAULT_LOCALE ? guidesForTool(tool.slug) : [];
+const pageUrl = new URL(localePath(locale, `/${tool.slug}/`), SITE.url).href;
+const live = liveTools(locale);
+const related = tool.related.map((slug) => live.find((t) => t.slug === slug)).filter((t) => !!t);
 const jsonLd = {
   '@context': 'https://schema.org',
   '@graph': [
-    { '@type': 'WebApplication', name: tool.name, applicationCategory: 'UtilitiesApplication', operatingSystem: 'Any',
+    { '@type': 'WebApplication', name: tool.name, applicationCategory: 'UtilitiesApplication', operatingSystem: 'Any', inLanguage: LOCALE_INFO[locale].htmlLang,
       offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' }, description: tool.description, url: pageUrl },
     { '@type': 'FAQPage', mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) },
     { '@type': 'BreadcrumbList', itemListElement: [
-      { '@type': 'ListItem', position: 1, name: SITE.name, item: new URL('/', SITE.url).href },
+      { '@type': 'ListItem', position: 1, name: SITE.name, item: new URL(localePath(locale), SITE.url).href },
       { '@type': 'ListItem', position: 2, name: tool.name, item: pageUrl },
     ] },
   ],
 };
+// 浏览器端要用的文案（只含这个工具的），tool-app.ts 通过 lib/i18n-client.ts 读取。JSON 数据块不是可执行脚本，不受 CSP script-src 限制。
+const clientJson = JSON.stringify(clientDict(locale, tool.slug)).replace(/</g, '\\u003c');
 ---
-<Base title={content?.seoTitle ?? `${tool.name} — free, no upload | ${SITE.name}`} description={tool.description} current={tool.slug} jsonLd={jsonLd}>
+<Base title={content?.seoTitle ?? fmt(ui.title, { tool: tool.name, site: SITE.name })} description={tool.description} current={tool.slug} jsonLd={jsonLd} locale={locale}>
+  <script type="application/json" id="i18n" set:html={clientJson} />
   <div class:list={['wrap', 'tool-page', { 'no-aside': !SITE.ads }]}>
     <div class="tool-main"
          id="tool-app"
@@ -39,7 +50,7 @@ const jsonLd = {
          data-button={tool.button}
          data-max-mb={String(SITE.limits.maxFileMB)}
          data-max-files={String(SITE.limits.maxFiles)}>
-      <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> › {CATEGORIES[tool.category].name} › {tool.name}</nav>
+      <nav class="crumbs" aria-label={ui.crumbLabel}><a href={localePath(locale)}>{ui.crumbHome}</a> › {d.ui.categories[tool.category]} › {tool.name}</nav>
 
       <!-- 阶段 A：上传 -->
       <section id="stage-upload">
@@ -47,15 +58,15 @@ const jsonLd = {
         <div class="stage">
           <div class="dropzone" id="dropzone">
             <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 16V4"/><path d="M7 9l5-5 5 5"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg>
-            <button type="button" class="btn-primary" id="pick">{tool.multiple ? 'Choose files' : 'Choose file'}</button>
+            <button type="button" class="btn-primary" id="pick">{tool.multiple ? ui.chooseFiles : ui.chooseFile}</button>
             <input type="file" id="file-input" class="sr-only" accept={tool.accept} multiple={tool.multiple} tabindex="-1" aria-hidden="true" />
-            <p>{tool.multiple ? 'or drop files here' : 'or drop a file here'}</p>
-            <small>{tool.multiple ? `Up to ${SITE.limits.maxFiles} files · ${SITE.limits.maxFileMB} MB each` : `Up to ${SITE.limits.maxFileMB} MB`}</small>
+            <p>{tool.multiple ? ui.dropFiles : ui.dropFile}</p>
+            <small>{fmt(tool.multiple ? ui.limitMulti : ui.limitSingle, { n: SITE.limits.maxFiles, mb: SITE.limits.maxFileMB })}</small>
             <div id="upload-alert" class="alert is-hidden" role="alert"></div>
           </div>
         </div>
         <ol class="steps">
-          {tool.steps.map((s, i) => <li><span class="step-n">{i + 1}</span><b>{['Choose', 'Adjust', 'Download'][i]}</b><p>{s}</p></li>)}
+          {tool.steps.map((s, i) => <li><span class="step-n">{i + 1}</span><b>{ui.stepTitles[i]}</b><p>{s}</p></li>)}
         </ol>
         {content && (
           <section class="tool-copy">
@@ -63,18 +74,18 @@ const jsonLd = {
           </section>
         )}
         <section class="faq">
-          <h2>Questions</h2>
+          <h2>{ui.questions}</h2>
           {faq.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}
         </section>
         {guides.length > 0 && (
           <section class="related">
-            <h2>Guides</h2>
+            <h2>{ui.guides}</h2>
             <ul class="guide-links">{guides.map((g) => <li><a href={`/guides/${g.slug}/`}>{g.title}</a></li>)}</ul>
           </section>
         )}
         <section class="related">
-          <h2>Related tools</h2>
-          <div class="chips">{related.map((r) => <a href={`/${r.slug}/`}>{r.name}</a>)}</div>
+          <h2>{ui.related}</h2>
+          <div class="chips">{related.map((r) => <a href={localePath(locale, `/${r.slug}/`)}>{r.name}</a>)}</div>
         </section>
       </section>
 
@@ -85,15 +96,15 @@ const jsonLd = {
             <div class="work-head">
               <div><h2 style="font-size:24px;display:inline">{tool.name}</h2> <span class="meta" id="files-meta"></span></div>
               <div class="actions">
-                <button type="button" class="btn" id="sort-name">Sort by name</button>
-                <button type="button" class="btn" id="clear-all">Clear all</button>
+                <button type="button" class="btn" id="sort-name">{ui.sortByName}</button>
+                <button type="button" class="btn" id="clear-all">{ui.clearAll}</button>
               </div>
             </div>
             <div class="items" id="items"></div>
             <p class="work-note" id="work-note"></p>
           </div>
           <aside class="work-side">
-            <h2>Options</h2>
+            <h2>{ui.options}</h2>
             <form id="options" novalidate></form>
             <div class="run-box">
               <div id="run-alert" class="alert is-hidden" role="alert"></div>
@@ -110,25 +121,25 @@ const jsonLd = {
         <div class="result">
           <div class="result-preview" id="result-preview"></div>
           <div class="result-body">
-            <div class="result-title"><span class="ok-mark" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg></span><h2>Done</h2></div>
+            <div class="result-title"><span class="ok-mark" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg></span><h2>{ui.done}</h2></div>
             <div class="result-meta" id="result-meta"></div>
             <div class="result-actions" id="result-actions"></div>
             <div class="result-links">
-              <button type="button" id="back">← Back to options</button>
-              <button type="button" id="restart">Start over</button>
+              <button type="button" id="back">{ui.back}</button>
+              <button type="button" id="restart">{ui.restart}</button>
             </div>
           </div>
         </div>
         <section class="next-tools">
-          <h2>Keep going</h2>
-          <div class="next-grid">{related.map((r) => <a href={`/${r.slug}/`}><b>{r.name}</b><small>{r.short}</small></a>)}</div>
+          <h2>{ui.keepGoing}</h2>
+          <div class="next-grid">{related.map((r) => <a href={localePath(locale, `/${r.slug}/`)}><b>{r.name}</b><small>{r.short}</small></a>)}</div>
         </section>
       </section>
     </div>
 
     {SITE.ads && (
       <aside class="tool-aside">
-        <AdSlot width={300} height={600} /><div style="height:24px"></div><AdSlot width={300} height={250} />
+        <AdSlot width={300} height={600} label={d.ui.adLabel} /><div style="height:24px"></div><AdSlot width={300} height={250} label={d.ui.adLabel} />
       </aside>
     )}
   </div>

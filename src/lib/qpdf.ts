@@ -1,6 +1,8 @@
 // qpdf（WASM）封装：用于加密 / 解密。文件在 public/vendor/qpdf/，按需以 <script> 载入。
 // 每次调用新建一个 Module 实例（Emscripten 的 callMain 只能跑一次）。
 
+import { t } from './i18n-client';
+
 declare global {
   interface Window { Module?: (opts: any) => Promise<any>; }
 }
@@ -13,7 +15,7 @@ function loadScript(): Promise<void> {
     const s = document.createElement('script');
     s.src = '/vendor/qpdf/qpdf.js';
     s.onload = () => resolve();
-    s.onerror = () => reject(new Error('Could not load the qpdf engine. Check your connection and try again.'));
+    s.onerror = () => reject(new Error(t('lib.qpdfLoad')));
     document.head.appendChild(s);
   });
   return scriptLoaded;

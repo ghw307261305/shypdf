@@ -1,26 +1,29 @@
 ---
 import { SITE } from '@/config/site';
-import { toolBySlug } from '@/data/tools';
-interface Props { current?: string }
-const { current } = Astro.props;
+import { toolIcon } from '@/data/tools';
+import { getDict, localePath, type Locale } from '@/i18n';
+import LangMenu from './LangMenu.astro';
+interface Props { current?: string; locale: Locale; alternates: { locale: Locale; path: string }[] }
+const { current, locale, alternates } = Astro.props;
+const d = getDict(locale);
 const nav = [
-  { href: '/', label: 'All tools', key: 'home' },
-  { href: '/merge-pdf/', label: 'Merge', key: 'merge-pdf' },
-  { href: '/split-pdf/', label: 'Split', key: 'split-pdf' },
-  { href: '/compress-pdf/', label: 'Compress', key: 'compress-pdf' },
-  { href: '/jpg-to-pdf/', label: 'Convert', key: 'jpg-to-pdf' },
+  { href: '/', label: d.ui.nav.all, key: 'home' },
+  { href: '/merge-pdf/', label: d.ui.nav.merge, key: 'merge-pdf' },
+  { href: '/split-pdf/', label: d.ui.nav.split, key: 'split-pdf' },
+  { href: '/compress-pdf/', label: d.ui.nav.compress, key: 'compress-pdf' },
+  { href: '/jpg-to-pdf/', label: d.ui.nav.convert, key: 'jpg-to-pdf' },
 ];
 // 图标只在手机端底部标签栏显示
 const gridIcon = '<rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><rect x="14" y="14" width="6" height="6" rx="1"/>';
-const iconOf = (key: string) => toolBySlug(key)?.icon ?? gridIcon;
+const iconOf = (key: string) => toolIcon(key) ?? gridIcon;
 ---
 <header class="site-header">
   <div class="wrap">
     <div class="header-left">
-      <a class="brand" href="/"><img class="brand-mark" src="/favicon.svg" width="28" height="28" alt="" /><span>{SITE.name}</span></a>
-      <nav class="nav" aria-label="Main">
+      <a class="brand" href={localePath(locale)}><img class="brand-mark" src="/favicon.svg" width="28" height="28" alt="" /><span>{SITE.name}</span></a>
+      <nav class="nav" aria-label={d.ui.nav.label}>
         {nav.map((n) => (
-          <a href={n.href} aria-current={current === n.key ? 'page' : undefined}>
+          <a href={localePath(locale, n.href)} aria-current={current === n.key ? 'page' : undefined}>
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={iconOf(n.key)} />
             {n.label}
           </a>
@@ -28,6 +31,7 @@ const iconOf = (key: string) => toolBySlug(key)?.icon ?? gridIcon;
       </nav>
     </div>
     <div class="header-cta">
+      <LangMenu locale={locale} alternates={alternates} />
       <!-- 一期先不放登录/升级；需要时在这里加 .btn -->
     </div>
   </div>

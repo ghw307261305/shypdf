@@ -1,11 +1,13 @@
 ---
 import type { ToolMeta } from '@/data/tools';
 import ToolIcon from './ToolIcon.astro';
-interface Props { tool: ToolMeta }
-const { tool } = Astro.props;
+import { localePath, type Locale } from '@/i18n';
+// enName：非英文页面上也能用英文名搜到工具（首页搜索读 data-en）
+interface Props { tool: ToolMeta; locale: Locale; enName?: string }
+const { tool, locale, enName } = Astro.props;
 const live = tool.phase === 1;
 ---
-<a class:list={['tool-card', { 'is-soon': !live }]} href={live ? `/${tool.slug}/` : undefined} data-name={tool.name} data-short={tool.short} aria-disabled={!live}>
+<a class:list={['tool-card', { 'is-soon': !live }]} href={live ? localePath(locale, `/${tool.slug}/`) : undefined} data-name={tool.name} data-en={enName} data-short={tool.short} aria-disabled={!live}>
   <ToolIcon tool={tool} />
   <span><b>{tool.name}</b><small>{tool.short}</small></span>
 </a>

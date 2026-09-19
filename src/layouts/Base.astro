@@ -2,22 +2,35 @@
 import '@fontsource-variable/inter';
 import '@/styles/global.css';
 import { SITE } from '@/config/site';
+import { LOCALES, LOCALE_INFO, DEFAULT_LOCALE, getDict, localePath, barePath, type Locale } from '@/i18n';
 import Header from '@/components/Header.astro';
 import Footer from '@/components/Footer.astro';
 
-interface Props { title: string; description?: string; current?: string; jsonLd?: object; noindex?: boolean }
-const { title, description = SITE.description, current, jsonLd, noindex } = Astro.props;
+interface Props {
+  title: string; description?: string; current?: string; jsonLd?: object; noindex?: boolean;
+  locale?: Locale;
+  /** false = 这一页只有英文版（法律页、指南）：不输出 hreflang，语言切换指向各语言首页 */
+  translated?: boolean;
+}
+const { title, current, jsonLd, noindex, locale = DEFAULT_LOCALE, translated = true } = Astro.props;
+const d = getDict(locale);
+const description = Astro.props.description ?? d.site.description;
 const ogImage = new URL('/og.png', SITE.url).href;
 const canonical = new URL(Astro.url.pathname, SITE.url).href;
+const bare = barePath(locale, Astro.url.pathname);
+// 每种语言下「这一页」的地址；没有译文的页面指向该语言的首页
+const alternates = LOCALES.map((l) => ({ locale: l, path: localePath(l, translated ? bare : '/') }));
 ---
 <!doctype html>
-<html lang={SITE.lang}>
+<html lang={LOCALE_INFO[locale].htmlLang} data-locale={locale}>
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>{title}</title>
   <meta name="description" content={description} />
   {noindex ? <meta name="robots" content="noindex" /> : <link rel="canonical" href={canonical} />}
+  {translated && !noindex && alternates.map((a) => <link rel="alternate" hreflang={a.locale} href={new URL(a.path, SITE.url).href} />)}
+  {translated && !noindex && <link rel="alternate" hreflang="x-default" href={new URL(bare, SITE.url).href} />}
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   <meta name="theme-color" content="#c8412f" />
@@ -26,6 +39,7 @@ const canonical = new URL(Astro.url.pathname, SITE.url).href;
   <meta property="og:type" content="website" />
   <meta property="og:url" content={canonical} />
   <meta property="og:site_name" content={SITE.name} />
+  <meta property="og:locale" content={LOCALE_INFO[locale].og} />
   <meta property="og:image" content={ogImage} />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
@@ -34,10 +48,13 @@ const canonical = new URL(Astro.url.pathname, SITE.url).href;
   {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
 </head>
 <body>
-  <Header current={current} />
+  <!-- 浏览器首选语言和当前页面不一致时，由 scripts/lang.ts 填入并显示；不自动跳转 -->
+  <div id="lang-suggest" class="lang-suggest is-hidden"><a></a><button type="button" aria-label={d.ui.lang.dismiss}>×</button></div>
+  <Header current={current} locale={locale} alternates={alternates} />
   <main>
     <slot />
   </main>
-  <Footer />
+  <Footer locale={locale} />
+  <script src="@/scripts/lang.ts"></script>
 </body>
 </html>

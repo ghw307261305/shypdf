@@ -1,7 +1,8 @@
-// 工具页客户端逻辑。页面结构见 src/pages/[slug].astro；工具行为见 src/tools/<slug>.ts。
+// 工具页客户端逻辑。页面结构见 src/pages/[...locale]/[slug].astro；文案经 lib/i18n-client.ts 取当前语言；工具行为见 src/tools/<slug>.ts。
 import { loadTool } from '@/tools/index';
 import type { ToolModule, OutputFile } from '@/lib/types';
 import { formatBytes, downloadBlob, zipOutputs, stripExt } from '@/lib/files';
+import { t, tn, th, escapeHtml } from '@/lib/i18n-client';
 
 const root = document.getElementById('tool-app')!;
 const cfg = {
@@ -67,8 +68,8 @@ function validate(files: File[]): File[] {
   for (const f of files) {
     const ext = '.' + f.name.split('.').pop()!.toLowerCase();
     const typeOk = accept.some((a) => a === f.type || a === ext || (a.endsWith('/*') && f.type.startsWith(a.slice(0, -1))));
-    if (!typeOk) { bad.push(`${f.name}: unsupported format`); continue; }
-    if (f.size > cfg.maxMB * 1024 * 1024) { bad.push(`${f.name}: larger than ${cfg.maxMB} MB`); continue; }
+    if (!typeOk) { bad.push(t('app.unsupported', { name: f.name })); continue; }
+    if (f.size > cfg.maxMB * 1024 * 1024) { bad.push(t('app.tooLarge', { name: f.name, mb: cfg.maxMB })); continue; }
     ok.push(f);
   }
   const target = stages.upload.classList.contains('is-hidden') ? runAlert : uploadAlert;
@@ -81,8 +82,8 @@ async function acceptFiles(files: File[]) {
   if (!ok.length) return;
   if (!tool) {
     try { tool = await loadTool(cfg.slug); }
-    catch (e) { alertIn(uploadAlert, `Could not load the tool: ${(e as Error).message}`); return; }
-    optionsForm.innerHTML = tool.optionsHtml;
+    catch (e) { alertIn(uploadAlert, t('app.loadFailed', { msg: (e as Error).message })); return; }
+    optionsForm.innerHTML = tool.optionsHtml();
     bindConditionalFields();
   }
   if (!cfg.multiple) items = [];
@@ -91,7 +92,7 @@ async function acceptFiles(files: File[]) {
     await expandPages(ok[0]);
   } else {
     for (const f of ok) {
-      if (items.length >= cfg.maxFiles) { alertIn(runAlert, `You can add up to ${cfg.maxFiles} files.`); break; }
+      if (items.length >= cfg.maxFiles) { alertIn(runAlert, t('app.maxFiles', { n: cfg.maxFiles })); break; }
       items.push({ id: nextId++, file: f, rotation: 0 });
     }
   }
@@ -102,7 +103,7 @@ async function acceptFiles(files: File[]) {
 
 /** pages 模式：把单个 PDF 展开成逐页条目 */
 async function expandPages(file: File) {
-  setProgress('Reading pages…');
+  setProgress(t('app.readingPages'));
   const { openWithPdfjs } = await import('@/lib/pdfjs');
   try {
     (root as any).__pdfDoc?.loadingTask.destroy();
@@ -111,7 +112,7 @@ async function expandPages(file: File) {
     for (let i = 0; i < doc.numPages; i++) items.push({ id: nextId++, file, pageIndex: i, rotation: 0 });
     (root as any).__pdfDoc = doc;
   } catch (e) {
-    alertIn(uploadAlert, `Can’t open this PDF: ${(e as Error).message}`);
+    alertIn(uploadAlert, t('app.cantOpen', { msg: (e as Error).message }));
     throw e;
   } finally { setProgress(''); }
 }
@@ -134,6 +135,7 @@ function render() {
   const isPages = tool?.mode === 'pages';
   itemsEl.innerHTML = '';
   items.forEach((it, idx) => {
+    const pageLabel = isPages ? th('app.page', { n: it.pageIndex! + 1 }) : '';
     const card = document.createElement('div');
     card.className = 'item';
     card.draggable = true;
@@ -142,19 +144,19 @@ function render() {
       <div class="item-top">
         <span class="item-n">${idx + 1}</span>
         <span class="item-tools">
-          <button type="button" class="icon-btn" data-act="left" aria-label="Move earlier">‹</button>
-          <button type="button" class="icon-btn" data-act="right" aria-label="Move later">›</button>
-          ${isPages ? '<button type="button" class="icon-btn" data-act="rotate" aria-label="Rotate">↻</button>' : ''}
-          <button type="button" class="icon-btn" data-act="remove" aria-label="Remove">×</button>
+          <button type="button" class="icon-btn" data-act="left" aria-label="${th('app.moveEarlier')}">‹</button>
+          <button type="button" class="icon-btn" data-act="right" aria-label="${th('app.moveLater')}">›</button>
+          ${isPages ? `<button type="button" class="icon-btn" data-act="rotate" aria-label="${th('app.rotate')}">↻</button>` : ''}
+          <button type="button" class="icon-btn" data-act="remove" aria-label="${th('app.remove')}">×</button>
         </span>
       </div>
-      <div class="thumb">${isPages ? `Page ${it.pageIndex! + 1}` : 'Preview'}</div>
-      <div class="item-name" title="${escapeHtml(it.file.name)}">${isPages ? `Page ${it.pageIndex! + 1}` : escapeHtml(it.file.name)}</div>
-      <div class="item-meta">${isPages ? (it.rotation ? `Rotated ${it.rotation}°` : '') : formatBytes(it.file.size)}</div>`;
+      <div class="thumb">${isPages ? pageLabel : th('app.preview')}</div>
+      <div class="item-name" title="${escapeHtml(it.file.name)}">${isPages ? pageLabel : escapeHtml(it.file.name)}</div>
+      <div class="item-meta">${isPages ? (it.rotation ? th('app.rotated', { deg: it.rotation }) : '') : formatBytes(it.file.size)}</div>`;
     if (it.thumb) {
-      const t = card.querySelector('.thumb')!;
-      t.textContent = '';
-      t.appendChild(it.thumb);
+      const thumbEl = card.querySelector('.thumb')!;
+      thumbEl.textContent = '';
+      thumbEl.appendChild(it.thumb);
       (it.thumb as HTMLElement).style.transform = `rotate(${it.rotation}deg)`;
     }
     itemsEl.appendChild(card);
@@ -163,20 +165,18 @@ function render() {
     const add = document.createElement('button');
     add.type = 'button';
     add.className = 'item-add';
-    add.innerHTML = `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14"/><path d="M5 12h14"/></svg><span>${tool?.mode === 'pages' ? 'Choose another file' : 'Add more files'}</span>`;
+    add.innerHTML = `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14"/><path d="M5 12h14"/></svg><span>${th(tool?.mode === 'pages' ? 'app.chooseAnother' : 'app.addMore')}</span>`;
     add.addEventListener('click', () => fileInput.click());
     itemsEl.appendChild(add);
   }
   const total = isPages ? items.length : items.reduce((s, i) => s + i.file.size, 0);
-  filesMeta.textContent = isPages ? plural(items.length, 'page') : `${plural(items.length, 'file')} · ${formatBytes(total)}`;
-  workNote.textContent = (isPages ? 'Drag thumbnails to reorder · ' : cfg.multiple ? 'Drag cards to reorder · ' : '') + 'Processed on this device — nothing is uploaded';
+  filesMeta.textContent = isPages ? tn('app.pages', items.length) : `${tn('app.files', items.length)} · ${formatBytes(total)}`;
+  workNote.textContent = [isPages ? t('app.dragThumbs') : cfg.multiple ? t('app.dragCards') : '', t('app.local')].filter(Boolean).join(' · ');
   runBtn.textContent = cfg.button;
   runBtn.disabled = items.length < cfg.minFiles;
   $('sort-name').classList.toggle('is-hidden', !cfg.multiple || isPages);
 }
 
-function plural(n: number, word: string) { return `${n} ${word}${n === 1 ? '' : 's'}`; }
-function escapeHtml(s: string) { return s.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]!)); }
 
 itemsEl.addEventListener('click', (e) => {
   const btn = (e.target as HTMLElement).closest<HTMLElement>('[data-act]');
@@ -220,7 +220,7 @@ itemsEl.addEventListener('drop', (e) => {
 });
 itemsEl.addEventListener('dragend', () => { dragFrom = null; itemsEl.querySelectorAll('.is-dragging,.is-target').forEach((c) => c.classList.remove('is-dragging', 'is-target')); });
 
-$('sort-name').addEventListener('click', () => { items.sort((a, b) => a.file.name.localeCompare(b.file.name, undefined, { numeric: true, sensitivity: 'base' })); render(); });
+$('sort-name').addEventListener('click', () => { items.sort((a, b) => a.file.name.localeCompare(b.file.name, document.documentElement.lang, { numeric: true, sensitivity: 'base' })); render(); });
 $('clear-all').addEventListener('click', () => { items = []; show('upload'); });
 
 // 缩略图：pdf 首页 / 各页用 pdf.js，图片用 <img>
@@ -260,7 +260,7 @@ runBtn.addEventListener('click', async () => {
   busy = true;
   runBtn.disabled = true;
   clearAlert(runAlert);
-  setProgress('Getting ready…', 0.02);
+  setProgress(t('app.gettingReady'), 0.02);
   const files = tool.mode === 'pages' ? [items[0].file] : items.map((i) => i.file);
   const ctx = {
     progress: setProgress,
@@ -273,7 +273,7 @@ runBtn.addEventListener('click', async () => {
     showResult(files);
   } catch (e) {
     console.error(e);
-    alertIn(runAlert, (e as Error).message || 'Something went wrong. Please try another file.');
+    alertIn(runAlert, (e as Error).message || t('app.failed'));
     setProgress('', 0);
   } finally {
     busy = false;
@@ -289,7 +289,7 @@ async function showResult(inputs: File[]) {
   actions.innerHTML = '';
   preview.innerHTML = '';
   const total = outputs.reduce((s, o) => s + o.blob.size, 0);
-  meta.textContent = outputs.length === 1 ? `${outputs[0].name} · ${formatBytes(total)}` : `${plural(outputs.length, 'file')} · ${formatBytes(total)}`;
+  meta.textContent = outputs.length === 1 ? `${outputs[0].name} · ${formatBytes(total)}` : `${tn('app.files', outputs.length)} · ${formatBytes(total)}`;
   if (tool?.summary) meta.textContent += ` · ${tool.summary(inputs, outputs)}`;
   // 多个输出：主按钮下载 zip；文件不多时再列出单个文件
   const main = outputs.length > 1 ? await zipOutputs(outputs, `${stripExt(inputs[0].name)}_${cfg.slug.replace(/-pdf$/, '')}.zip`) : outputs[0];
@@ -302,7 +302,7 @@ async function showResult(inputs: File[]) {
     b.addEventListener('click', () => downloadBlob(o.blob, o.name));
     actions.appendChild(b);
   };
-  addButton(main, 'btn-primary', `${icon('#fff')} ${outputs.length > 1 ? 'Download all (.zip)' : 'Download'}`);
+  addButton(main, 'btn-primary', `${icon('#fff')} ${th(outputs.length > 1 ? 'app.downloadAll' : 'app.download')}`);
   if (outputs.length > 1 && outputs.length <= 6) for (const o of outputs) addButton(o, 'btn', `${icon('currentColor')} ${escapeHtml(o.name)}`);
   show('result');
   // 自动触发一次下载

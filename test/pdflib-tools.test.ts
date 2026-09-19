@@ -6,6 +6,10 @@ import rotate from '@/tools/rotate-pdf';
 import organize from '@/tools/organize-pdf';
 import pageNumbers from '@/tools/add-page-numbers';
 import { parseRanges } from '@/lib/files';
+import { setClientDict } from '@/lib/i18n-client';
+import en from '@/i18n/locales/en';
+
+setClientDict(en.client); // 浏览器里字典来自页面内嵌的 JSON；这里直接用英文字典
 
 async function makePdf(name: string, pages: number, w = 400, h = 600): Promise<File> {
   const doc = await PDFDocument.create();

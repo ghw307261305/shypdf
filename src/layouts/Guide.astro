@@ -1,5 +1,5 @@
 ---
-// 指南文章的公共外壳：标题、日期、Article 结构化数据、文末的工具入口。
+// 指南文章的公共外壳：标题、日期、Article 结构化数据、文末的工具入口。指南目前只有英文版（translated={false}）。
 import Base from '@/layouts/Base.astro';
 import { SITE } from '@/config/site';
 import { guideBySlug } from '@/data/guides';
@@ -8,7 +8,7 @@ import { toolBySlug } from '@/data/tools';
 interface Props { slug: string }
 const guide = guideBySlug(Astro.props.slug)!;
 const url = new URL(`/guides/${guide.slug}/`, SITE.url).href;
-const tools = guide.tools.map(toolBySlug).filter((t) => t && t.phase === 1);
+const tools = guide.tools.map((s) => toolBySlug(s, 'en')).filter((t) => t && t.phase === 1);
 const fmt = (iso: string) => new Date(iso + 'T00:00:00Z').toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' });
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -24,7 +24,7 @@ const jsonLd = {
   ],
 };
 ---
-<Base title={guide.title} description={guide.description} jsonLd={jsonLd}>
+<Base title={guide.title} description={guide.description} jsonLd={jsonLd} translated={false}>
   <article class="wrap prose guide">
     <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> › <a href="/guides/">Guides</a></nav>
     <h1>{guide.title}</h1>
