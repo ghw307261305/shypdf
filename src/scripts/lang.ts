@@ -16,8 +16,14 @@ for (const a of links) a.addEventListener('click', () => store.set(a.dataset.loc
 
 if (!store.get()) {
   const supported = new Map(links.filter((a) => a.dataset.suggest).map((a) => [a.dataset.locale!, a]));
-  // navigator.languages 形如 ['pt-BR', 'en-US']：取第一个我们支持的主语言
-  const preferred = (navigator.languages ?? [navigator.language]).map((l) => l.toLowerCase().split('-')[0]).find((l) => supported.has(l));
+  // navigator.languages 形如 ['pt-BR', 'en-US']：取第一个我们支持的主语言。
+  // 中文要看变体：繁体（zh-TW / zh-HK / zh-MO / zh-Hant*）→ zh-tw，其余中文 → zh
+  const toLocale = (tag: string) => {
+    const t = tag.toLowerCase();
+    if (t.startsWith('zh')) return /^zh-(tw|hk|mo|hant)/.test(t) ? 'zh-tw' : 'zh';
+    return t.split('-')[0];
+  };
+  const preferred = (navigator.languages ?? [navigator.language]).map(toLocale).find((l) => supported.has(l));
   const target = preferred && preferred !== current ? supported.get(preferred) : undefined;
   const bar = document.getElementById('lang-suggest');
   if (target && bar) {

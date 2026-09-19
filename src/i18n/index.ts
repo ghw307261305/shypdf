@@ -7,6 +7,8 @@ import pt from './locales/pt';
 import fr from './locales/fr';
 import de from './locales/de';
 import ja from './locales/ja';
+import zh from './locales/zh';
+import zhTw from './locales/zh-tw';
 import type { ToolContent } from './content/en';
 import cEn from './content/en';
 import cEs from './content/es';
@@ -14,14 +16,16 @@ import cPt from './content/pt';
 import cFr from './content/fr';
 import cDe from './content/de';
 import cJa from './content/ja';
+import cZh from './content/zh';
+import cZhTw from './content/zh-tw';
 
 export * from './config';
 export { fmt } from './format';
 export type { Dict, ToolContent };
 
-const DICTS: Record<Locale, Dict> = { en, es, pt, fr, de, ja };
+const DICTS: Record<Locale, Dict> = { en, es, pt, fr, de, ja, zh, 'zh-tw': zhTw };
 
-const CONTENT: Record<Locale, Record<string, ToolContent>> = { en: cEn, es: cEs, pt: cPt, fr: cFr, de: cDe, ja: cJa };
+const CONTENT: Record<Locale, Record<string, ToolContent>> = { en: cEn, es: cEs, pt: cPt, fr: cFr, de: cDe, ja: cJa, zh: cZh, 'zh-tw': cZhTw };
 
 export const getDict = (locale: Locale): Dict => DICTS[locale];
 
