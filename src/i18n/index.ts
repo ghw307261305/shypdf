@@ -29,7 +29,10 @@ export const getDict = (locale: Locale): Dict => DICTS[locale];
 export const getToolContent = (locale: Locale, slug: string): ToolContent | undefined => CONTENT[locale][slug];
 
 /** 嵌进工具页的客户端字典：通用部分 + 当前工具自己的 key */
+// 复用其它工具实现的页面（png-to-pdf 等）还要带上被复用工具的 key
+const CLIENT_ALIAS: Record<string, string> = { 'png-to-pdf': 'jpg-to-pdf', 'pdf-to-png': 'pdf-to-jpg' };
 export function clientDict(locale: Locale, slug: string): Record<string, unknown> {
   const keep = new Set(['app', 'lib', 'opt', slug]);
+  if (CLIENT_ALIAS[slug]) keep.add(CLIENT_ALIAS[slug]);
   return Object.fromEntries(Object.entries(DICTS[locale].client).filter(([k]) => keep.has(k.slice(0, k.indexOf('.')))));
 }

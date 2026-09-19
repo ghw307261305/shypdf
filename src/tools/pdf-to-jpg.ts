@@ -3,14 +3,15 @@ import { openWithPdfjs, renderPage, canvasToBlob } from '@/lib/pdfjs';
 import { stripExt, zipOutputs, parseRanges } from '@/lib/files';
 import { t, th } from '@/lib/i18n-client';
 
-const mod: ToolModule = {
+// pdf-to-png 页面复用同一实现，只是默认选中 PNG（见 makeMod）
+export const makeMod = (defFmt: 'jpg' | 'png'): ToolModule => ({
   mode: 'files',
   optionsHtml: () => `
     <fieldset class="opt-group">
       <legend>${th('pdf-to-jpg.format')}</legend>
       <div class="seg" role="radiogroup">
-        <label><input type="radio" name="format" value="jpg" checked><span>JPG</span></label>
-        <label><input type="radio" name="format" value="png"><span>PNG</span></label>
+        <label><input type="radio" name="format" value="jpg"${defFmt === 'jpg' ? ' checked' : ''}><span>JPG</span></label>
+        <label><input type="radio" name="format" value="png"${defFmt === 'png' ? ' checked' : ''}><span>PNG</span></label>
       </div>
     </fieldset>
     <fieldset class="opt-group">
@@ -49,5 +50,5 @@ const mod: ToolModule = {
     ctx.progress(t('pdf-to-jpg.zipping'), 0.98);
     return [await zipOutputs(outputs, `${base}_images.zip`)];
   },
-};
-export default mod;
+});
+export default makeMod('jpg');

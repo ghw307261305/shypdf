@@ -183,6 +183,101 @@ const content: Record<string, ToolContent> = {
         'Das ist eine einfache elektronische Signatur – vergleichbar mit der Unterschrift auf einem Ausdruck – und keine zertifikatsbasierte digitale Signatur. Für alltäglichen Papierkram wird sie weithin akzeptiert, manche Dokumente erfordern rechtlich aber mehr; frag im Zweifel den Empfänger. Damit die unterschriebene Datei nachträglich nicht bearbeitet werden kann, schick sie durch „PDF schützen“ und schränke das Bearbeiten ein.' ] },
     ],
   },
+  'crop-pdf': {
+    seoTitle: 'PDF zuschneiden – Ränder entfernen, ohne Upload | ShyPDF',
+    sections: [
+      { h: 'Ein PDF auf das Wesentliche zuschneiden', p: [
+        'Zieh einen einzigen Rahmen über den Bereich, der bleiben soll, und alles außerhalb wird abgeschnitten – auf jeder Seite oder nur auf der aktuellen. Breite Scannerränder, Lochungsränder, die leere Hälfte eines Folien-Handouts: in ein paar Sekunden verschwunden, mit Live-Vorschau, damit du genau siehst, wo der Schnitt landet.',
+        'Beim Zuschneiden wird die Crop-Box jeder Seite angepasst – die Einstellung, nach der jedes PDF-Programm entscheidet, was angezeigt und gedruckt wird. Der Seiteninhalt selbst wird weder neu gerendert noch neu komprimiert: Text bleibt markierbar, und Bilder bleiben scharf.' ] },
+      { h: 'Was Zuschneiden ist – und was nicht', p: [
+        'Weil sich nur der sichtbare Bereich ändert, steckt die vollständige Seite weiterhin in der Datei, und Tools, die die Crop-Box zurücksetzen, können die abgeschnittenen Teile zurückholen. Zum Aufräumen von Layouts ist Zuschneiden deshalb das richtige Werkzeug – zum Verbergen vertraulicher Informationen das falsche. Deck solche Inhalte stattdessen in „PDF bearbeiten“ mit einem schwarzen Kasten ab, damit sie tatsächlich übermalt werden.',
+        'Wie jedes ShyPDF-Tool läuft auch das Zuschneiden in deinem Browser; die Datei wird nie hochgeladen.' ] },
+    ],
+  },
+  'delete-pages': {
+    seoTitle: 'Seiten aus PDF löschen online – ohne Upload | ShyPDF',
+    sections: [
+      { h: 'Seiten mit Blick darauf entfernen – oder per Nummer', p: [
+        'Jede Seite erscheint als Miniatur. Klick auf das × bei den leeren Scannerseiten, dem überflüssigen Deckblatt, den doppelten Scans – und speichere den Rest als neues PDF. Kennst du die Nummern schon, tippst du sie stattdessen ein: 2, 5-7 löscht Seite 2 sowie die Seiten 5 bis 7 in einem Zug.',
+        'Die verbleibenden Seiten werden exakt so kopiert, wie sie sind, ohne erneute Komprimierung – die neue Datei verliert also nichts an Qualität. Dein Original-PDF wird nicht angerührt; du lädst eine kürzere Kopie herunter.' ] },
+      { h: 'Der übliche Grund: nur das verschicken, was sein muss', p: [
+        'Seiten löscht man selten zum Spaß – die Datei, die gekürzt wird, ist meist ein Kontoauszug, ein Vertrag oder ein Scan-Bündel auf dem Weg in ein fremdes Postfach. Weil das Kürzen im Browser passiert, wandert das vollständige Dokument – einschließlich der Seiten, die du entfernst – nie auf einen Server.' ] },
+    ],
+  },
+  'extract-pages': {
+    seoTitle: 'Seiten aus PDF extrahieren – ohne Upload | ShyPDF',
+    sections: [
+      { h: 'Ein neues PDF aus genau den Seiten, die du auswählst', p: [
+        'Gib Bereiche so ein, wie es ein Druckdialog akzeptiert – 1-3, 5, 8-10 –, und die ausgewählten Seiten werden in Dokumentreihenfolge in ein neues PDF kopiert. Das ist der schnellste Weg, um ein Kapitel aus einem Bericht zu ziehen, eine Anlage aus einer Akte oder die zwei Seiten, die ein Kunde wirklich braucht, aus einem vierzigseitigen Scan.',
+        'Die Seiten werden ohne erneute Komprimierung kopiert, der Auszug ist also pixelgenau identisch mit dem Original. Die Quelldatei bleibt unverändert.' ] },
+      { h: 'Extrahieren oder Teilen?', p: [
+        'Die beiden beantworten verschiedene Fragen. „PDF-Seiten extrahieren“ macht aus allem Ausgewählten eine einzige Datei – richtig, wenn das Ergebnis als ein Anhang verschickt werden soll. „PDF teilen“ erzeugt pro Bereich eine eigene Datei – richtig, wenn du ein Dokument zerlegst. Extrahierst du Seiten und willst sie danach in anderer Reihenfolge, schick das Ergebnis durch „PDF organisieren“.' ] },
+    ],
+  },
+  'edit-pdf': {
+    seoTitle: 'PDF bearbeiten online – Text & mehr, ohne Upload | ShyPDF',
+    sections: [
+      { h: 'Die Änderungen, die man wirklich braucht – ohne Editor-Suite', p: [
+        'Die meisten „PDF bearbeiten“-Momente sind klein: eine Textzeile dort einfügen, wo ein Formular Handschrift erwartet, die entscheidende Klausel hervorheben, eine alte Telefonnummer weiß abdecken und die neue darüber tippen. ShyPDF legt genau diese vier Handgriffe – Text, Hervorhebung, weißer Kasten, schwarzer Kasten – auf einen Klick. Element auf der Seite platzieren, an die richtige Stelle ziehen, über den Griff die Größe anpassen.',
+        'Der Text wird mit den Schriftarten deines Geräts gezeichnet – Chinesisch, Japanisch, Arabisch oder jede andere Schrift, die dein System darstellen kann, funktioniert also. Jede PDF-Seite behält ihre Qualität; deine Änderungen werden darübergezeichnet und sind in der gespeicherten Kopie fester Bestandteil der Seite.' ] },
+      { h: 'Ein PDF zu bearbeiten sollte nicht heißen, es hochzuladen', p: [
+        'Die PDFs, die man bearbeitet, sind Verträge, Anträge, Auszüge und Ausweise – Dokumente ganz oben auf der Liste dessen, was man nicht hochladen sollte. Hier passiert die gesamte Bearbeitung in deinem Browser-Tab; die Datei verlässt dein Gerät nie, und das Original auf der Festplatte bleibt unangetastet.',
+        'Ein PDF speichert gezeichnete Zeichen, keine bearbeitbaren Absätze – kein Browser-Tool kann vorhandenen Text direkt an Ort und Stelle umschreiben. Um ein Dokument neu zu formulieren, wandle es mit „PDF in Word“ um, bearbeite es richtig und wandle es mit „Word in PDF“ zurück.' ] },
+    ],
+  },
+  'fill-pdf': {
+    seoTitle: 'PDF-Formular ausfüllen online – ohne Upload | ShyPDF',
+    sections: [
+      { h: 'In echte Formularfelder tippen', p: [
+        'Hat dein PDF richtige Formularfelder – die Sorte, bei der beim Klicken ein Cursor erscheint –, listet ShyPDF jedes Textfeld, Kontrollkästchen, Optionsfeld und jede Auswahlliste in Dokumentreihenfolge auf, bereit zum Ausfüllen über die Tastatur. Daneben liegt eine Seitenvorschau, in der du das Ergebnis laufend prüfen kannst.',
+        'Beim Speichern werden die Antworten in das Formular selbst geschrieben. Mit dem Häkchen bei „Formular fixieren“ werden sie in festen Seiteninhalt umgewandelt: Nichts lässt sich danach bearbeiten oder versehentlich löschen, und das Formular sieht in jedem PDF-Programm gleich aus – die sicherste Wahl, wenn die nächste Station ein fremdes Postfach ist.' ] },
+      { h: 'Formulare sind genau die Dateien, die lokal bleiben sollten', p: [
+        'Ein ausgefülltes Formular steckt voller persönlicher Daten: Namen, Adressen, Ausweisnummern, Gehaltsangaben. Wird es im Browser ausgefüllt, erreichen weder das leere Formular noch deine Antworten je einen Server.',
+        'Passiert in anderen Programmen nichts, wenn du auf die Felder klickst, ist das PDF vermutlich ein gescanntes oder „gedrucktes“ Formular ohne echte Felder. ShyPDF sagt dir das dann auch – nutze „PDF bearbeiten“, um über ein solches Formular zu tippen, und „PDF unterschreiben“ für die Unterschrift.' ] },
+    ],
+  },
+  'png-to-pdf': {
+    seoTitle: 'PNG in PDF umwandeln – kostenlos, ohne Upload | ShyPDF',
+    sections: [
+      { h: 'Aus Screenshots und Grafiken wird ein sauberes PDF', p: [
+        'PNG ist das Format für Screenshots, Diagramme, Charts und exportierte Folien – Bilder mit scharfen Kanten und exakten Farben. ShyPDF setzt jedes Bild auf eine eigene PDF-Seite, in der Reihenfolge, die du durch Ziehen der Karten festlegst. Behalte für jede Seite die natürliche Größe des Bildes bei oder wähle A4 / Letter für einheitliche Seiten, die sich verlässlich drucken lassen.',
+        'PNGs werden ohne erneute Komprimierung eingebettet – ein Screenshot im PDF ist Pixel für Pixel der Screenshot, den du gemacht hast. Transparente Bereiche liegen auf dem weißen Seitenhintergrund. JPG- und WebP-Bilder lassen sich frei dazumischen.' ] },
+      { h: 'Umgewandelt auf deinem Gerät', p: [
+        'Screenshots enthalten gern mehr als beabsichtigt – Namen, Kontonummern, den halben E-Mail-Verlauf. Die Umwandlung läuft vollständig in deinem Browser, die Bilder verlassen dein Gerät also nie. Muss das Ergebnis klein genug für eine E-Mail sein, setz das Häkchen bei „Bilder komprimieren“.' ] },
+    ],
+  },
+  'pdf-to-png': {
+    seoTitle: 'PDF in PNG umwandeln – kostenlos, ohne Upload | ShyPDF',
+    sections: [
+      { h: 'Verlustfreie Bilder jeder Seite', p: [
+        'Jede Seite des PDFs wird als PNG gerendert – das richtige Format, wenn die Seite Text, Tabellen, Diagramme oder Programmoberflächen zeigt: Kanten bleiben gestochen scharf, Farben exakt, und es gibt keine der Kompressionsartefakte, die JPG rund um Buchstaben hinterlässt. Wandle die ganze Datei um oder nur die Seiten, die du angibst – mit 96, 150 oder 300 dpi, je nachdem, wohin das Bild soll.',
+        'Mehrere Seiten kommen gebündelt in einem einzigen zip an. Du brauchst kleinere Dateien für fotolastige Seiten? Die JPG-Option liegt im selben Tool nur einen Klick entfernt.' ] },
+      { h: 'Gerendert von deinem eigenen Browser', p: [
+        'Die Seiten zeichnet PDF.js lokal – die Engine aus Firefox –, und das PDF wird nie hochgeladen. Eine Folie, die du für eine Präsentation in ein PNG verwandelst, oder eine Auszugsseite, die ein Antragsportal als Bild verlangt, bleibt den ganzen Weg über auf deinem Gerät.' ] },
+    ],
+  },
+  'pdf-to-text': {
+    seoTitle: 'PDF in Text umwandeln – reiner Text, ohne Upload | ShyPDF',
+    sections: [
+      { h: 'Alle Wörter, nichts von der Formatierung', p: [
+        'ShyPDF liest die Textebene des PDFs und schreibt sie in eine reine .txt-Datei: Zeilenumbrüche bleiben erhalten, Seiten werden auf Wunsch markiert, alles andere fällt weg. Genau das braucht man, um ein Dokument an ein Skript, ein Übersetzungstool oder ein KI-Modell zu geben, für Wortzählungen oder zum Einfügen an Stellen, die sich mit PDF-Formatierung schwertun.',
+        'Mit Bereichen wie 1-3, 5 beschränkst du die Extraktion auf bestimmte Seiten. Dank der Seitenumbruch-Markierungen lässt sich jede Zeile leicht dorthin zurückverfolgen, wo sie herkommt.' ] },
+      { h: 'Wenn die Ausgabe leer zurückkommt', p: [
+        'Ein gescanntes PDF hat keine Textebene – es besteht aus Fotografien von Text –, es gibt also nichts zu extrahieren. Schick den Scan stattdessen durch „OCR PDF“; es erkennt die Wörter in den Seitenbildern und kann reinen Text direkt ausgeben. Und wenn du Struktur statt Rohtext brauchst – Absätze, Überschriften, Tabellen –, baut „PDF in Word“ ein bearbeitbares Dokument auf.',
+        'Die Extraktion läuft in deinem Browser. Verträge, medizinische Unterlagen und alles andere, was man nicht in eine beliebige Website einfügen würde, verlassen dein Gerät nie.' ] },
+    ],
+  },
+  'repair-pdf': {
+    seoTitle: 'PDF reparieren online – defekte Dateien retten | ShyPDF',
+    sections: [
+      { h: 'Warum sich kaputte PDFs oft retten lassen', p: [
+        'Ein PDF, das sich „nicht öffnen lässt“, ist meist strukturell beschädigt, nicht leer: Der Download brach ab, ein E-Mail-Gateway hat die Datei verstümmelt, oder das Erzeugerprogramm hat einen schlampigen Index geschrieben. Die Seitendaten stecken noch in der Datei – das PDF-Programm findet nur den Weg dorthin nicht mehr. ShyPDF übergibt die Datei an qpdf, eine seit Jahrzehnten bewährte PDF-Bibliothek, die alles Rettbare liest und darum eine frische, wohlgeformte Datei aufbaut: neue Querverweistabellen, saubere Objektstruktur, derselbe Inhalt.',
+        'Wird die reparierte Kopie heruntergeladen, öffne sie und prüfe die Seiten. Meldet qpdf, dass die Datei nicht mehr zu retten ist, sind die fehlenden Bytes wirklich weg – besorg dir eine frische Kopie aus der Quelle: erneut herunterladen, erneut exportieren oder den Absender um einen neuen Versand bitten.' ] },
+      { h: 'Reparieren, ohne die Datei aus der Hand zu geben', p: [
+        'Beschädigte Dateien sind meist ausgerechnet die wichtigen – die Rechnung aus dem Archiv, der unterschriebene Vertrag aus einem alten Backup. Der Neuaufbau läuft per WebAssembly in deinem Browser; die defekte und die reparierte Datei bleiben beide auf deinem Gerät.',
+        'Ein PDF, das nach einem Passwort fragt, ist nicht beschädigt, sondern verschlüsselt. Entsperr es zuerst mit „PDF entsperren“ (du brauchst das Passwort) und repariere es dann, falls es weiterhin Ärger macht.' ] },
+    ],
+  },
 };
 
 export default content;

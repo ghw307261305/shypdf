@@ -183,6 +183,101 @@ const content: Record<string, ToolContent> = {
         'Esta é uma assinatura eletrônica simples — o equivalente a assinar uma folha impressa — e não uma assinatura digital baseada em certificado. Ela é amplamente aceita na papelada do dia a dia, mas alguns documentos exigem mais por lei; na dúvida, pergunte ao destinatário. Para impedir que o arquivo assinado seja editado depois, passe-o pela ferramenta Proteger PDF e restrinja a edição.' ] },
     ],
   },
+  'crop-pdf': {
+    seoTitle: 'Recortar PDF online — corte margens, sem upload | ShyPDF',
+    sections: [
+      { h: 'Corte o PDF para deixar só o que importa', p: [
+        'Arraste uma única caixa sobre a área que quer manter e tudo o que fica fora dela é cortado — em todas as páginas ou só na atual. Margens largas de scanner, bordas com furos de fichário, a metade vazia de uma apostila de slides: tudo some em alguns segundos, com uma pré-visualização ao vivo para você ver exatamente onde o corte cai.',
+        'O recorte ajusta a caixa de recorte de cada página, a configuração que todo leitor de PDF usa para decidir o que exibir e imprimir. O conteúdo da página não é renderizado de novo nem recomprimido, então o texto continua selecionável e as imagens continuam nítidas.' ] },
+      { h: 'O que o recorte é — e o que não é', p: [
+        'Como só a área visível muda, a página inteira continua guardada dentro do arquivo, e ferramentas que redefinem a caixa de recorte podem trazer de volta as partes cortadas. Isso faz do recorte a ferramenta certa para arrumar layouts, e a errada para esconder informações confidenciais — para isso, cubra o conteúdo com uma caixa preta na ferramenta Editar PDF, que realmente pinta por cima.',
+        'Como toda ferramenta do ShyPDF, o recorte roda no seu navegador; o arquivo nunca é enviado.' ] },
+    ],
+  },
+  'delete-pages': {
+    seoTitle: 'Excluir páginas de PDF online — sem upload | ShyPDF',
+    sections: [
+      { h: 'Remova páginas olhando para elas, ou pelo número', p: [
+        'Todas as páginas aparecem como miniaturas. Clique em × nas páginas em branco do scanner, na folha de rosto que você não precisa, nas digitalizações duplicadas — e salve o que sobrou como um novo PDF. Se você já sabe os números, digite-os: 2, 5-7 exclui a página 2 e as páginas 5 a 7 de uma vez.',
+        'As páginas restantes são copiadas exatamente como estão, sem recompressão, então o novo arquivo não perde nada em qualidade. Seu PDF original não é tocado; você baixa uma cópia mais curta.' ] },
+      { h: 'O motivo de sempre: enviar só o necessário', p: [
+        'Ninguém exclui páginas por diversão — o arquivo sendo enxugado geralmente é um extrato bancário, um contrato ou um pacote de digitalizações a caminho da caixa de entrada de outra pessoa. Fazer o corte no seu navegador significa que o documento completo, incluindo as páginas que você está removendo, nunca viaja até um servidor.' ] },
+    ],
+  },
+  'extract-pages': {
+    seoTitle: 'Extrair páginas de PDF — novo arquivo, sem upload | ShyPDF',
+    sections: [
+      { h: 'Um novo PDF só com as páginas que você escolher', p: [
+        'Digite os intervalos como uma janela de impressão aceita — 1-3, 5, 8-10 — e as páginas selecionadas são copiadas, na ordem do documento, para um único PDF novo. É o jeito mais rápido de tirar um capítulo de um relatório, um anexo de um processo ou as duas páginas que o cliente realmente precisa de uma digitalização de quarenta.',
+        'As páginas são copiadas sem recompressão, então o resultado é idêntico ao original, pixel por pixel. O arquivo de origem fica como está.' ] },
+      { h: 'Extrair ou Dividir?', p: [
+        'Elas respondem a perguntas diferentes. A ferramenta Extrair páginas de PDF gera um único arquivo com tudo o que você seleciona — o certo quando o resultado deve viajar como um único anexo. A Dividir PDF gera um arquivo separado por intervalo — o certo quando você está desmontando um documento. Se você extrair as páginas e depois quiser outra ordem, passe o resultado pela ferramenta Organizar PDF.' ] },
+    ],
+  },
+  'edit-pdf': {
+    seoTitle: 'Editar PDF online — texto e destaques, sem upload | ShyPDF',
+    sections: [
+      { h: 'As edições que as pessoas realmente precisam, sem um editor completo', p: [
+        'A maioria dos momentos de “editar um PDF” é pequena: adicionar uma linha de texto onde o formulário espera letra de mão, destacar a cláusula que importa, cobrir com corretivo um telefone antigo e digitar o novo por cima. O ShyPDF deixa esses quatro movimentos — texto, destaque, corretivo, caixa preta — a um clique de distância. Coloque um elemento na página, arraste-o até a posição certa e mude o tamanho pela alça no canto.',
+        'O texto é desenhado com as fontes do seu dispositivo, então chinês, japonês, árabe ou qualquer outra escrita que seu sistema exiba funciona. Cada página do PDF mantém a qualidade; suas edições são desenhadas por cima e se tornam parte permanente da cópia salva.' ] },
+      { h: 'Editar um PDF não deveria significar enviá-lo', p: [
+        'Os PDFs que as pessoas editam são contratos, inscrições, extratos e documentos de identidade — documentos no topo da lista do que não se deve enviar para a internet. Aqui toda a edição acontece na aba do seu navegador; o arquivo nunca sai do seu dispositivo, e o original no disco fica intocado.',
+        'Um PDF guarda caracteres desenhados, não parágrafos editáveis, então nenhuma ferramenta de navegador consegue redigitar o texto existente no lugar. Para reescrever um documento, converta-o com a ferramenta PDF para Word, edite-o com calma e converta de volta com a Word para PDF.' ] },
+    ],
+  },
+  'fill-pdf': {
+    seoTitle: 'Preencher formulário PDF online — sem upload | ShyPDF',
+    sections: [
+      { h: 'Digite em campos de formulário de verdade', p: [
+        'Se o seu PDF tem campos de formulário de verdade — daqueles em que o cursor aparece quando você clica —, o ShyPDF lista todos os campos de texto, caixas de seleção, botões de opção e listas suspensas, na ordem do documento, prontos para preencher pelo teclado. Uma pré-visualização da página fica ao lado, para você conferir o resultado enquanto avança.',
+        'Ao salvar, as respostas são gravadas no próprio formulário. Marque “Achatar o formulário” e elas são convertidas em conteúdo fixo da página: nada pode ser editado ou apagado sem querer depois, e o formulário aparece igual em qualquer leitor — a escolha mais segura quando o próximo destino é a caixa de entrada de alguém.' ] },
+      { h: 'Formulários são exatamente os arquivos que deveriam ficar no dispositivo', p: [
+        'Um formulário preenchido é cheio de dados pessoais: nomes, endereços, números de documentos, valores de salário. Preenchê-lo no navegador significa que nem o formulário em branco nem as suas respostas chegam a um servidor.',
+        'Se nada acontece quando você clica nos campos em outros aplicativos, o PDF provavelmente é um formulário digitalizado ou “impresso”, sem campos de verdade. O ShyPDF avisa quando é o caso — use a ferramenta Editar PDF para digitar por cima de um formulário assim, e a Assinar PDF para adicionar a assinatura.' ] },
+    ],
+  },
+  'png-to-pdf': {
+    seoTitle: 'PNG para PDF — converta grátis, sem upload | ShyPDF',
+    sections: [
+      { h: 'Capturas de tela e gráficos em um único PDF limpo', p: [
+        'PNG é o formato das capturas de tela, dos diagramas, dos gráficos e dos slides exportados — imagens com contornos definidos e cores exatas. O ShyPDF coloca cada imagem em uma página própria do PDF, na ordem que você define arrastando os cartões. Mantenha cada página no tamanho natural da imagem, ou escolha A4 / Letter para páginas uniformes que imprimem de forma previsível.',
+        'Os PNGs são incorporados sem recompressão, então uma captura de tela no PDF é, pixel por pixel, a captura que você fez. As áreas transparentes ficam sobre o fundo branco da página. Imagens JPG e WebP podem ser misturadas à vontade.' ] },
+      { h: 'Convertido no seu dispositivo', p: [
+        'Capturas de tela têm a mania de conter mais do que se pretendia — nomes, números de conta, metade de uma conversa de e-mail. A conversão roda inteiramente no seu navegador, então as imagens nunca saem do seu dispositivo. Se o resultado precisar ser pequeno o bastante para ir por e-mail, marque “Comprimir imagens”.' ] },
+    ],
+  },
+  'pdf-to-png': {
+    seoTitle: 'PDF para PNG — converta grátis, sem upload | ShyPDF',
+    sections: [
+      { h: 'Imagens sem perdas de cada página', p: [
+        'Cada página do PDF é renderizada como PNG — o formato certo quando a página tem texto, tabelas, diagramas ou telas de aplicativos: os contornos ficam nítidos, as cores ficam exatas e não há os artefatos de compressão que o JPG deixa ao redor das letras. Converta o arquivo inteiro ou só as páginas que você listar, a 96, 150 ou 300 dpi, dependendo do destino da imagem.',
+        'Várias páginas chegam reunidas em um único zip. Precisa de arquivos menores para páginas cheias de fotos? A opção JPG está a um clique, na mesma ferramenta.' ] },
+      { h: 'Renderizado pelo seu próprio navegador', p: [
+        'As páginas são desenhadas localmente pelo PDF.js — o mecanismo que vem dentro do Firefox — e o PDF nunca é enviado. Um slide que você transforma em PNG para uma apresentação, ou a página de um extrato de que você precisa como imagem para um portal de inscrição, fica no seu dispositivo do começo ao fim.' ] },
+    ],
+  },
+  'pdf-to-text': {
+    seoTitle: 'PDF para Texto — extraia texto simples, sem upload | ShyPDF',
+    sections: [
+      { h: 'Todas as palavras, nada da formatação', p: [
+        'O ShyPDF lê a camada de texto do PDF e a grava em um arquivo .txt simples: as quebras de linha são mantidas, as páginas podem ser marcadas, e todo o resto é removido. É exatamente o que você quer para entregar um documento a um script, a uma ferramenta de tradução ou a um modelo de IA, para contar palavras ou para colar em algum lugar que briga com a formatação de PDF.',
+        'Limite a extração a certas páginas com intervalos como 1-3, 5. Os marcadores de quebra de página facilitam rastrear qualquer linha de volta até a origem.' ] },
+      { h: 'Quando a saída vem vazia', p: [
+        'Um PDF digitalizado não tem camada de texto — é uma fotografia de texto —, então não há nada para extrair. Passe a digitalização pela ferramenta OCR PDF; ela reconhece as palavras nas imagens das páginas e pode gerar texto simples diretamente. E quando você precisa de estrutura em vez de texto bruto — parágrafos, títulos, tabelas —, a ferramenta PDF para Word reconstrói um documento editável.',
+        'A extração acontece no seu navegador. Para contratos, prontuários médicos e tudo o mais que você não colaria em um site qualquer, o arquivo nunca sai do seu dispositivo.' ] },
+    ],
+  },
+  'repair-pdf': {
+    seoTitle: 'Reparar PDF online — conserte arquivos corrompidos | ShyPDF',
+    sections: [
+      { h: 'Por que PDFs quebrados muitas vezes podem ser salvos', p: [
+        'Um PDF que “não abre” geralmente está danificado na estrutura, não vazio: o download foi interrompido, um servidor de e-mail o corrompeu, ou o programa que o gerou gravou um índice malfeito. Os dados das páginas ainda estão no arquivo — o leitor só não consegue chegar até eles. O ShyPDF entrega o arquivo ao qpdf, uma biblioteca de PDF confiável há décadas, que lê o que for recuperável e grava ao redor disso um arquivo novo e bem formado: novas tabelas de referências cruzadas, estrutura de objetos limpa, mesmo conteúdo.',
+        'Se a cópia reparada for baixada, abra-a e confira as páginas. Se o qpdf informar que o arquivo não tem conserto, os bytes que faltam realmente se perderam — consiga uma cópia nova na fonte: baixe de novo, exporte de novo ou peça ao remetente que envie outra vez.' ] },
+      { h: 'Repare sem entregar o arquivo a ninguém', p: [
+        'Arquivos danificados costumam ser justamente os importantes — a fatura do arquivo morto, o contrato assinado de um backup antigo. A reconstrução roda no seu navegador via WebAssembly; tanto o arquivo quebrado quanto o reparado ficam no seu dispositivo.',
+        'Um PDF que pede senha não está danificado, está criptografado. Desbloqueie-o antes com a ferramenta Desbloquear PDF (você precisa da senha) e depois repare, se ele continuar com problemas.' ] },
+    ],
+  },
 };
 
 export default content;

@@ -193,6 +193,101 @@ const content: Record<string, ToolContent> = {
         'This is a simple electronic signature — the equivalent of signing a printout — and not a certificate-based digital signature. It is widely accepted for everyday paperwork, but some documents legally require more; ask the recipient if you are unsure. To stop the signed file from being edited afterwards, run it through Protect PDF and restrict editing.' ] },
     ],
   },
+  'crop-pdf': {
+    seoTitle: 'Crop PDF Online — Trim Margins, No Upload | ShyPDF',
+    sections: [
+      { h: 'Trim a PDF down to what matters', p: [
+        'Drag one box over the area you want to keep and everything outside it is trimmed away — on every page, or just the current one. Wide scanner margins, binder-hole edges, the empty half of a slide handout: gone in a couple of seconds, with a live preview so you can see exactly where the cut lands.',
+        'Cropping adjusts each page’s crop box, the setting every PDF reader uses to decide what to display and print. The page content itself is not re-rendered or re-compressed, so text stays selectable and images stay sharp.' ] },
+      { h: 'What cropping is — and is not', p: [
+        'Because only the visible area changes, the full page is still stored inside the file, and tools that reset the crop box can bring the trimmed parts back. That makes cropping the right tool for tidying layouts, and the wrong tool for hiding confidential information — for that, cover the content with a black box in Edit PDF so it is actually painted over.',
+        'Like every ShyPDF tool, cropping runs in your browser; the file is never uploaded.' ] },
+    ],
+  },
+  'delete-pages': {
+    seoTitle: 'Delete Pages from PDF Online — No Upload | ShyPDF',
+    sections: [
+      { h: 'Remove pages by looking at them, or by number', p: [
+        'Every page shows up as a thumbnail. Click × on the blank scanner pages, the cover sheet you don’t need, the duplicate scans — then save what is left as a new PDF. When you already know the numbers, type them instead: 2, 5-7 deletes page 2 and pages 5 through 7 in one go.',
+        'The remaining pages are copied over exactly as they are, without re-compression, so the new file loses nothing in quality. Your original PDF is not touched; you download a shorter copy.' ] },
+      { h: 'The usual reason: sending only what you must', p: [
+        'People rarely delete pages for fun — the file being trimmed is usually a bank statement, a contract or a scan bundle heading to someone else’s inbox. Doing the trimming in your browser means the full document, including the pages you are removing, never travels to a server.' ] },
+    ],
+  },
+  'extract-pages': {
+    seoTitle: 'Extract Pages from PDF into a New File — No Upload | ShyPDF',
+    sections: [
+      { h: 'A new PDF made of just the pages you pick', p: [
+        'Type ranges the way a print dialog accepts them — 1-3, 5, 8-10 — and the selected pages are copied, in document order, into one new PDF. It is the quickest way to pull one chapter out of a report, one exhibit out of a filing, or the two pages a client actually needs out of a forty-page scan.',
+        'Pages are copied without re-compression, so the extract is pixel-identical to the original. The source file stays as it is.' ] },
+      { h: 'Extract or Split?', p: [
+        'They answer different questions. Extract PDF pages makes one file from everything you select — right when the result should travel as a single attachment. Split PDF makes a separate file per range — right when you are breaking a document apart. If you extract pages and then want them in a different order, run the result through Organize PDF.' ] },
+    ],
+  },
+  'edit-pdf': {
+    seoTitle: 'Edit PDF Online — Add Text & Highlights, No Upload | ShyPDF',
+    sections: [
+      { h: 'The edits people actually need, without an editor suite', p: [
+        'Most “edit a PDF” moments are small: add a line of text where a form expects handwriting, highlight the clause that matters, white-out an old phone number and type the new one over it. ShyPDF puts those four moves — text, highlight, white-out, black box — one click away. Place an element on the page, drag it into position, resize it by its corner handle.',
+        'Text is drawn using the fonts on your device, so Chinese, Japanese, Arabic or any other script your system can display works. Each PDF page keeps its quality; your edits are drawn on top and become a permanent part of the saved copy.' ] },
+      { h: 'Editing a PDF should not mean uploading it', p: [
+        'The PDFs people edit are contracts, applications, statements and IDs — documents at the top of the do-not-upload list. Here the whole edit happens in your browser tab; the file never leaves your device, and the original on disk stays untouched.',
+        'A PDF stores drawn characters rather than editable paragraphs, so no browser tool can retype existing text in place. To rewrite a document, convert it with PDF to Word, edit properly, and convert back with Word to PDF.' ] },
+    ],
+  },
+  'fill-pdf': {
+    seoTitle: 'Fill PDF Form Online — Free, No Upload | ShyPDF',
+    sections: [
+      { h: 'Type into real form fields', p: [
+        'If your PDF has proper form fields — the kind where a cursor appears when you click — ShyPDF lists every text box, checkbox, radio button and dropdown, in document order, ready to fill from your keyboard. A page preview sits alongside so you can check the result as you go.',
+        'When you save, the answers are written into the form itself. Tick “Flatten the form” and they are converted to fixed page content: nothing can be edited or accidentally cleared afterwards, and the form displays identically everywhere — the safest choice when the next stop is someone’s inbox.' ] },
+      { h: 'Forms are exactly the files that should stay local', p: [
+        'A filled form is dense with personal data: names, addresses, ID numbers, salary figures. Filling it in your browser means neither the blank form nor your answers ever reach a server.',
+        'If nothing happens when you click the fields in other apps, the PDF is probably a scanned or “printed” form with no real fields in it. ShyPDF will tell you so — use Edit PDF to type over such a form, and Sign PDF to add the signature.' ] },
+    ],
+  },
+  'png-to-pdf': {
+    seoTitle: 'PNG to PDF Converter — Free, No Upload | ShyPDF',
+    sections: [
+      { h: 'Screenshots and graphics into one clean PDF', p: [
+        'PNG is the format of screenshots, diagrams, charts and exported slides — images with sharp edges and exact colors. ShyPDF places each image on its own PDF page, in the order you set by dragging the cards. Keep every page at its image’s natural size, or pick A4 / Letter for uniform pages that print predictably.',
+        'PNGs are embedded without recompression, so a screenshot in the PDF is pixel-for-pixel the screenshot you took. Transparent areas sit on the white page background. JPG and WebP images can be mixed in freely.' ] },
+      { h: 'Converted on your device', p: [
+        'Screenshots have a habit of containing more than intended — names, account numbers, half an email thread. The conversion runs entirely in your browser, so the images never leave your device. If the result needs to be small enough to email, tick “Compress images”.' ] },
+    ],
+  },
+  'pdf-to-png': {
+    seoTitle: 'PDF to PNG Converter — Free, No Upload | ShyPDF',
+    sections: [
+      { h: 'Lossless images of every page', p: [
+        'Each page of the PDF is rendered to a PNG — the right format when the page holds text, tables, diagrams or UI: edges stay crisp, colors stay exact, and there are none of the compression artifacts JPG leaves around letters. Convert the whole file or just the pages you list, at 96, 150 or 300 dpi depending on where the image is headed.',
+        'Multiple pages arrive bundled in one zip. Need smaller files for photo-heavy pages? The JPG option is one click away in the same tool.' ] },
+      { h: 'Rendered by your own browser', p: [
+        'Pages are drawn locally by PDF.js — the engine inside Firefox — and the PDF is never uploaded. A slide you turn into a PNG for a presentation, or a statement page you need as an image for an application portal, stays on your device the whole way.' ] },
+    ],
+  },
+  'pdf-to-text': {
+    seoTitle: 'PDF to Text — Extract Plain Text Online, No Upload | ShyPDF',
+    sections: [
+      { h: 'All the words, none of the formatting', p: [
+        'ShyPDF reads the text layer of the PDF and writes it to a plain .txt file: line breaks kept, pages optionally marked, everything else stripped. That is exactly what you want for feeding a document to a script, a translation tool or an AI model, for word counts, or for pasting somewhere that fights PDF formatting.',
+        'Limit the extraction to certain pages with ranges like 1-3, 5. The page-break markers make it easy to trace any line back to where it came from.' ] },
+      { h: 'When the output comes back empty', p: [
+        'A scanned PDF has no text layer — it is photographs of text — so there is nothing to extract. Run the scan through OCR PDF instead; it recognizes the words in the page images and can output plain text directly. And when you need structure rather than raw text — paragraphs, headings, tables — PDF to Word rebuilds an editable document.',
+        'Extraction happens in your browser. For contracts, medical records and anything else you would not paste into a random website, the file never leaves your device.' ] },
+    ],
+  },
+  'repair-pdf': {
+    seoTitle: 'Repair PDF Online — Fix Corrupt Files, No Upload | ShyPDF',
+    sections: [
+      { h: 'Why broken PDFs can often be saved', p: [
+        'A PDF that “won’t open” is usually structurally damaged, not empty: the download was cut short, an email gateway mangled it, or the program that made it wrote a sloppy index. The page data is still in the file — the reader just can’t find its way to it. ShyPDF hands the file to qpdf, a PDF library trusted for decades, which reads whatever is recoverable and writes a fresh, well-formed file around it: new cross-reference tables, clean object structure, same content.',
+        'If the repaired copy downloads, open it and check the pages. If qpdf reports the file beyond repair, the missing bytes are truly gone — get a fresh copy from the source: re-download it, re-export it, or ask the sender to send it again.' ] },
+      { h: 'Repair without handing the file over', p: [
+        'Damaged files tend to be the important ones — the invoice from the archive, the signed contract from an old backup. The rebuild runs in your browser via WebAssembly; the broken file and the repaired one both stay on your device.',
+        'A PDF that asks for a password is not damaged, it is encrypted. Unlock it first with Unlock PDF (you need the password), then repair if it still misbehaves.' ] },
+    ],
+  },
 };
 
 export default content;

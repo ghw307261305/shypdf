@@ -183,6 +183,101 @@ const content: Record<string, ToolContent> = {
         'Il s’agit d’une signature électronique simple — l’équivalent d’une signature sur une version imprimée — et non d’une signature numérique fondée sur un certificat. Elle est largement acceptée pour les démarches courantes, mais certains documents exigent légalement davantage ; en cas de doute, demandez au destinataire. Pour empêcher que le fichier signé soit modifié par la suite, passez-le par Protéger PDF et interdisez la modification.' ] },
     ],
   },
+  'crop-pdf': {
+    seoTitle: 'Rogner PDF — couper les marges, sans envoi | ShyPDF',
+    sections: [
+      { h: 'Ne gardez d’un PDF que l’essentiel', p: [
+        'Faites glisser un seul cadre sur la zone à conserver : tout ce qui dépasse est rogné — sur toutes les pages, ou seulement sur la page affichée. Larges marges de scanner, bords perforés d’un classeur, moitié vide d’un support de présentation : tout disparaît en quelques secondes, avec un aperçu en direct pour voir exactement où tombe la coupe.',
+        'Le rognage ajuste le cadre de rognage de chaque page — le réglage que tous les lecteurs PDF utilisent pour décider quoi afficher et imprimer. Le contenu de la page n’est ni redessiné ni recompressé : le texte reste sélectionnable et les images gardent leur netteté.' ] },
+      { h: 'Ce que le rognage est — et n’est pas', p: [
+        'Comme seule la zone visible change, la page complète reste enregistrée dans le fichier, et les outils qui réinitialisent le cadre de rognage peuvent faire réapparaître les parties coupées. Le rognage est donc le bon outil pour nettoyer une mise en page, et le mauvais pour cacher des informations confidentielles — dans ce cas, recouvrez le contenu d’un rectangle noir dans Modifier PDF, pour qu’il soit réellement peint par-dessus.',
+        'Comme tous les outils ShyPDF, le rognage s’exécute dans votre navigateur ; le fichier n’est jamais envoyé sur un serveur.' ] },
+    ],
+  },
+  'delete-pages': {
+    seoTitle: 'Supprimer des pages d’un PDF — sans envoi | ShyPDF',
+    sections: [
+      { h: 'Retirez des pages en les voyant, ou par leur numéro', p: [
+        'Chaque page apparaît sous forme de miniature. Cliquez sur × sur les pages blanches du scanner, la page de garde inutile, les numérisations en double — puis enregistrez ce qui reste dans un nouveau PDF. Si vous connaissez déjà les numéros, saisissez-les plutôt : 2, 5-7 supprime la page 2 et les pages 5 à 7 d’un seul coup.',
+        'Les pages restantes sont copiées telles quelles, sans recompression : le nouveau fichier ne perd rien en qualité. Votre PDF d’origine n’est pas touché ; vous téléchargez une copie raccourcie.' ] },
+      { h: 'La raison habituelle : n’envoyer que le nécessaire', p: [
+        'On supprime rarement des pages pour le plaisir : le fichier que l’on allège est en général un relevé bancaire, un contrat ou un lot de scans en route vers la boîte de réception de quelqu’un d’autre. Faire ce tri dans votre navigateur signifie que le document complet, y compris les pages que vous retirez, ne transite jamais par un serveur.' ] },
+    ],
+  },
+  'extract-pages': {
+    seoTitle: 'Extraire des pages d’un PDF — sans envoi | ShyPDF',
+    sections: [
+      { h: 'Un nouveau PDF composé des seules pages choisies', p: [
+        'Saisissez les plages comme dans une boîte de dialogue d’impression — 1-3, 5, 8-10 — et les pages sélectionnées sont copiées, dans l’ordre du document, dans un seul nouveau PDF. C’est le moyen le plus rapide de tirer un chapitre d’un rapport, une pièce d’un dossier, ou les deux pages dont un client a réellement besoin dans un scan de quarante pages.',
+        'Les pages sont copiées sans recompression : l’extrait est identique au pixel près à l’original. Le fichier source reste tel quel.' ] },
+      { h: 'Extraire ou Diviser ?', p: [
+        'Les deux outils répondent à des questions différentes. Extraire des pages PDF crée un seul fichier à partir de tout ce que vous sélectionnez — parfait quand le résultat doit voyager en une seule pièce jointe. Diviser PDF crée un fichier distinct par plage — parfait quand vous découpez un document en morceaux. Si vous extrayez des pages et voulez ensuite en changer l’ordre, passez le résultat par Organiser PDF.' ] },
+    ],
+  },
+  'edit-pdf': {
+    seoTitle: 'Modifier PDF en ligne — texte, surlignage, sans envoi | ShyPDF',
+    sections: [
+      { h: 'Les retouches dont on a vraiment besoin, sans suite logicielle', p: [
+        'La plupart des modifications de PDF sont modestes : ajouter une ligne de texte là où un formulaire attend une écriture manuscrite, surligner la clause qui compte, masquer un ancien numéro de téléphone d’un rectangle blanc et taper le nouveau par-dessus. ShyPDF met ces quatre gestes — texte, surlignage, rectangle blanc, rectangle noir — à un clic. Placez un élément sur la page, faites-le glisser en position, redimensionnez-le par sa poignée.',
+        'Le texte est dessiné avec les polices de votre appareil : le chinois, le japonais, l’arabe ou toute autre écriture que votre système sait afficher fonctionne. Chaque page du PDF conserve sa qualité ; vos modifications sont dessinées par-dessus et font désormais partie intégrante de la copie enregistrée.' ] },
+      { h: 'Modifier un PDF ne devrait pas obliger à l’envoyer en ligne', p: [
+        'Les PDF que l’on modifie sont des contrats, des dossiers de candidature, des relevés, des pièces d’identité — des documents en tête de la liste de ce qu’il ne faut pas envoyer en ligne. Ici, toute la modification se fait dans l’onglet de votre navigateur ; le fichier ne quitte jamais votre appareil, et l’original sur votre disque reste intact.',
+        'Un PDF enregistre des caractères dessinés, pas des paragraphes modifiables : aucun outil dans un navigateur ne peut donc retaper le texte existant sur place. Pour réécrire un document, convertissez-le avec PDF en Word, modifiez-le confortablement, puis reconvertissez-le avec Word en PDF.' ] },
+    ],
+  },
+  'fill-pdf': {
+    seoTitle: 'Remplir un formulaire PDF — gratuit, sans envoi | ShyPDF',
+    sections: [
+      { h: 'Saisissez dans de vrais champs de formulaire', p: [
+        'Si votre PDF possède de vrais champs de formulaire — ceux où un curseur apparaît quand on clique —, ShyPDF liste chaque zone de texte, case à cocher, bouton radio et liste déroulante, dans l’ordre du document, prêts à être remplis au clavier. Un aperçu de la page s’affiche à côté pour vérifier le résultat au fur et à mesure.',
+        'À l’enregistrement, vos réponses sont écrites dans le formulaire lui-même. Cochez « Aplatir le formulaire » et elles sont converties en contenu fixe de la page : plus rien ne peut être modifié ni effacé par accident, et le formulaire s’affiche à l’identique partout — le choix le plus sûr quand la prochaine étape est la boîte de réception de quelqu’un.' ] },
+      { h: 'Les formulaires sont précisément les fichiers à garder en local', p: [
+        'Un formulaire rempli regorge de données personnelles : noms, adresses, numéros d’identité, montants de salaire. Le remplir dans votre navigateur signifie que ni le formulaire vierge ni vos réponses n’atteignent jamais un serveur.',
+        'Si rien ne se passe quand vous cliquez sur les champs dans d’autres applications, le PDF est probablement un formulaire numérisé ou « imprimé », sans vrais champs. ShyPDF vous le dira — utilisez Modifier PDF pour écrire par-dessus un tel formulaire, et Signer PDF pour y ajouter la signature.' ] },
+    ],
+  },
+  'png-to-pdf': {
+    seoTitle: 'PNG en PDF — convertisseur gratuit, sans envoi | ShyPDF',
+    sections: [
+      { h: 'Des captures d’écran et des graphiques en un PDF propre', p: [
+        'Le PNG est le format des captures d’écran, des schémas, des graphiques et des diapositives exportées — des images aux contours nets et aux couleurs exactes. ShyPDF place chaque image sur sa propre page de PDF, dans l’ordre que vous fixez en faisant glisser les cartes. Gardez chaque page à la taille naturelle de son image, ou choisissez A4 / Letter pour des pages uniformes qui s’impriment sans surprise.',
+        'Les PNG sont intégrés sans recompression : une capture d’écran dans le PDF est, au pixel près, la capture que vous avez prise. Les zones transparentes reposent sur le fond blanc de la page. Les images JPG et WebP peuvent être mélangées librement.' ] },
+      { h: 'Une conversion réalisée sur votre appareil', p: [
+        'Les captures d’écran ont la fâcheuse habitude d’en montrer plus que prévu : des noms, des numéros de compte, la moitié d’un fil d’e-mails. La conversion s’exécute entièrement dans votre navigateur : les images ne quittent jamais votre appareil. Si le résultat doit être assez léger pour partir par e-mail, cochez « Compresser les images ».' ] },
+    ],
+  },
+  'pdf-to-png': {
+    seoTitle: 'PDF en PNG — convertisseur gratuit, sans envoi | ShyPDF',
+    sections: [
+      { h: 'Des images sans perte de chaque page', p: [
+        'Chaque page du PDF est rendue en PNG — le bon format quand la page contient du texte, des tableaux, des schémas ou une interface : les contours restent nets, les couleurs exactes, sans les artefacts de compression que le JPG laisse autour des lettres. Convertissez tout le fichier ou seulement les pages que vous indiquez, à 96, 150 ou 300 dpi selon la destination de l’image.',
+        'Plusieurs pages arrivent regroupées dans un seul zip. Besoin de fichiers plus légers pour des pages riches en photos ? L’option JPG est à un clic, dans le même outil.' ] },
+      { h: 'Un rendu effectué par votre propre navigateur', p: [
+        'Les pages sont dessinées en local par PDF.js — le moteur intégré à Firefox — et le PDF n’est jamais envoyé sur un serveur. La diapositive que vous transformez en PNG pour une présentation, ou la page de relevé dont vous avez besoin en image pour un portail administratif, reste sur votre appareil d’un bout à l’autre.' ] },
+    ],
+  },
+  'pdf-to-text': {
+    seoTitle: 'PDF en texte — extraire le texte brut, sans envoi | ShyPDF',
+    sections: [
+      { h: 'Tous les mots, sans la mise en forme', p: [
+        'ShyPDF lit la couche de texte du PDF et l’écrit dans un fichier .txt brut : les sauts de ligne sont conservés, les pages peuvent être marquées, tout le reste est retiré. C’est exactement ce qu’il faut pour passer un document à un script, à un outil de traduction ou à un modèle d’IA, pour compter des mots, ou pour coller le texte là où la mise en forme du PDF pose problème.',
+        'Limitez l’extraction à certaines pages avec des plages comme 1-3, 5. Les marqueurs de saut de page permettent de retrouver facilement d’où vient chaque ligne.' ] },
+      { h: 'Quand le résultat revient vide', p: [
+        'Un PDF numérisé n’a pas de couche de texte — ce sont des photographies de texte — et il n’y a donc rien à extraire. Passez plutôt le scan par OCR PDF : il reconnaît les mots dans les images des pages et peut produire directement du texte brut. Et quand vous avez besoin de structure plutôt que de texte brut — paragraphes, titres, tableaux —, PDF en Word reconstitue un document modifiable.',
+        'L’extraction se fait dans votre navigateur. Pour les contrats, les dossiers médicaux et tout ce que vous ne colleriez pas dans un site web quelconque, le fichier ne quitte jamais votre appareil.' ] },
+    ],
+  },
+  'repair-pdf': {
+    seoTitle: 'Réparer PDF — fichiers corrompus, sans envoi | ShyPDF',
+    sections: [
+      { h: 'Pourquoi un PDF cassé peut souvent être sauvé', p: [
+        'Un PDF qui « ne s’ouvre plus » est généralement endommagé dans sa structure, pas vide : le téléchargement s’est interrompu, une passerelle e-mail l’a abîmé, ou le programme qui l’a créé a écrit un index bâclé. Les données des pages sont toujours dans le fichier — le lecteur ne sait simplement plus comment y accéder. ShyPDF confie le fichier à qpdf, une bibliothèque PDF éprouvée depuis des décennies, qui lit tout ce qui est récupérable et réécrit autour un fichier neuf et bien formé : nouvelles tables de références croisées, structure d’objets propre, même contenu.',
+        'Si la copie réparée se télécharge, ouvrez-la et vérifiez les pages. Si qpdf déclare le fichier irréparable, les octets manquants ont bel et bien disparu : procurez-vous une copie fraîche à la source — retéléchargez le fichier, réexportez-le, ou demandez à l’expéditeur de le renvoyer.' ] },
+      { h: 'Réparer sans confier le fichier à personne', p: [
+        'Les fichiers endommagés sont souvent les plus importants — la facture sortie des archives, le contrat signé retrouvé dans une vieille sauvegarde. La reconstruction s’exécute dans votre navigateur via WebAssembly ; le fichier cassé comme le fichier réparé restent sur votre appareil.',
+        'Un PDF qui demande un mot de passe n’est pas endommagé : il est chiffré. Déverrouillez-le d’abord avec Déverrouiller PDF (il vous faut le mot de passe), puis réparez-le s’il pose encore problème.' ] },
+    ],
+  },
 };
 
 export default content;

@@ -12,7 +12,7 @@
     "preview": "astro preview",
     "check": "astro check",
     "pretest": "npm run vendor",
-    "test": "tsx --tsconfig tsconfig.json test/i18n.test.ts && tsx --tsconfig tsconfig.json test/pdflib-tools.test.ts && tsx --tsconfig tsconfig.json test/convert-tools.test.ts && node test/qpdf.test.mjs"
+    "test": "tsx --tsconfig tsconfig.json test/i18n.test.ts && tsx --tsconfig tsconfig.json test/pdflib-tools.test.ts && tsx --tsconfig tsconfig.json test/convert-tools.test.ts && tsx --tsconfig tsconfig.json test/new-tools.test.ts && node test/qpdf.test.mjs"
   },
   "dependencies": {
     "@expo-google-fonts/arimo": "^0.4.3",
