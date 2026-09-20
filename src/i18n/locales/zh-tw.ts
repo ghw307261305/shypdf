@@ -15,7 +15,12 @@ const zhTw: Dict = {
 
   ui: {
     nav: { label: '主選單', all: '所有工具', merge: '合併', split: '分割', compress: '壓縮', convert: '轉換' },
-    footer: { tools: 'PDF 工具', guides: '使用指南', about: '關於', privacy: '隱私權', terms: '服務條款', licenses: '開源授權', promise: '檔案永遠不會離開你的裝置' },
+    footer: {
+      blurb: '在瀏覽器中執行的 PDF 工具。檔案不會離開你的裝置，所有處理都在本機完成。',
+      popular: '熱門工具', categories: '工具分類', about: '關於', aboutLink: '關於 {site}',
+      guides: '使用指南', privacy: '隱私權政策', terms: '服務條款', licenses: '開源授權',
+      promise: '檔案不會離開你的裝置 · 所有處理都在瀏覽器中完成',
+    },
     lang: {
       label: '語言',
       suggest: '以繁體中文檢視此頁',

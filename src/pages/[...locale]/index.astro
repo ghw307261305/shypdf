@@ -3,7 +3,7 @@ import Base from '@/layouts/Base.astro';
 import ToolCard from '@/components/ToolCard.astro';
 import AdSlot from '@/components/AdSlot.astro';
 import { SITE } from '@/config/site';
-import { toolsByCategory, type Category } from '@/data/tools';
+import { CATEGORY_ORDER as order, toolsByCategory } from '@/data/tools';
 import { GUIDES } from '@/data/guides';
 import { DEFAULT_LOCALE, LOCALE_INFO, getDict, fmt, localePath, localeStaticPaths, type Locale } from '@/i18n';
 
@@ -11,7 +11,6 @@ export const getStaticPaths = localeStaticPaths;
 const { locale } = Astro.props as { locale: Locale };
 const d = getDict(locale);
 const h = d.ui.home;
-const order: Category[] = ['edit', 'convert', 'optimize', 'security'];
 const all = order.flatMap((c) => toolsByCategory(c, locale));
 const enNames = new Map(order.flatMap((c) => toolsByCategory(c, DEFAULT_LOCALE)).map((t) => [t.slug, t.name]));
 // 单页分组：按分类各起一节（标题可作 /#convert 锚点），占位工具仍集中在「Coming soon」

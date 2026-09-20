@@ -9,4 +9,6 @@ export const SITE = {
   contactEmail: 'hello@shypdf.com', // TODO: 上线前确认这个邮箱能收信（Cloudflare Email Routing 可免费转发）
   // 隐私政策 / 使用条款的「Last updated」
   legalUpdated: 'September 19, 2026',
+  // 姐妹站互链（页脚 About 栏）。shypic.com 还没解析，上线后把 live 改成 true
+  sibling: { name: 'ShyPic', url: 'https://shypic.com', live: false },
 };

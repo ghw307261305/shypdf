@@ -15,7 +15,12 @@ const ja: Dict = {
 
   ui: {
     nav: { label: 'メイン', all: 'すべてのツール', merge: '結合', split: '分割', compress: '圧縮', convert: '変換' },
-    footer: { tools: 'PDFツール', guides: 'ガイド', about: 'このサイトについて', privacy: 'プライバシー', terms: '利用規約', licenses: 'オープンソース', promise: 'ファイルが端末の外に出ることはありません' },
+    footer: {
+      blurb: 'ブラウザの中で動くPDFツール。ファイルが端末の外に出ることはなく、すべて端末上で処理されます。',
+      popular: '人気のツール', categories: 'カテゴリ', about: 'このサイトについて', aboutLink: '{site}について',
+      guides: 'ガイド', privacy: 'プライバシーポリシー', terms: '利用規約', licenses: 'オープンソース',
+      promise: 'ファイルが端末の外に出ることはありません · すべてブラウザの中で動きます',
+    },
     lang: {
       label: '言語',
       suggest: 'このページを日本語で表示',

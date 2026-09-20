@@ -31,6 +31,9 @@ export const CATEGORIES: Record<Category, { tint: string; ink: string }> = {
   security: { tint: '#f0ebf7', ink: '#5b3e8f' },
 };
 
+// 首页分组、页脚分类栏的顺序
+export const CATEGORY_ORDER: Category[] = ['edit', 'convert', 'optimize', 'security'];
+
 const ICONS = {
   merge: '<path d="M8 3h5l5 5v13H8z"/><path d="M13 3v5h5"/><path d="M4 9v12h10"/>',
   split: '<path d="M4 4h6v16H4z"/><path d="M14 4h6v16h-6z"/><path d="M12 8v8"/>',

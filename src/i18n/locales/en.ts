@@ -18,7 +18,12 @@ const en = {
 
   ui: {
     nav: { label: 'Main', all: 'All tools', merge: 'Merge', split: 'Split', compress: 'Compress', convert: 'Convert' },
-    footer: { tools: 'PDF tools', guides: 'Guides', about: 'About', privacy: 'Privacy', terms: 'Terms', licenses: 'Open source', promise: 'Your files never leave your device' },
+    footer: {
+      blurb: 'PDF tools that run in your browser. Your files never leave your device — everything is processed locally.',
+      popular: 'Popular tools', categories: 'Categories', about: 'About', aboutLink: 'About {site}',
+      guides: 'Guides', privacy: 'Privacy policy', terms: 'Terms of use', licenses: 'Open source',
+      promise: 'Your files never leave your device · Everything runs in your browser',
+    },
     lang: {
       label: 'Language',
       // 浏览器首选语言是本语言、但正在看其它语言的页面时，顶部提示条显示这句（所以要用本语言写）

@@ -1,26 +1,41 @@
 ---
 import { SITE } from '@/config/site';
-import { liveTools } from '@/data/tools';
-import { DEFAULT_LOCALE, getDict, localePath, type Locale } from '@/i18n';
+import { CATEGORY_ORDER, liveTools } from '@/data/tools';
+import { DEFAULT_LOCALE, getDict, fmt, localePath, type Locale } from '@/i18n';
 interface Props { locale: Locale }
 const { locale } = Astro.props;
 const d = getDict(locale);
 const f = d.ui.footer;
 const year = new Date().getFullYear();
+const live = liveTools(locale);
+const popular = ['merge-pdf', 'compress-pdf', 'pdf-to-word', 'split-pdf', 'jpg-to-pdf'].map((s) => live.find((t) => t.slug === s)).filter((t) => !!t);
 ---
 <footer class="site-footer">
-  <nav class="wrap footer-tools" aria-label={d.ui.nav.all}>
-    <b>{f.tools}</b>
-    {liveTools(locale).map((t) => <a href={localePath(locale, `/${t.slug}/`)}>{t.name}</a>)}
-  </nav>
-  <div class="wrap">
-    <div>
-      <span class="footer-copy">© {year} {SITE.name}</span>
+  <div class="wrap footer-main">
+    <div class="footer-brand">
+      <a class="brand" href={localePath(locale)}><img class="brand-mark" src="/logo.svg" width="30" height="30" alt="" /><span>{SITE.name}</span></a>
+      <p>{f.blurb}</p>
+    </div>
+    <nav class="footer-col" aria-label={f.popular}>
+      <h3>{f.popular}</h3>
+      {popular.map((t) => <a href={localePath(locale, `/${t.slug}/`)}>{t.name}</a>)}
+    </nav>
+    <nav class="footer-col" aria-label={f.categories}>
+      <h3>{f.categories}</h3>
+      {CATEGORY_ORDER.map((c) => <a href={`${localePath(locale)}#${c}`}>{d.ui.categories[c]}</a>)}
+    </nav>
+    <nav class="footer-col" aria-label={f.about}>
+      <h3>{f.about}</h3>
+      <a href={localePath(locale, '/about/')}>{fmt(f.aboutLink, { site: SITE.name })}</a>
       {/* 指南和法律页只有英文版：指南链接只在英文站显示，法律页各语言都链到英文版 */}
       {locale === DEFAULT_LOCALE && <a href="/guides/">{f.guides}</a>}
-      <a href={localePath(locale, '/about/')}>{f.about}</a>
-      <a href="/privacy/">{f.privacy}</a><a href="/terms/">{f.terms}</a><a href="/licenses/">{f.licenses}</a>
-    </div>
-    <div>{f.promise}</div>
+      <a href="/privacy/">{f.privacy}</a>
+      <a href="/terms/">{f.terms}</a>
+      <a href="/licenses/">{f.licenses}</a>
+      {SITE.sibling.live && <a href={SITE.sibling.url} rel="noopener">{SITE.sibling.name}</a>}
+    </nav>
+  </div>
+  <div class="footer-bar">
+    <div class="wrap"><span>© {year} {SITE.name}</span><span>{f.promise}</span></div>
   </div>
 </footer>

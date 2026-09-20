@@ -15,7 +15,12 @@ const de: Dict = {
 
   ui: {
     nav: { label: 'Hauptnavigation', all: 'Alle Tools', merge: 'Zusammenfügen', split: 'Teilen', compress: 'Komprimieren', convert: 'Umwandeln' },
-    footer: { tools: 'PDF-Tools', guides: 'Anleitungen', about: 'Über uns', privacy: 'Datenschutz', terms: 'Nutzungsbedingungen', licenses: 'Open Source', promise: 'Deine Dateien bleiben auf deinem Gerät' },
+    footer: {
+      blurb: 'PDF-Tools, die in deinem Browser laufen. Deine Dateien verlassen dein Gerät nie – alles wird lokal verarbeitet.',
+      popular: 'Beliebte Tools', categories: 'Kategorien', about: 'Über uns', aboutLink: 'Über {site}',
+      guides: 'Anleitungen', privacy: 'Datenschutz', terms: 'Nutzungsbedingungen', licenses: 'Open Source',
+      promise: 'Deine Dateien bleiben auf deinem Gerät · Alles läuft in deinem Browser',
+    },
     lang: {
       label: 'Sprache',
       suggest: 'Diese Seite auf Deutsch ansehen',

@@ -15,7 +15,12 @@ const zh: Dict = {
 
   ui: {
     nav: { label: '主导航', all: '全部工具', merge: '合并', split: '拆分', compress: '压缩', convert: '转换' },
-    footer: { tools: 'PDF 工具', guides: '使用指南', about: '关于', privacy: '隐私政策', terms: '使用条款', licenses: '开源许可', promise: '你的文件不会离开你的设备' },
+    footer: {
+      blurb: '在浏览器内运行的 PDF 工具。文件不离开你的设备，全部处理在本机完成。',
+      popular: '热门工具', categories: '工具分类', about: '关于', aboutLink: '关于 {site}',
+      guides: '使用指南', privacy: '隐私政策', terms: '使用条款', licenses: '开源许可',
+      promise: '文件不离开你的设备 · 全部处理在浏览器内完成',
+    },
     lang: {
       label: '语言',
       suggest: '用简体中文查看此页',
