@@ -34,7 +34,6 @@ export const CATEGORIES: Record<Category, { tint: string; ink: string }> = {
 const ICONS = {
   merge: '<path d="M8 3h5l5 5v13H8z"/><path d="M13 3v5h5"/><path d="M4 9v12h10"/>',
   split: '<path d="M4 4h6v16H4z"/><path d="M14 4h6v16h-6z"/><path d="M12 8v8"/>',
-  rotate: '<path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 3v6h-6"/>',
   organize: '<path d="M4 6h16"/><path d="M4 12h16"/><path d="M4 18h10"/>',
   pageNumbers: '<path d="M6 3h12v18H6z"/><path d="M10 17h4"/>',
   watermark: '<path d="M6 3h12v18H6z"/><path d="M8 15l8-8"/>',
@@ -67,19 +66,18 @@ export const SOON = { phase: 2 as Phase, accept: '', multiple: false, related: [
 const DEFS: ToolDef[] = [
   // ---------- Organize & edit（一期） ----------
   { slug: 'merge-pdf', category: 'edit', phase: 1, icon: ICONS.merge, accept: PDF, multiple: true, minFiles: 2, related: ['split-pdf', 'organize-pdf', 'compress-pdf', 'jpg-to-pdf'] },
-  { slug: 'split-pdf', category: 'edit', phase: 1, icon: ICONS.split, accept: PDF, multiple: false, related: ['merge-pdf', 'organize-pdf', 'rotate-pdf', 'pdf-to-jpg'] },
-  { slug: 'rotate-pdf', category: 'edit', phase: 1, icon: ICONS.rotate, accept: PDF, multiple: false, related: ['organize-pdf', 'split-pdf', 'merge-pdf', 'compress-pdf'] },
-  { slug: 'organize-pdf', category: 'edit', phase: 1, icon: ICONS.organize, accept: PDF, multiple: false, related: ['split-pdf', 'rotate-pdf', 'merge-pdf', 'add-page-numbers'] },
-  { slug: 'add-page-numbers', category: 'edit', phase: 1, icon: ICONS.pageNumbers, accept: PDF, multiple: false, related: ['add-watermark', 'organize-pdf', 'merge-pdf', 'rotate-pdf'] },
+  { slug: 'split-pdf', category: 'edit', phase: 1, icon: ICONS.split, accept: PDF, multiple: false, related: ['merge-pdf', 'organize-pdf', 'extract-pages', 'pdf-to-jpg'] },
+  { slug: 'organize-pdf', category: 'edit', phase: 1, icon: ICONS.organize, accept: PDF, multiple: false, related: ['split-pdf', 'delete-pages', 'merge-pdf', 'add-page-numbers'] },
+  { slug: 'add-page-numbers', category: 'edit', phase: 1, icon: ICONS.pageNumbers, accept: PDF, multiple: false, related: ['add-watermark', 'organize-pdf', 'merge-pdf', 'compress-pdf'] },
   { slug: 'add-watermark', category: 'edit', phase: 1, icon: ICONS.watermark, accept: PDF, multiple: false, related: ['add-page-numbers', 'merge-pdf', 'compress-pdf', 'unlock-pdf'] },
-  { slug: 'crop-pdf', category: 'edit', phase: 1, icon: ICONS.crop, accept: PDF, multiple: false, related: ['organize-pdf', 'rotate-pdf', 'edit-pdf', 'split-pdf'] },
+  { slug: 'crop-pdf', category: 'edit', phase: 1, icon: ICONS.crop, accept: PDF, multiple: false, related: ['organize-pdf', 'edit-pdf', 'split-pdf', 'compress-pdf'] },
   { slug: 'delete-pages', category: 'edit', phase: 1, icon: ICONS.deletePages, accept: PDF, multiple: false, related: ['extract-pages', 'organize-pdf', 'split-pdf', 'merge-pdf'] },
   { slug: 'extract-pages', category: 'edit', phase: 1, icon: ICONS.extractPages, accept: PDF, multiple: false, related: ['delete-pages', 'split-pdf', 'merge-pdf', 'organize-pdf'] },
   { slug: 'edit-pdf', category: 'edit', phase: 1, icon: ICONS.edit, accept: PDF, multiple: false, related: ['sign-pdf', 'fill-pdf', 'add-watermark', 'organize-pdf'] },
   { slug: 'fill-pdf', category: 'edit', phase: 1, icon: ICONS.fill, accept: PDF, multiple: false, related: ['sign-pdf', 'edit-pdf', 'protect-pdf', 'pdf-to-word'] },
   // ---------- Convert ----------
   { slug: 'jpg-to-pdf', category: 'convert', phase: 1, icon: ICONS.image, accept: 'image/jpeg,image/png,image/webp,.jpg,.jpeg,.png,.webp', multiple: true, minFiles: 1, related: ['pdf-to-jpg', 'ocr-pdf', 'merge-pdf', 'compress-pdf'] },
-  { slug: 'pdf-to-jpg', category: 'convert', phase: 1, icon: ICONS.pdfToImage, accept: PDF, multiple: false, related: ['jpg-to-pdf', 'split-pdf', 'compress-pdf', 'rotate-pdf'] },
+  { slug: 'pdf-to-jpg', category: 'convert', phase: 1, icon: ICONS.pdfToImage, accept: PDF, multiple: false, related: ['jpg-to-pdf', 'split-pdf', 'compress-pdf', 'pdf-to-png'] },
   { slug: 'pdf-to-word', category: 'convert', phase: 1, icon: ICONS.pdfToWord, accept: PDF, multiple: false, related: ['word-to-pdf', 'ocr-pdf', 'pdf-to-jpg', 'compress-pdf'] },
   { slug: 'word-to-pdf', category: 'convert', phase: 1, icon: ICONS.word, accept: DOCX, multiple: false, related: ['pdf-to-word', 'merge-pdf', 'compress-pdf', 'protect-pdf'] },
   { slug: 'png-to-pdf', category: 'convert', phase: 1, icon: ICONS.pngToPdf, accept: 'image/png,image/jpeg,image/webp,.png,.jpg,.jpeg,.webp', multiple: true, minFiles: 1, related: ['pdf-to-png', 'jpg-to-pdf', 'merge-pdf', 'compress-pdf'] },

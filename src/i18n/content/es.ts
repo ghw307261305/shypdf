@@ -27,19 +27,8 @@ const content: Record<string, ToolContent> = {
         'La división se hace por completo en tu navegador. El documento nunca se sube, y eso importa cuando lo divides precisamente para compartir una página inofensiva de un archivo delicado.' ] },
     ],
   },
-  'rotate-pdf': {
-    seoTitle: 'Rotar PDF online gratis, sin subir archivos | ShyPDF',
-    sections: [
-      { h: 'Endereza de una vez las páginas de lado o al revés', p: [
-        'Rotar la vista en un lector de PDF solo cambia lo que ves tú; la siguiente persona que abra el archivo se encontrará la misma página de lado. ShyPDF cambia la rotación guardada en el propio archivo, así que el arreglo es permanente y se ve en todos los visores y al imprimir.',
-        'Rota todas las páginas a la vez, o elige «Páginas seleccionadas» y escribe rangos como 2, 5-7 para girar solo las tablas apaisadas o las páginas que pasaron por el escáner en el sentido equivocado.' ] },
-      { h: 'Sin perder calidad y sin subir nada', p: [
-        'La rotación solo actualiza el ajuste de orientación de cada página. No se renderiza ni se vuelve a comprimir nada, así que el texto sigue siendo seleccionable y las imágenes conservan exactamente la misma nitidez. Todo ocurre en tu navegador: el archivo nunca se envía a un servidor.',
-        '¿Necesitas rotar páginas una por una mientras las ves? Organizar PDF muestra una miniatura de cada página con su propio botón de rotación.' ] },
-    ],
-  },
   'organize-pdf': {
-    seoTitle: 'Organizar PDF: ordena y elimina páginas sin subirlo | ShyPDF',
+    seoTitle: 'Organizar PDF: ordena, rota y elimina páginas sin subirlo | ShyPDF',
     sections: [
       { h: 'Reorganiza un PDF viendo sus páginas', p: [
         'Organizar PDF muestra todas las páginas como miniaturas. Arrástralas para cambiar el orden, haz clic en × para descartar las que no necesites (páginas en blanco del escáner, una portada, un anexo) y usa ↻ para rotar una sola página. En el móvil, los botones ‹ › mueven una página un paso cada vez.',

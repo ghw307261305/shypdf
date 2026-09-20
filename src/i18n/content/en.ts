@@ -37,19 +37,8 @@ const content: Record<string, ToolContent> = {
         'Splitting happens entirely in your browser. The document is never uploaded, which matters when the reason you are splitting it is to share one harmless page out of a sensitive file.' ] },
     ],
   },
-  'rotate-pdf': {
-    seoTitle: 'Rotate PDF Pages Online — Free, No Upload | ShyPDF',
-    sections: [
-      { h: 'Fix sideways and upside-down pages for good', p: [
-        'Rotating the view in a PDF reader only changes what you see; the next person to open the file gets the same sideways page. ShyPDF changes the rotation stored in the file itself, so the fix is permanent and shows up in every viewer and when printing.',
-        'Rotate every page at once, or choose “Selected pages” and enter ranges such as 2, 5-7 to turn only the landscape tables or the pages that went through the scanner the wrong way round.' ] },
-      { h: 'No quality loss, no upload', p: [
-        'Rotation only updates each page’s orientation setting. Nothing is rendered or re-compressed, so text stays selectable and images stay exactly as sharp as they were. It all happens in your browser — the file is never sent to a server.',
-        'Need to rotate pages individually while looking at them? Organize PDF shows a thumbnail of every page with its own rotate button.' ] },
-    ],
-  },
   'organize-pdf': {
-    seoTitle: 'Reorder & Delete PDF Pages Online — No Upload | ShyPDF',
+    seoTitle: 'Reorder, Rotate & Delete PDF Pages — No Upload | ShyPDF',
     sections: [
       { h: 'Rearrange a PDF by looking at it', p: [
         'Organize PDF lays out every page as a thumbnail. Drag pages into a new order, click × to drop the ones you do not need — blank scanner pages, a cover sheet, an appendix — and use ↻ to turn a single page. On a phone, the ‹ › buttons move a page one step at a time.',

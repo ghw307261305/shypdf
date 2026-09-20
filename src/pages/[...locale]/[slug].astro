@@ -97,6 +97,7 @@ const clientJson = JSON.stringify(clientDict(locale, tool.slug)).replace(/</g, '
               <div><h2 style="font-size:24px;display:inline">{tool.name}</h2> <span class="meta" id="files-meta"></span></div>
               <div class="actions">
                 <button type="button" class="btn" id="sort-name">{ui.sortByName}</button>
+                <button type="button" class="btn is-hidden" id="rotate-all">{ui.rotateAll}</button>
                 <button type="button" class="btn" id="clear-all">{ui.clearAll}</button>
               </div>
             </div>

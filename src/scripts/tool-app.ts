@@ -193,6 +193,7 @@ function render() {
   runBtn.textContent = cfg.button;
   runBtn.disabled = items.length < cfg.minFiles;
   $('sort-name').classList.toggle('is-hidden', !cfg.multiple || isPages);
+  $('rotate-all').classList.toggle('is-hidden', !isPages);
 }
 
 
@@ -239,6 +240,7 @@ itemsEl.addEventListener('drop', (e) => {
 itemsEl.addEventListener('dragend', () => { dragFrom = null; itemsEl.querySelectorAll('.is-dragging,.is-target').forEach((c) => c.classList.remove('is-dragging', 'is-target')); });
 
 $('sort-name').addEventListener('click', () => { items.sort((a, b) => a.file.name.localeCompare(b.file.name, document.documentElement.lang, { numeric: true, sensitivity: 'base' })); render(); });
+$('rotate-all').addEventListener('click', () => { items.forEach((it) => { it.rotation = (it.rotation + 90) % 360; }); render(); });
 function reset() { closeWorkspace?.(); closeWorkspace = undefined; items = []; outputs = []; show('upload'); }
 $('clear-all').addEventListener('click', reset);
 

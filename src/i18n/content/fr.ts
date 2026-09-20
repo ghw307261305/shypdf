@@ -27,19 +27,8 @@ const content: Record<string, ToolContent> = {
         'La division se fait entièrement dans votre navigateur. Le document n’est jamais envoyé sur un serveur, ce qui compte quand on divise un fichier sensible justement pour n’en partager qu’une page anodine.' ] },
     ],
   },
-  'rotate-pdf': {
-    seoTitle: 'Pivoter PDF en ligne — gratuit, sans envoi | ShyPDF',
-    sections: [
-      { h: 'Redressez pour de bon les pages couchées ou à l’envers', p: [
-        'Faire pivoter l’affichage dans un lecteur PDF ne change que ce que vous voyez : la prochaine personne qui ouvrira le fichier retrouvera la même page de travers. ShyPDF modifie la rotation enregistrée dans le fichier lui-même : la correction est définitive, visible dans tous les lecteurs comme à l’impression.',
-        'Faites pivoter toutes les pages d’un coup, ou choisissez « Certaines pages » et saisissez des plages comme 2, 5-7 pour ne tourner que les tableaux au format paysage ou les pages passées dans le scanner dans le mauvais sens.' ] },
-      { h: 'Sans perte de qualité, sans envoi', p: [
-        'La rotation ne fait que mettre à jour le réglage d’orientation de chaque page. Rien n’est redessiné ni recompressé : le texte reste sélectionnable et les images conservent exactement leur netteté. Tout se passe dans votre navigateur — le fichier n’est jamais envoyé sur un serveur.',
-        'Vous voulez faire pivoter les pages une à une en les ayant sous les yeux ? Organiser PDF affiche une miniature de chaque page, avec son propre bouton de rotation.' ] },
-    ],
-  },
   'organize-pdf': {
-    seoTitle: 'Organiser PDF — réordonner, supprimer des pages | ShyPDF',
+    seoTitle: 'Organiser PDF — réordonner, pivoter, supprimer des pages | ShyPDF',
     sections: [
       { h: 'Réorganisez un PDF en l’ayant sous les yeux', p: [
         'Organiser PDF affiche chaque page sous forme de miniature. Faites glisser les pages pour changer leur ordre, cliquez sur × pour écarter celles dont vous n’avez pas besoin — pages blanches du scanner, page de garde, annexe — et utilisez ↻ pour faire pivoter une seule page. Sur téléphone, les boutons ‹ › déplacent une page d’un cran à la fois.',

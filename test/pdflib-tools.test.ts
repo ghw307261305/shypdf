@@ -1,8 +1,7 @@
-// 在 Node 里跑 pdf-lib 系工具的冒烟测试（不依赖浏览器的：merge / split / rotate / organize / page-numbers(拉丁格式)）
+// 在 Node 里跑 pdf-lib 系工具的冒烟测试（不依赖浏览器的：merge / split / organize / page-numbers(拉丁格式)）
 import { PDFDocument, StandardFonts, PDFName } from 'pdf-lib';
 import merge from '@/tools/merge-pdf';
 import split from '@/tools/split-pdf';
-import rotate from '@/tools/rotate-pdf';
 import organize from '@/tools/organize-pdf';
 import pageNumbers from '@/tools/add-page-numbers';
 import { parseRanges } from '@/lib/files';
@@ -46,13 +45,6 @@ assert(out.length === 4, 'split each → 4 files');
 out = await split.run([c], fd({ mode: 'odd' }), ctx);
 assert(out.length === 1 && (await count(out[0].blob)) === 2, 'split odd → 2 pages');
 let threw = false; try { await split.run([c], fd({ mode: 'ranges', ranges: '1-9' })); } catch { threw = true; } assert(threw, 'split: out-of-range throws');
-
-// rotate
-out = await rotate.run([a], fd({ angle: '90', scope: 'ranges', ranges: '2' }), ctx);
-{
-  const d = await PDFDocument.load(await out[0].blob.arrayBuffer());
-  assert(d.getPage(0).getRotation().angle === 0 && d.getPage(1).getRotation().angle === 90, 'rotate: only page 2 rotated');
-}
 
 // organize: reverse order, drop page 2, rotate first
 out = await organize.run([a], fd({ filename: '' }), { ...ctx, pageOrder: [2, 0], pageRotations: { 2: 180 } });

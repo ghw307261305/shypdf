@@ -4,7 +4,6 @@ import type { ToolModule } from '@/lib/types';
 const loaders: Record<string, () => Promise<{ default: ToolModule }>> = {
   'merge-pdf': () => import('./merge-pdf'),
   'split-pdf': () => import('./split-pdf'),
-  'rotate-pdf': () => import('./rotate-pdf'),
   'organize-pdf': () => import('./organize-pdf'),
   'add-page-numbers': () => import('./add-page-numbers'),
   'add-watermark': () => import('./add-watermark'),

@@ -27,19 +27,8 @@ const content: Record<string, ToolContent> = {
         'Das Teilen läuft vollständig in deinem Browser ab. Das Dokument wird nie hochgeladen – und das zählt gerade dann, wenn du es nur teilst, um eine einzelne harmlose Seite aus einer sensiblen Datei weiterzugeben.' ] },
     ],
   },
-  'rotate-pdf': {
-    seoTitle: 'PDF drehen online – kostenlos, ohne Upload | ShyPDF',
-    sections: [
-      { h: 'Seitlich liegende und kopfstehende Seiten dauerhaft korrigieren', p: [
-        'Wer im PDF-Programm nur die Ansicht dreht, ändert lediglich, was er selbst sieht; die nächste Person bekommt beim Öffnen wieder dieselbe quer liegende Seite. ShyPDF ändert die Drehung, die in der Datei selbst gespeichert ist. Die Korrektur ist damit dauerhaft und gilt in jedem PDF-Programm und auch beim Drucken.',
-        'Du kannst alle Seiten auf einmal drehen – oder „Ausgewählte Seiten“ wählen und Bereiche wie 2, 5-7 eingeben, um nur die Tabellen im Querformat oder die Seiten zu drehen, die falsch herum durch den Scanner gelaufen sind.' ] },
-      { h: 'Kein Qualitätsverlust, kein Upload', p: [
-        'Beim Drehen wird nur die Ausrichtungseinstellung der jeweiligen Seite aktualisiert. Nichts wird gerendert oder neu komprimiert: Text bleibt markierbar, und Bilder bleiben genauso scharf wie zuvor. Alles passiert in deinem Browser – die Datei wird nie an einen Server geschickt.',
-        'Du möchtest Seiten einzeln drehen und sie dabei sehen? „PDF organisieren“ zeigt jede Seite als Miniatur mit eigener Drehen-Taste.' ] },
-    ],
-  },
   'organize-pdf': {
-    seoTitle: 'PDF organisieren – Seiten sortieren & löschen | ShyPDF',
+    seoTitle: 'PDF organisieren – Seiten sortieren, drehen & löschen | ShyPDF',
     sections: [
       { h: 'Ein PDF neu ordnen – mit Blick auf die Seiten', p: [
         '„PDF organisieren“ zeigt jede Seite als Miniatur. Zieh die Seiten in eine neue Reihenfolge, entferne mit × alles Überflüssige – leere Scannerseiten, ein Deckblatt, einen Anhang – und dreh einzelne Seiten mit ↻. Auf dem Smartphone verschieben die Tasten ‹ › eine Seite jeweils um eine Position.',

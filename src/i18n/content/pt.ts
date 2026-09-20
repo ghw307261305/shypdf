@@ -27,19 +27,8 @@ const content: Record<string, ToolContent> = {
         'A divisão acontece inteiramente no seu navegador. O documento nunca é enviado, e isso faz diferença quando o motivo da divisão é justamente compartilhar uma página inofensiva de um arquivo sensível.' ] },
     ],
   },
-  'rotate-pdf': {
-    seoTitle: 'Girar PDF online — grátis, sem upload | ShyPDF',
-    sections: [
-      { h: 'Corrija de vez páginas de lado ou de cabeça para baixo', p: [
-        'Girar a visualização no leitor de PDF só muda o que você vê; a próxima pessoa que abrir o arquivo vai encontrar a mesma página de lado. O ShyPDF altera a rotação gravada no próprio arquivo, então a correção é permanente e aparece em qualquer visualizador e também na impressão.',
-        'Gire todas as páginas de uma vez, ou escolha “Páginas selecionadas” e digite intervalos como 2, 5-7 para virar apenas as tabelas em paisagem ou as páginas que passaram pelo scanner do lado errado.' ] },
-      { h: 'Sem perda de qualidade, sem upload', p: [
-        'A rotação só atualiza a configuração de orientação de cada página. Nada é renderizado nem recomprimido, então o texto continua selecionável e as imagens ficam exatamente tão nítidas quanto eram. Tudo acontece no seu navegador — o arquivo nunca é enviado a um servidor.',
-        'Precisa girar as páginas uma a uma, olhando para elas? A ferramenta Organizar PDF mostra uma miniatura de cada página, cada uma com seu próprio botão de girar.' ] },
-    ],
-  },
   'organize-pdf': {
-    seoTitle: 'Organizar PDF — reordene e exclua páginas online | ShyPDF',
+    seoTitle: 'Organizar PDF — reordene, gire e exclua páginas online | ShyPDF',
     sections: [
       { h: 'Reorganize um PDF olhando para ele', p: [
         'O Organizar PDF mostra todas as páginas como miniaturas. Arraste as páginas para uma nova ordem, clique em × para descartar as que você não precisa — páginas em branco do scanner, uma folha de rosto, um anexo — e use ↻ para girar uma única página. No celular, os botões ‹ › movem a página uma posição por vez.',
