@@ -4,6 +4,7 @@ import { stripExt } from '@/lib/files';
 import { openWithPdfjs, renderPage, canvasToBlob } from '@/lib/pdfjs';
 import { createOcrEngine, addTextLayer, tidyOcrText, type OcrEngine } from '@/lib/ocr';
 import { t, th } from '@/lib/i18n-client';
+import { UserError } from '@/lib/errors';
 
 // 语言包在 public/vendor/tesseract/lang/（scripts/vendor.mjs 的 OCR_LANGS 要和这里一致）。
 // 语言名用各自的写法，不用翻译。
@@ -68,7 +69,7 @@ const mod: ToolModule = {
         }
         todo.push(i);
       }
-      if (!todo.length) throw new Error(t('ocr-pdf.nothingToDo'));
+      if (!todo.length) throw new UserError(t('ocr-pdf.nothingToDo'));
 
       ctx.progress(t('ocr-pdf.loading'), 0.03);
       const cores = typeof navigator !== 'undefined' ? navigator.hardwareConcurrency || 2 : 2;

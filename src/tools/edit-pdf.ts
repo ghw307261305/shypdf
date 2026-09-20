@@ -5,6 +5,7 @@ import { openWithPdfjs, renderPage } from '@/lib/pdfjs';
 import { pageView } from '@/lib/pdfview';
 import { renderTextToPng } from '@/lib/textimage';
 import { t, th } from '@/lib/i18n-client';
+import { UserError } from '@/lib/errors';
 
 // 页面上的叠加元素（文字 / 高亮 / 涂白 / 涂黑）全部序列化进隐藏字段 edits：
 // { page, kind, x, y, w, h, text?, color? }，x/y/w/h 是相对「看到的页面」的比例（原点在左上角），
@@ -173,7 +174,7 @@ const mod: ToolModule = {
     let edits: Edit[] = [];
     try { edits = JSON.parse(String(options.get('edits') || '[]')); } catch { /* 按空处理 */ }
     edits = (Array.isArray(edits) ? edits : []).filter((e) => e.kind !== 'text' || (e.text ?? '').trim());
-    if (!edits.length) throw new Error(t('edit-pdf.nothing'));
+    if (!edits.length) throw new UserError(t('edit-pdf.nothing'));
     const defColor = String(options.get('color') || 'black');
 
     const doc = await PDFDocument.load(await file.arrayBuffer());

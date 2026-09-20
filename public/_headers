@@ -1,5 +1,6 @@
 # Cloudflare 响应头（Workers 静态资源 / Pages 通用）。
 # CSP 是「文件不上传」承诺的技术保证：connect-src / form-action 只允许本站，页面无法把数据发往别处。
+# 唯一会发出去的数据是自动错误报告（src/lib/report.ts → 同源的 /api/error-report，不含文件和文件名），所以 CSP 不用为它放开。
 # 隐私政策里写了这一点 —— 接入统计或广告（AdSense 需要放开 script-src / frame-src / connect-src / img-src）时，
 # 必须同时改这里和 src/pages/privacy.astro。
 /*

@@ -4,6 +4,7 @@ import { stripExt } from '@/lib/files';
 import { openWithPdfjs, renderPage } from '@/lib/pdfjs';
 import { pageView } from '@/lib/pdfview';
 import { t, th } from '@/lib/i18n-client';
+import { UserError } from '@/lib/errors';
 
 // 签名的三种来源（手写 / 打字 / 图片）最后都变成一张裁掉空白的透明 PNG，放在隐藏字段 sigData 里；
 // 位置放在隐藏字段 place 里：{ page, x, y, w }，都是相对「看到的页面」的比例（x、y 为签名左上角）。run() 只读这两个字段。
@@ -253,9 +254,9 @@ const mod: ToolModule = {
     const file = files[0];
     const sig = String(options.get('sigData') || '');
     const comma = sig.indexOf(',');
-    if (!sig.startsWith('data:image/png;base64,') || comma < 0) throw new Error(t('sign-pdf.needSignature'));
+    if (!sig.startsWith('data:image/png;base64,') || comma < 0) throw new UserError(t('sign-pdf.needSignature'));
     let place: Place;
-    try { place = JSON.parse(String(options.get('place'))); } catch { throw new Error(t('sign-pdf.needSignature')); }
+    try { place = JSON.parse(String(options.get('place'))); } catch { throw new UserError(t('sign-pdf.needSignature')); }
 
     ctx.progress(t('sign-pdf.signing'), 0.3);
     const doc = await PDFDocument.load(await file.arrayBuffer());

@@ -3,6 +3,7 @@ import { loadTool } from '@/tools/index';
 import type { ToolModule, OutputFile } from '@/lib/types';
 import { formatBytes, downloadBlob, zipOutputs, stripExt } from '@/lib/files';
 import { t, tn, th, escapeHtml } from '@/lib/i18n-client';
+import { reportError, installGlobalReporter } from '@/lib/report';
 
 const root = document.getElementById('tool-app')!;
 const cfg = {
@@ -13,6 +14,8 @@ const cfg = {
   maxFiles: Number(root.dataset.maxFiles || 20),
   button: root.dataset.button || 'Start',
 };
+
+installGlobalReporter(cfg.slug);
 
 const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
 const stages = { upload: $('stage-upload'), files: $('stage-files'), result: $('stage-result') };
@@ -83,7 +86,7 @@ async function acceptFiles(files: File[]) {
   if (!ok.length) return;
   if (!tool) {
     try { tool = await loadTool(cfg.slug); }
-    catch (e) { alertIn(uploadAlert, t('app.loadFailed', { msg: (e as Error).message })); return; }
+    catch (e) { reportError(e, { stage: 'load', tool: cfg.slug }); alertIn(uploadAlert, t('app.loadFailed', { msg: (e as Error).message })); return; }
     optionsForm.innerHTML = tool.optionsHtml();
     bindConditionalFields();
   }
@@ -96,7 +99,7 @@ async function acceptFiles(files: File[]) {
     closeWorkspace?.();
     itemsEl.innerHTML = '';
     try { closeWorkspace = await tool.workspace(itemsEl, ok[0], optionsForm); }
-    catch (e) { reset(); alertIn(uploadAlert, t('app.cantOpen', { msg: (e as Error).message })); }
+    catch (e) { reportError(e, { stage: 'open', tool: cfg.slug, files: ok }); reset(); alertIn(uploadAlert, t('app.cantOpen', { msg: (e as Error).message })); }
     return;
   }
   if (tool.mode === 'pages') {
@@ -124,6 +127,7 @@ async function expandPages(file: File) {
     for (let i = 0; i < doc.numPages; i++) items.push({ id: nextId++, file, pageIndex: i, rotation: 0 });
     (root as any).__pdfDoc = doc;
   } catch (e) {
+    reportError(e, { stage: 'open', tool: cfg.slug, files: [file] });
     alertIn(uploadAlert, t('app.cantOpen', { msg: (e as Error).message }));
     throw e;
   } finally { setProgress(''); }
@@ -294,6 +298,7 @@ runBtn.addEventListener('click', async () => {
     showResult(files);
   } catch (e) {
     console.error(e);
+    reportError(e, { stage: 'run', tool: cfg.slug, files, form: optionsForm });
     alertIn(runAlert, (e as Error).message || t('app.failed'));
     setProgress('', 0);
   } finally {

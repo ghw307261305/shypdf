@@ -1,5 +1,6 @@
 import type { OutputFile } from './types';
 import { t, formatNumber } from './i18n-client';
+import { UserError } from './errors';
 
 export function formatBytes(n: number): string {
   // 单位和小数点随语言变：1.5 MB / 1,5 MB / 1,5 Mo
@@ -41,12 +42,12 @@ export function parseRanges(text: string, pageCount: number): number[][] {
     let from: number, to: number;
     if (m) { from = +m[1]; to = +m[2]; }
     else if (/^\d+$/.test(part)) { from = to = +part; }
-    else throw new Error(t('lib.rangeUnreadable', { part }));
-    if (from < 1 || to > pageCount || from > to) throw new Error(t('lib.rangeOutside', { part, n: pageCount }));
+    else throw new UserError(t('lib.rangeUnreadable', { part }));
+    if (from < 1 || to > pageCount || from > to) throw new UserError(t('lib.rangeOutside', { part, n: pageCount }));
     const g: number[] = [];
     for (let i = from; i <= to; i++) g.push(i - 1);
     groups.push(g);
   }
-  if (!groups.length) throw new Error(t('lib.rangeEmpty'));
+  if (!groups.length) throw new UserError(t('lib.rangeEmpty'));
   return groups;
 }

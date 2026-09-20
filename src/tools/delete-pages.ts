@@ -2,6 +2,7 @@ import { PDFDocument, degrees } from 'pdf-lib';
 import type { ToolModule } from '@/lib/types';
 import { parseRanges, stripExt } from '@/lib/files';
 import { t, th } from '@/lib/i18n-client';
+import { UserError } from '@/lib/errors';
 
 // 两种删法：在缩略图上点 ×（走 ctx.pageOrder），或直接输入页码范围（优先生效）。
 const mod: ToolModule = {
@@ -21,7 +22,7 @@ const mod: ToolModule = {
       const drop = new Set(parseRanges(rangeText, src.getPageCount()).flat());
       order = order.filter((i) => !drop.has(i));
     }
-    if (!order.length) throw new Error(t('delete-pages.keepOne'));
+    if (!order.length) throw new UserError(t('delete-pages.keepOne'));
     ctx.progress(t('delete-pages.rebuilding'), 0.3);
     const out = await PDFDocument.create();
     (await out.copyPages(src, order)).forEach((p, i) => {

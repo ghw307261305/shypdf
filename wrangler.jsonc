@@ -1,12 +1,23 @@
-// Cloudflare Workers（静态资源）部署配置。Workers Builds 在每次 push 到 main 后执行：
-//   构建命令 npm run build → 部署命令 npx wrangler deploy
+// Cloudflare Workers 部署配置：静态资源 + 一个只处理 /api/* 的小 Worker（worker/index.ts，错误报告邮件）。
+// Workers Builds 在每次 push 到 main 后执行：构建命令 npm run build → 部署命令 npx wrangler deploy
 {
   "name": "shypdf",
+  "main": "worker/index.ts",
   "compatibility_date": "2026-09-01",
   "assets": {
     "directory": "./dist",
+    "binding": "ASSETS",
+    // 只有 /api/* 先进 Worker，其余请求直接由静态资源响应（不计 Worker 请求数）
+    "run_worker_first": ["/api/*"],
     // Workers 不像 Pages 那样自动用 404.html，必须显式声明
     "not_found_handling": "404-page",
     "html_handling": "auto-trailing-slash"
-  }
+  },
+  // 错误报告邮件：发信走 Email Routing。收件地址不写在这里 —— npx wrangler secret put REPORT_TO（必须是 Email Routing 里验证过的地址）
+  "send_email": [{ "name": "MAILER" }],
+  "vars": { "REPORT_FROM": "errors@shypdf.com" },
+  // 限流兜底：每个 Cloudflare 机房每分钟最多处理 10 条报告
+  "ratelimits": [{ "name": "REPORT_LIMIT", "namespace_id": "1001", "simple": { "limit": 10, "period": 60 } }],
+  // 报告同时写进 Workers Logs（邮件没配好 / 发送失败时也查得到）
+  "observability": { "enabled": true }
 }

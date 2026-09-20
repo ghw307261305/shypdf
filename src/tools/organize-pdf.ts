@@ -2,6 +2,7 @@ import { PDFDocument, degrees } from 'pdf-lib';
 import type { ToolModule } from '@/lib/types';
 import { stripExt } from '@/lib/files';
 import { t, th } from '@/lib/i18n-client';
+import { UserError } from '@/lib/errors';
 
 const mod: ToolModule = {
   mode: 'pages',
@@ -15,7 +16,7 @@ const mod: ToolModule = {
     const file = files[0];
     const src = await PDFDocument.load(await file.arrayBuffer());
     const order = ctx.pageOrder ?? src.getPageIndices();
-    if (!order.length) throw new Error(t('organize-pdf.keepOne'));
+    if (!order.length) throw new UserError(t('organize-pdf.keepOne'));
     ctx.progress(t('organize-pdf.rebuilding'), 0.3);
     const out = await PDFDocument.create();
     const pages = await out.copyPages(src, order);

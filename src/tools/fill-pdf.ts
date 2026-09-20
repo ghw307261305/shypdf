@@ -6,6 +6,7 @@ import { openWithPdfjs, renderPage } from '@/lib/pdfjs';
 import { loadVendor } from '@/lib/vendor';
 import { isCjk } from '@/lib/pdf-fonts';
 import { t, th, escapeHtml } from '@/lib/i18n-client';
+import { UserError } from '@/lib/errors';
 
 // AcroForm 填写：workspace() 用 pdf-lib 列出表单域，动态插进选项表单（name 为 f_下标），
 // run() 按同样的顺序重新枚举，用下标对号入座。字段索引以 getForm().getFields() 的文档顺序为准，
@@ -113,7 +114,7 @@ const mod: ToolModule = {
     const doc = await PDFDocument.load(await file.arrayBuffer());
     const form = doc.getForm();
     const fields = form.getFields();
-    if (!fields.length) throw new Error(t('fill-pdf.noFields'));
+    if (!fields.length) throw new UserError(t('fill-pdf.noFields'));
 
     // 按 workspace() 的同一顺序应用值；顺手收集写入的文本，判断要不要嵌 Unicode 字体
     let written = '';

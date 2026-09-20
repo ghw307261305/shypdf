@@ -3,6 +3,7 @@ import type { ToolModule } from '@/lib/types';
 import { stripExt } from '@/lib/files';
 import { renderTextToPng } from '@/lib/textimage';
 import { t, th } from '@/lib/i18n-client';
+import { UserError } from '@/lib/errors';
 
 const mod: ToolModule = {
   mode: 'files',
@@ -27,7 +28,7 @@ const mod: ToolModule = {
   async run(files, options, ctx) {
     const file = files[0];
     const text = String(options.get('text') || '').trim();
-    if (!text) throw new Error(t('add-watermark.enterText'));
+    if (!text) throw new UserError(t('add-watermark.enterText'));
     const size = Number(options.get('size') ?? 48);
     const angle = Number(options.get('angle') ?? -30);
     const opacity = Number(options.get('opacity') ?? 25) / 100;

@@ -4,6 +4,7 @@ import { stripExt } from '@/lib/files';
 import { openWithPdfjs, renderPage } from '@/lib/pdfjs';
 import { pageView } from '@/lib/pdfview';
 import { t, th } from '@/lib/i18n-client';
+import { UserError } from '@/lib/errors';
 
 // 裁剪框放在隐藏字段 rect 里：{ page, x, y, w, h }，都是相对「看到的页面」的比例（x、y 为左上角）。
 // 只改 CropBox，不动页面内容 —— 文案里明确说了这不是脱敏。
@@ -92,7 +93,7 @@ const mod: ToolModule = {
   async run(files, options, ctx) {
     const file = files[0];
     let rect: Rect;
-    try { rect = JSON.parse(String(options.get('rect'))); } catch { throw new Error(t('crop-pdf.hint')); }
+    try { rect = JSON.parse(String(options.get('rect'))); } catch { throw new UserError(t('crop-pdf.hint')); }
     ctx.progress(t('crop-pdf.cropping'), 0.4);
     const doc = await PDFDocument.load(await file.arrayBuffer());
     const pages = doc.getPages();

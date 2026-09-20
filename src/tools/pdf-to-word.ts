@@ -5,6 +5,7 @@ import { getPdfjs, openWithPdfjs, canvasToBlob } from '@/lib/pdfjs';
 import { readPage, analyzePage, markHeadings, type PageModel } from '@/lib/pdf-layout';
 import { writeDocx, type DocxImage } from '@/lib/docx-write';
 import { t, th } from '@/lib/i18n-client';
+import { UserError } from '@/lib/errors';
 
 const MAX_IMAGES = 80;
 const IMAGE_DPI = 220; // 图片像素远超它在页面上的显示尺寸时，缩到这个密度，Word 文件才不会大得离谱
@@ -87,7 +88,7 @@ const mod: ToolModule = {
         page.cleanup();
       }
       // 没有文字层的 PDF（扫描件）转出来只会是一叠图片，不如直说
-      if (pages.reduce((n, p) => n + p.chars, 0) < 20) throw new Error(t('pdf-to-word.noText'));
+      if (pages.reduce((n, p) => n + p.chars, 0) < 20) throw new UserError(t('pdf-to-word.noText'));
       markHeadings(pages);
       ctx.progress(t('pdf-to-word.writing'), 0.95);
       return [{ name: `${stripExt(file.name)}.docx`, blob: await writeDocx(pages, images) }];

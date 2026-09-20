@@ -2,6 +2,7 @@ import type { ToolModule } from '@/lib/types';
 import { runQpdf, QpdfError } from '@/lib/qpdf';
 import { stripExt } from '@/lib/files';
 import { t, th } from '@/lib/i18n-client';
+import { UserError } from '@/lib/errors';
 
 const mod: ToolModule = {
   mode: 'files',
@@ -16,7 +17,7 @@ const mod: ToolModule = {
     const file = files[0];
     const pw = String(options.get('password') || '');
     // 合规：必须先确认有权处理该文件（见 terms 的 Acceptable use）
-    if (!options.get('confirm')) throw new Error(t('unlock-pdf.needConfirm'));
+    if (!options.get('confirm')) throw new UserError(t('unlock-pdf.needConfirm'));
     ctx.progress(t('unlock-pdf.removing'), 0.4);
     const args = ['--decrypt'];
     if (pw) args.push(`--password=${pw}`);
@@ -26,7 +27,7 @@ const mod: ToolModule = {
       return [{ name: `${stripExt(file.name)}_unlocked.pdf`, blob: new Blob([bytes as BlobPart], { type: 'application/pdf' }) }];
     } catch (e) {
       if (e instanceof QpdfError && (e.code === 2 || /password/i.test(e.message))) {
-        throw new Error(t(pw ? 'unlock-pdf.wrongPassword' : 'unlock-pdf.needPassword'));
+        throw new UserError(t(pw ? 'unlock-pdf.wrongPassword' : 'unlock-pdf.needPassword'));
       }
       throw e;
     }

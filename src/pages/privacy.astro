@@ -1,7 +1,7 @@
 ---
 import Base from '@/layouts/Base.astro';
 import { SITE } from '@/config/site';
-// 这份政策描述的是「无统计、无广告、无 Cookie」的现状。
+// 这份政策描述的是「无统计、无广告、无 Cookie」的现状；自动错误报告那一段要和 src/lib/report.ts 实际发送的字段保持一致。
 // 接入统计或广告（SITE.ads）之前，必须先更新 “What we collect” 和 “Advertising” 两节，并更新 SITE.legalUpdated。
 ---
 <Base title={`Privacy Policy | ${SITE.name}`} description={`How ${SITE.name} handles your data: your files are processed in your browser and never uploaded.`} translated={false}>
@@ -22,6 +22,7 @@ import { SITE } from '@/config/site';
 
     <h2>What we collect</h2>
     <p>We do not ask for your name, email address or any other personal information, and we do not use cookies, local storage, analytics or fingerprinting.</p>
+    <p>There is one exception: automatic error reports. If a tool fails because of a fault in our code, the page sends a short report to our own server so that we can find and fix the problem. A report contains the error message and its technical trace, which tool was running, the settings you picked from menus and checkboxes, the size and type (such as “.pdf”) of the files involved, the page language, your browser version, rough device capability (memory and processor cores) and the country the request came from. It never contains your files or anything in them, file names, passwords, signatures, or any text you typed. Reports are emailed to the developer, are not linked to you, and are not used for anything except fixing the site. For visitors in the EEA and the UK, the legal basis is our legitimate interest in keeping the tools working.</p>
     <p>Like every website, ours is delivered by a hosting provider. We use Cloudflare, which processes technical request data — such as your IP address, browser type, the page requested and the time — in order to deliver the site and to protect it from abuse. We do not combine this data with anything else or use it to identify you. For visitors in the EEA and the UK, the legal basis is our legitimate interest in running a secure website. See <a href="https://www.cloudflare.com/privacypolicy/" rel="noopener">Cloudflare’s privacy policy</a> for how it handles this data, including transfers outside your country.</p>
 
     <h2>Advertising</h2>

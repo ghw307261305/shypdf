@@ -2,6 +2,7 @@ import { PDFDocument } from 'pdf-lib';
 import type { ToolModule, OutputFile } from '@/lib/types';
 import { parseRanges, stripExt } from '@/lib/files';
 import { t, th } from '@/lib/i18n-client';
+import { UserError } from '@/lib/errors';
 
 async function extract(src: PDFDocument, indices: number[]): Promise<Uint8Array> {
   const doc = await PDFDocument.create();
@@ -49,7 +50,7 @@ const mod: ToolModule = {
     } else {
       const want = mode === 'odd' ? 0 : 1; // 0 起索引：奇数页 = 偶数索引
       const idx = src.getPageIndices().filter((i) => i % 2 === want);
-      if (!idx.length) throw new Error(t('split-pdf.noMatch'));
+      if (!idx.length) throw new UserError(t('split-pdf.noMatch'));
       await push(idx, `${base}_${mode === 'odd' ? 'odd-pages' : 'even-pages'}.pdf`);
     }
     return outputs;

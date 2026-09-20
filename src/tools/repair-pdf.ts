@@ -2,6 +2,7 @@ import type { ToolModule } from '@/lib/types';
 import { runQpdf, QpdfError } from '@/lib/qpdf';
 import { stripExt } from '@/lib/files';
 import { t, th } from '@/lib/i18n-client';
+import { UserError } from '@/lib/errors';
 
 // qpdf 重写整个文件结构（交叉引用表、对象流），能修复下载不完整、xref 损坏这类问题。
 const mod: ToolModule = {
@@ -15,8 +16,8 @@ const mod: ToolModule = {
       return [{ name: `${stripExt(file.name)}_repaired.pdf`, blob: new Blob([bytes as BlobPart], { type: 'application/pdf' }) }];
     } catch (e) {
       if (e instanceof QpdfError) {
-        if (/password/i.test(e.message)) throw new Error(t('repair-pdf.encrypted'));
-        throw new Error(t('repair-pdf.failed'));
+        if (/password/i.test(e.message)) throw new UserError(t('repair-pdf.encrypted'));
+        throw new UserError(t('repair-pdf.failed'));
       }
       throw e;
     }

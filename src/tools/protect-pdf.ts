@@ -2,6 +2,7 @@ import type { ToolModule } from '@/lib/types';
 import { runQpdf } from '@/lib/qpdf';
 import { stripExt } from '@/lib/files';
 import { t, th } from '@/lib/i18n-client';
+import { UserError } from '@/lib/errors';
 
 function randomPassword(len = 24) {
   const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz23456789';
@@ -31,9 +32,9 @@ const mod: ToolModule = {
     const user = String(options.get('user') || '');
     let owner = String(options.get('owner') || '');
     const noPrint = !!options.get('noPrint'), noCopy = !!options.get('noCopy'), noModify = !!options.get('noModify');
-    if (!user && !noPrint && !noCopy && !noModify) throw new Error(t('protect-pdf.needInput'));
+    if (!user && !noPrint && !noCopy && !noModify) throw new UserError(t('protect-pdf.needInput'));
     if (!owner) owner = randomPassword();
-    if (user && user === owner) throw new Error(t('protect-pdf.mustDiffer'));
+    if (user && user === owner) throw new UserError(t('protect-pdf.mustDiffer'));
     ctx.progress(t('protect-pdf.encrypting'), 0.4);
     const args = ['--encrypt', user, owner, '256',
       `--print=${noPrint ? 'none' : 'full'}`,

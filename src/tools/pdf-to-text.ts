@@ -2,6 +2,7 @@ import type { ToolModule } from '@/lib/types';
 import { openWithPdfjs } from '@/lib/pdfjs';
 import { parseRanges, stripExt } from '@/lib/files';
 import { t, th } from '@/lib/i18n-client';
+import { UserError } from '@/lib/errors';
 
 const mod: ToolModule = {
   mode: 'files',
@@ -41,7 +42,7 @@ const mod: ToolModule = {
     }
     await doc.loadingTask.destroy();
     // 全文没有可提取的字符：多半是扫描件
-    if (!/[\p{L}\p{N}]/u.test(bodies.join(''))) throw new Error(t('pdf-to-text.noText'));
+    if (!/[\p{L}\p{N}]/u.test(bodies.join(''))) throw new UserError(t('pdf-to-text.noText'));
     const out = parts.join('\n\n');
     return [{ name: `${stripExt(file.name)}.txt`, blob: new Blob([out], { type: 'text/plain;charset=utf-8' }) }];
   },
