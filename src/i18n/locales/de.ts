@@ -126,7 +126,7 @@ const de: Dict = {
       steps: ['Ein PDF auswählen.', 'Position (unten mittig, unten rechts …), erste Seitenzahl und Format wählen.', 'Auf „Seitenzahlen hinzufügen“ klicken und das Ergebnis herunterladen.'],
       faq: [PRIVACY_FAQ,
         { q: 'Kann die Nummerierung auf Seite 3 beginnen?', a: 'Ja. In den Optionen „Start auf Seite“ und „Erste Seitenzahl“ einstellen – praktisch, um Deckblatt und Inhaltsverzeichnis zu überspringen.' },
-        { q: 'Welche Formate gibt es?', a: '1, 1 / 10, - 1 -, Seite 1 sowie chinesische Formate wie 第 1 页.' }],
+        { q: 'Welche Formate gibt es?', a: '1, 1 / 10, - 1 -, Seite 1 und Seite 1 von 10 – immer in der Sprache, in der du die Seite gerade liest.' }],
     },
     'add-watermark': {
       name: 'Wasserzeichen hinzufügen', short: 'Textstempel in jedem Winkel',
@@ -376,6 +376,7 @@ const de: Dict = {
     'add-page-numbers.br': 'Unten rechts',
     'add-page-numbers.format': 'Format',
     'add-page-numbers.fmtPage': 'Seite {n}',
+    'add-page-numbers.fmtPageTotal': 'Seite {n} von {total}',
     'add-page-numbers.firstNumber': 'Erste Seitenzahl',
     'add-page-numbers.startOn': 'Start auf Seite',
     'add-page-numbers.numbering': 'Seite {i} von {n} wird nummeriert',

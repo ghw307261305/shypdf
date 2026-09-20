@@ -126,7 +126,7 @@ const fr: Dict = {
       steps: ['Choisissez un PDF.', 'Choisissez une position (en bas au centre, en bas à droite…), le premier numéro et un format.', 'Cliquez sur « Numéroter PDF » et téléchargez le résultat.'],
       faq: [PRIVACY_FAQ,
         { q: 'La numérotation peut-elle commencer à la page 3 ?', a: 'Oui. Réglez « Commencer à la page » et « Premier numéro » dans les options : pratique pour sauter une couverture et un sommaire.' },
-        { q: 'Quels formats sont proposés ?', a: '1, 1 / 10, - 1 -, Page 1, ainsi que des formats chinois comme 第 1 页.' }],
+        { q: 'Quels formats sont proposés ?', a: '1, 1 / 10, - 1 -, Page 1 et Page 1 sur 10, toujours dans la langue dans laquelle vous naviguez.' }],
     },
     'add-watermark': {
       name: 'Ajouter un filigrane', short: 'Texte en filigrane, angle libre',
@@ -376,6 +376,7 @@ const fr: Dict = {
     'add-page-numbers.br': 'En bas à droite',
     'add-page-numbers.format': 'Format',
     'add-page-numbers.fmtPage': 'Page {n}',
+    'add-page-numbers.fmtPageTotal': 'Page {n} sur {total}',
     'add-page-numbers.firstNumber': 'Premier numéro',
     'add-page-numbers.startOn': 'Commencer à la page',
     'add-page-numbers.numbering': 'Numérotation de la page {i} sur {n}',

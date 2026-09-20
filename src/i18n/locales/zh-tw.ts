@@ -126,7 +126,7 @@ const zhTw: Dict = {
       steps: ['選擇一個 PDF。', '選擇位置（下方置中、右下……）、起始編號和格式。', '點選「加入頁碼」並下載結果。'],
       faq: [PRIVACY_FAQ,
         { q: '可以從第 3 頁才開始編號嗎？', a: '可以。在選項中設定「起始頁面」和「起始編號」——想跳過封面和目錄時很方便。' },
-        { q: '有哪些格式可以選？', a: '提供 1、1 / 10、- 1 -、第 1 頁等格式，也包含「第 1 页」這類簡體中文格式。' }],
+        { q: '有哪些格式可以選？', a: '有 1、1 / 10、- 1 -、第 1 頁，以及「第 1 頁，共 10 頁」，文字會跟著你正在瀏覽的語言走。' }],
     },
     'add-watermark': {
       name: '加入浮水印', short: '文字浮水印，角度任選',
@@ -376,6 +376,7 @@ const zhTw: Dict = {
     'add-page-numbers.br': '右下',
     'add-page-numbers.format': '格式',
     'add-page-numbers.fmtPage': '第 {n} 頁',
+    'add-page-numbers.fmtPageTotal': '第 {n} 頁，共 {total} 頁',
     'add-page-numbers.firstNumber': '起始編號',
     'add-page-numbers.startOn': '起始頁面',
     'add-page-numbers.numbering': '正在加入頁碼（{i}/{n}）',

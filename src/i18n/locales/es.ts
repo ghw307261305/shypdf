@@ -126,7 +126,7 @@ const es: Dict = {
       steps: ['Elige un PDF.', 'Elige una posición (abajo al centro, abajo a la derecha…), el primer número y un formato.', 'Haz clic en «Añadir números de página» y descarga el resultado.'],
       faq: [PRIVACY_FAQ,
         { q: '¿La numeración puede empezar en la página 3?', a: 'Sí. Ajusta «Empezar en la página» y «Primer número» en las opciones: muy útil para saltarte la portada y el índice.' },
-        { q: '¿Qué formatos hay disponibles?', a: '1, 1 / 10, - 1 -, Página 1 y también formatos chinos como 第 1 页.' }],
+        { q: '¿Qué formatos hay disponibles?', a: '1, 1 / 10, - 1 -, Página 1 y Página 1 de 10, siempre en el idioma en el que estés navegando.' }],
     },
     'add-watermark': {
       name: 'Añadir marca de agua', short: 'Sello de texto en cualquier ángulo',
@@ -376,6 +376,7 @@ const es: Dict = {
     'add-page-numbers.br': 'Abajo a la derecha',
     'add-page-numbers.format': 'Formato',
     'add-page-numbers.fmtPage': 'Página {n}',
+    'add-page-numbers.fmtPageTotal': 'Página {n} de {total}',
     'add-page-numbers.firstNumber': 'Primer número',
     'add-page-numbers.startOn': 'Empezar en la página',
     'add-page-numbers.numbering': 'Numerando página {i} de {n}',

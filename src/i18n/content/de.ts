@@ -42,7 +42,7 @@ const content: Record<string, ToolContent> = {
     sections: [
       { h: 'Nummerierung, die zum tatsächlichen Aufbau von Dokumenten passt', p: [
         'Berichte und Abschlussarbeiten beginnen mit der Zählung selten auf dem ersten Blatt. Mit „Start auf Seite“ überspringst du Deckblatt oder Inhaltsverzeichnis, mit „Erste Seitenzahl“ legst du fest, welche Zahl auf der ersten nummerierten Seite steht – zum Beispiel Start auf Seite 3 mit der Zahl 1. Als Position stehen alle vier Ecken sowie die Mitte des oberen oder unteren Rands zur Wahl, und über den Randabstand sorgst du dafür, dass die Zahl vorhandenen Fußzeilen nicht in die Quere kommt.',
-        'Als Formate gibt es einfache Zahlen, „1 / 10“, „- 1 -“ und „Seite 1“ sowie chinesische Formate. Die Schriftgröße lässt sich von 6 bis 48 pt einstellen.' ] },
+        'Als Formate gibt es einfache Zahlen, „1 / 10“, „- 1 -“, „Seite 1“ und „Seite 1 von 10“ – jeweils in der Sprache, in der du die Seite gerade liest. Die Schriftgröße lässt sich von 6 bis 48 pt einstellen.' ] },
       { h: 'Funktioniert mit jedem PDF, bleibt auf deinem Gerät', p: [
         'Die Zahlen werden über den Inhalt jeder Seite gezeichnet. Das funktioniert deshalb mit gescannten Dokumenten genauso wie mit PDFs, die aus Word oder Google Docs exportiert wurden. Die Datei wird in deinem Browser verarbeitet und nie hochgeladen. Du willst mehrere Dokumente zu einem verbinden? Dann füge sie zuerst zusammen und nummeriere anschließend das Ergebnis, damit die Zählung durch die gesamte Datei läuft.' ] },
     ],

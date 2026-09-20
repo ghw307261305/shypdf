@@ -126,7 +126,7 @@ const zh: Dict = {
       steps: ['选择一个 PDF。', '选择位置（底部居中、右下角等）、起始数字和格式。', '点击“添加页码”并下载结果。'],
       faq: [PRIVACY_FAQ,
         { q: '可以从第 3 页开始编号吗？', a: '可以。在选项中设置“起始页”和“起始数字”——跳过封面和目录时很实用。' },
-        { q: '有哪些格式可选？', a: '有 1、1 / 10、- 1 -、Page 1，以及“第 1 页”这样的中文格式。' }],
+        { q: '有哪些格式可选？', a: '有 1、1 / 10、- 1 -、第 1 页，以及“第 1 页，共 10 页”，文字会跟着你正在浏览的语言走。' }],
     },
     'add-watermark': {
       name: 'PDF 添加水印', short: '文字水印，角度随意',
@@ -376,6 +376,7 @@ const zh: Dict = {
     'add-page-numbers.br': '右下',
     'add-page-numbers.format': '格式',
     'add-page-numbers.fmtPage': '第 {n} 页',
+    'add-page-numbers.fmtPageTotal': '第 {n} 页，共 {total} 页',
     'add-page-numbers.firstNumber': '起始数字',
     'add-page-numbers.startOn': '起始页',
     'add-page-numbers.numbering': '正在添加页码（{i}/{n}）',

@@ -74,7 +74,7 @@ const cases = [
     check: async (r) => { const i = await pdfInfo(one(r)); const t = await pdfText(one(r));
       return [ok(i.pages === 3, '去重后 3 页，实际 ' + i.pages), ok(t[0].includes('Page 2 of 5'), '按文档顺序：首页是原第 2 页，实际 ' + t[0].slice(0, 30))]; } },
 
-  { id: 'pagenum/zhTotal+br', spec: { slug: 'add-page-numbers', files: [P('text-5p.pdf')], options: { format: 'zhTotal', pos: 'br', start: '1', from: '1', size: '11', margin: '28' } },
+  { id: 'pagenum/zh-pageTotal+br', spec: { slug: 'add-page-numbers', locale: 'zh', files: [P('text-5p.pdf')], options: { format: 'pageTotal', pos: 'br', start: '1', from: '1', size: '11', margin: '28' } },
     check: async (r) => { const d = await inkDiff(P('text-5p.pdf'), one(r), 0);
       const differs = await regionDiffers(one(r), 0, 4, { x0: 0.5, y0: 0.9, x1: 1, y1: 1 });
       return [ok(d.changed > 200, '第 1 页右下角画上了内容，改动像素 ' + d.changed),

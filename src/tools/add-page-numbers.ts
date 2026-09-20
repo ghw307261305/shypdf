@@ -9,8 +9,7 @@ const FORMATS: Record<string, (n: number, total: number) => string> = {
   slash: (n, total) => `${n} / ${total}`,
   dash: (n) => `- ${n} -`,
   page: (n) => t('add-page-numbers.fmtPage', { n }),
-  zh: (n) => `第 ${n} 页`,
-  zhTotal: (n, total) => `第 ${n} 页，共 ${total} 页`,
+  pageTotal: (n, total) => t('add-page-numbers.fmtPageTotal', { n, total }),
 };
 
 const mod: ToolModule = {
@@ -34,8 +33,7 @@ const mod: ToolModule = {
         <option value="slash">1 / 10</option>
         <option value="dash">- 1 -</option>
         <option value="page">${th('add-page-numbers.fmtPage', { n: 1 })}</option>
-        <option value="zh">第 1 页</option>
-        <option value="zhTotal">第 1 页，共 10 页</option>
+        <option value="pageTotal">${th('add-page-numbers.fmtPageTotal', { n: 1, total: 10 })}</option>
       </select>
     </div>
     <div class="opt-row">

@@ -126,7 +126,7 @@ const ja: Dict = {
       steps: ['PDFを選択します。', '位置（下中央、右下など）、最初の番号、書式を選びます。', '「ページ番号を追加」をクリックして、結果をダウンロードします。'],
       faq: [PRIVACY_FAQ,
         { q: '3ページ目から番号を振り始められますか？', a: 'はい。オプションで「開始ページ」と「最初の番号」を設定してください。表紙や目次を飛ばしたいときに便利です。' },
-        { q: 'どんな書式が使えますか？', a: '「1」「1 / 10」「- 1 -」「1 ページ」のほか、「第 1 页」などの中国語の書式も選べます。' }],
+        { q: 'どんな書式が使えますか？', a: '「1」「1 / 10」「- 1 -」「1 ページ」「1 / 10 ページ」から選べます。表示は、ご覧になっている言語に合わせて変わります。' }],
     },
     'add-watermark': {
       name: 'PDFに透かしを追加', short: 'テキストを好きな角度で',
@@ -376,6 +376,7 @@ const ja: Dict = {
     'add-page-numbers.br': '右下',
     'add-page-numbers.format': '書式',
     'add-page-numbers.fmtPage': '{n} ページ',
+    'add-page-numbers.fmtPageTotal': '{n} / {total} ページ',
     'add-page-numbers.firstNumber': '最初の番号',
     'add-page-numbers.startOn': '開始ページ',
     'add-page-numbers.numbering': 'ページ番号を追加中（{i}/{n}）',

@@ -42,7 +42,7 @@ const content: Record<string, ToolContent> = {
     sections: [
       { h: 'Una numeración pensada para documentos reales', p: [
         'Los informes y las tesis casi nunca empiezan a numerarse en la primera hoja. Ajusta «Empezar en la página» para saltarte la portada o el índice, y «Primer número» para decidir qué número lleva la primera página numerada: por ejemplo, empezar en la página 3 con el número 1. Elige cualquier esquina o el centro del borde superior o inferior, y ajusta el margen para que el número no pise los pies de página existentes.',
-        'Entre los formatos hay números simples, «1 / 10», «- 1 -» y «Página 1», además de formatos chinos. El tamaño de fuente se puede ajustar entre 6 y 48 pt.' ] },
+        'Entre los formatos hay números simples, «1 / 10», «- 1 -», «Página 1» y «Página 1 de 10», siempre en el idioma en el que estés navegando. El tamaño de fuente se puede ajustar entre 6 y 48 pt.' ] },
       { h: 'Sirve para cualquier PDF y no sale de tu dispositivo', p: [
         'Los números se dibujan encima de cada página, así que funciona tanto con documentos escaneados como con PDF exportados desde Word o Google Docs. El archivo se procesa en tu navegador y nunca se sube. ¿Vas a juntar varios documentos en uno? Únelos primero y numera después el resultado, para que la secuencia recorra todo el archivo.' ] },
     ],

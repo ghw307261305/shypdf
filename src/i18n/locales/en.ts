@@ -131,7 +131,7 @@ const en = {
       steps: ['Choose a PDF.', 'Pick a position (bottom center, bottom right…), the first number and a format.', 'Click “Add page numbers” and download the result.'],
       faq: [PRIVACY_FAQ,
         { q: 'Can numbering start on page 3?', a: 'Yes. Set “Start on page” and “First number” in the options — handy for skipping a cover and a table of contents.' },
-        { q: 'Which formats are available?', a: '1, 1 / 10, - 1 -, Page 1, plus Chinese formats such as 第 1 页.' }],
+        { q: 'Which formats are available?', a: '1, 1 / 10, - 1 -, Page 1 and Page 1 of 10 — always in the language you are browsing in.' }],
     },
     'add-watermark': {
       name: 'Add watermark', short: 'Text stamp, any angle',
@@ -385,8 +385,9 @@ const en = {
     'add-page-numbers.bc': 'Bottom',
     'add-page-numbers.br': 'Bottom right',
     'add-page-numbers.format': 'Format',
-    // 这句会印进用户的 PDF：「Page 1」格式
+    // 这两句会印进用户的 PDF，不只是界面文案
     'add-page-numbers.fmtPage': 'Page {n}',
+    'add-page-numbers.fmtPageTotal': 'Page {n} of {total}',
     'add-page-numbers.firstNumber': 'First number',
     'add-page-numbers.startOn': 'Start on page',
     'add-page-numbers.numbering': 'Numbering page {i} of {n}',

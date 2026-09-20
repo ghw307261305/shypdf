@@ -42,7 +42,7 @@ const content: Record<string, ToolContent> = {
     sections: [
       { h: 'Numeração do jeito que os documentos são montados de verdade', p: [
         'Relatórios e trabalhos acadêmicos raramente começam a numeração na primeira folha. Defina “Começar na página” para pular a capa ou o sumário, e “Primeiro número” para escolher o que aparece na primeira página numerada — por exemplo, começar na página 3 com o número 1. Escolha qualquer canto ou o centro da borda superior ou inferior, e ajuste a margem para que o número não fique em cima de rodapés já existentes.',
-        'Os formatos incluem números simples, “1 / 10”, “- 1 -” e “Página 1”, além de formatos chineses. O tamanho da fonte pode ser ajustado de 6 a 48 pt.' ] },
+        'Os formatos incluem números simples, “1 / 10”, “- 1 -”, “Página 1” e “Página 1 de 10”, sempre no idioma em que você está navegando. O tamanho da fonte pode ser ajustado de 6 a 48 pt.' ] },
       { h: 'Funciona em qualquer PDF e fica no seu dispositivo', p: [
         'Os números são desenhados por cima de cada página, então a ferramenta funciona tanto em documentos digitalizados quanto em PDFs exportados do Word ou do Google Docs. O arquivo é processado no seu navegador e nunca é enviado. Vai reunir vários documentos em um só? Junte-os primeiro e numere o resultado depois, para que a sequência percorra o arquivo inteiro.' ] },
     ],

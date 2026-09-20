@@ -42,7 +42,7 @@ const content: Record<string, ToolContent> = {
     sections: [
       { h: 'Une numérotation fidèle à la vraie mise en page des documents', p: [
         'Les rapports et les mémoires commencent rarement leur numérotation dès la première feuille. Réglez « Commencer à la page » pour sauter une couverture ou un sommaire, et « Premier numéro » pour choisir ce qu’affiche la première page numérotée — par exemple, commencer à la page 3 avec le numéro 1. Choisissez n’importe quel coin, ou le centre du bord supérieur ou inférieur, et ajustez la marge pour que le numéro ne chevauche pas un pied de page existant.',
-        'Parmi les formats proposés : les nombres seuls, « 1 / 10 », « - 1 - » et « Page 1 », ainsi que des formats chinois. La taille de police se règle de 6 à 48 pt.' ] },
+        'Parmi les formats proposés : les nombres seuls, « 1 / 10 », « - 1 - », « Page 1 » et « Page 1 sur 10 », toujours dans la langue dans laquelle vous naviguez. La taille de police se règle de 6 à 48 pt.' ] },
       { h: 'Fonctionne avec tous les PDF, sans quitter votre appareil', p: [
         'Les numéros sont dessinés par-dessus chaque page : cela fonctionne donc aussi bien sur des documents numérisés que sur des PDF exportés depuis Word ou Google Docs. Le fichier est traité dans votre navigateur et n’est jamais envoyé sur un serveur. Vous réunissez plusieurs documents en un seul ? Fusionnez-les d’abord, puis numérotez le résultat pour que la numérotation se suive d’un bout à l’autre du fichier.' ] },
     ],

@@ -52,7 +52,7 @@ const content: Record<string, ToolContent> = {
     sections: [
       { h: 'Numbering that matches how documents are actually laid out', p: [
         'Reports and theses rarely start numbering on the first sheet. Set “Start on page” to skip a cover or table of contents, and “First number” to choose what the first numbered page says — for example, start on page 3 with the number 1. Pick any corner or the center of the top or bottom edge, and adjust the margin so the number clears existing footers.',
-        'Formats include plain numbers, “1 / 10”, “- 1 -” and “Page 1”, plus Chinese formats. Font size is adjustable from 6 to 48 pt.' ] },
+        'Formats include plain numbers, “1 / 10”, “- 1 -”, “Page 1” and “Page 1 of 10” — always written in the language you are browsing in. Font size is adjustable from 6 to 48 pt.' ] },
       { h: 'Works on any PDF, stays on your device', p: [
         'Numbers are drawn on top of each page, so this works on scanned documents as well as PDFs exported from Word or Google Docs. The file is processed in your browser and never uploaded. Combining several documents into one? Merge them first, then number the result so the sequence runs through the whole file.' ] },
     ],

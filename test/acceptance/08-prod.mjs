@@ -78,7 +78,7 @@ for (const [slug, files, opts, pred, label] of smoke) {
   const bodies = [];
   page.on('request', (r) => { if (r.url().includes('/api/error-report')) bodies.push(r.postData() ?? ''); });
   await addFiles(page, [fix('bad/名前に空白 and ünïcödé.pdf')]);
-  await setOptions(page, { format: 'zh', pos: 'br' });
+  await setOptions(page, { format: 'pageTotal', pos: 'br' });
   // 人为制造一个真实缺陷：把工具模块的 run 换成会抛错的版本
   await page.evaluate(() => { const f = document.getElementById('options'); const i = document.createElement('input'); i.type = 'hidden'; i.name = 'start'; i.value = 'NaN-trigger'; f.appendChild(i); });
   const r = await run(page, { timeout: 60000 });
