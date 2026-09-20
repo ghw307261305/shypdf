@@ -310,6 +310,8 @@ const es: Dict = {
     'app.maxFiles': 'Puedes añadir hasta {n} archivos.',
     'app.readingPages': 'Leyendo páginas…',
     'app.cantOpen': 'No se puede abrir este PDF: {msg}',
+    'app.encrypted': 'Este PDF está protegido con contraseña, así que esta herramienta no puede abrirlo.',
+    'app.encryptedLink': 'Desbloquear PDF →',
     'app.moveEarlier': 'Mover antes',
     'app.moveLater': 'Mover después',
     'app.rotate': 'Rotar',

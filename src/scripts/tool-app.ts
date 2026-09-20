@@ -4,6 +4,7 @@ import type { ToolModule, OutputFile } from '@/lib/types';
 import { formatBytes, downloadBlob, zipOutputs, stripExt } from '@/lib/files';
 import { t, tn, th, escapeHtml } from '@/lib/i18n-client';
 import { reportError, installGlobalReporter } from '@/lib/report';
+import { isEncryptedError } from '@/lib/errors';
 
 const root = document.getElementById('tool-app')!;
 const cfg = {
@@ -44,7 +45,27 @@ function show(stage: keyof typeof stages) {
   for (const [k, el] of Object.entries(stages)) el.classList.toggle('is-hidden', k !== stage);
   window.scrollTo({ top: 0 });
 }
-function alertIn(el: HTMLElement, msg: string) { el.textContent = msg; el.classList.remove('is-hidden'); }
+function alertIn(el: HTMLElement, msg: string, link?: { href: string; text: string }) {
+  el.textContent = msg;
+  if (link) {
+    el.append(' ');
+    const a = document.createElement('a');
+    a.href = link.href;
+    a.textContent = link.text;
+    el.append(a);
+  }
+  el.classList.remove('is-hidden');
+}
+
+/** 加密的 PDF：别把 pdf-lib / pdf.js 的英文原文丢给用户，换成人话并指路解锁工具 */
+function alertError(el: HTMLElement, e: unknown, fallback: string) {
+  if (isEncryptedError(e) && cfg.slug !== 'unlock-pdf') {
+    const loc = document.documentElement.dataset.locale || 'en';
+    alertIn(el, t('app.encrypted'), { href: `${loc === 'en' ? '' : '/' + loc}/unlock-pdf/`, text: t('app.encryptedLink') });
+    return;
+  }
+  alertIn(el, fallback);
+}
 function clearAlert(el: HTMLElement) { el.textContent = ''; el.classList.add('is-hidden'); }
 function setProgress(msg: string, ratio?: number) {
   progressEl.textContent = msg;
@@ -99,12 +120,12 @@ async function acceptFiles(files: File[]) {
     closeWorkspace?.();
     itemsEl.innerHTML = '';
     try { closeWorkspace = await tool.workspace(itemsEl, ok[0], optionsForm); }
-    catch (e) { reportError(e, { stage: 'open', tool: cfg.slug, files: ok }); reset(); alertIn(uploadAlert, t('app.cantOpen', { msg: (e as Error).message })); }
+    catch (e) { reportError(e, { stage: 'open', tool: cfg.slug, files: ok }); reset(); alertError(uploadAlert, e, t('app.cantOpen', { msg: (e as Error).message })); }
     return;
   }
   if (tool.mode === 'pages') {
     items = [];
-    await expandPages(ok[0]);
+    if (!(await expandPages(ok[0]))) return;
   } else {
     for (const f of ok) {
       if (items.length >= cfg.maxFiles) { alertIn(runAlert, t('app.maxFiles', { n: cfg.maxFiles })); break; }
@@ -116,8 +137,8 @@ async function acceptFiles(files: File[]) {
   loadThumbs();
 }
 
-/** pages 模式：把单个 PDF 展开成逐页条目 */
-async function expandPages(file: File) {
+/** pages 模式：把单个 PDF 展开成逐页条目。打不开时提示并返回 false，由调用方停下 */
+async function expandPages(file: File): Promise<boolean> {
   setProgress(t('app.readingPages'));
   const { openWithPdfjs } = await import('@/lib/pdfjs');
   try {
@@ -126,10 +147,12 @@ async function expandPages(file: File) {
     const doc = await openWithPdfjs(file);
     for (let i = 0; i < doc.numPages; i++) items.push({ id: nextId++, file, pageIndex: i, rotation: 0 });
     (root as any).__pdfDoc = doc;
+    return true;
   } catch (e) {
     reportError(e, { stage: 'open', tool: cfg.slug, files: [file] });
-    alertIn(uploadAlert, t('app.cantOpen', { msg: (e as Error).message }));
-    throw e;
+    reset();
+    alertError(uploadAlert, e, t('app.cantOpen', { msg: (e as Error).message }));
+    return false;
   } finally { setProgress(''); }
 }
 
@@ -301,7 +324,7 @@ runBtn.addEventListener('click', async () => {
   } catch (e) {
     console.error(e);
     reportError(e, { stage: 'run', tool: cfg.slug, files, form: optionsForm });
-    alertIn(runAlert, (e as Error).message || t('app.failed'));
+    alertError(runAlert, e, (e as Error).message || t('app.failed'));
     setProgress('', 0);
   } finally {
     busy = false;

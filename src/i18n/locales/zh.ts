@@ -310,6 +310,8 @@ const zh: Dict = {
     'app.maxFiles': '最多可添加 {n} 个文件。',
     'app.readingPages': '正在读取页面…',
     'app.cantOpen': '无法打开这个 PDF：{msg}',
+    'app.encrypted': '这个 PDF 有密码保护，本工具打不开。',
+    'app.encryptedLink': '解锁 PDF →',
     'app.moveEarlier': '前移',
     'app.moveLater': '后移',
     'app.rotate': '旋转',

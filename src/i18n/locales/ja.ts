@@ -310,6 +310,8 @@ const ja: Dict = {
     'app.maxFiles': '追加できるファイルは最大 {n} 個です。',
     'app.readingPages': 'ページを読み込み中…',
     'app.cantOpen': 'このPDFを開けません：{msg}',
+    'app.encrypted': 'このPDFはパスワードで保護されているため、このツールでは開けません。',
+    'app.encryptedLink': 'PDFロック解除 →',
     'app.moveEarlier': '前へ移動',
     'app.moveLater': '後ろへ移動',
     'app.rotate': '回転',

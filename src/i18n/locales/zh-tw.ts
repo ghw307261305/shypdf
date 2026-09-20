@@ -310,6 +310,8 @@ const zhTw: Dict = {
     'app.maxFiles': '最多可加入 {n} 個檔案。',
     'app.readingPages': '正在讀取頁面…',
     'app.cantOpen': '無法開啟這個 PDF：{msg}',
+    'app.encrypted': '這個 PDF 有密碼保護，本工具無法開啟。',
+    'app.encryptedLink': '解鎖 PDF →',
     'app.moveEarlier': '往前移',
     'app.moveLater': '往後移',
     'app.rotate': '旋轉',

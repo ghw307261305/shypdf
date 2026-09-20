@@ -316,6 +316,8 @@ const en = {
     'app.maxFiles': 'You can add up to {n} files.',
     'app.readingPages': 'Reading pages…',
     'app.cantOpen': 'Can’t open this PDF: {msg}',
+    'app.encrypted': 'This PDF is password-protected, so this tool can’t open it.',
+    'app.encryptedLink': 'Unlock PDF →',
     'app.moveEarlier': 'Move earlier',
     'app.moveLater': 'Move later',
     'app.rotate': 'Rotate',
