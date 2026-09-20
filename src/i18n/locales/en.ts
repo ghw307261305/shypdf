@@ -312,10 +312,10 @@ const en = {
     // ---- 工具页通用 UI（scripts/tool-app.ts） ----
     'app.unsupported': '{name}: unsupported format',
     'app.tooLarge': '{name}: larger than {mb} MB',
-    'app.loadFailed': 'Could not load the tool: {msg}',
+    'app.loadFailed': 'Could not load the tool. Check your connection and reload the page.',
     'app.maxFiles': 'You can add up to {n} files.',
     'app.readingPages': 'Reading pages…',
-    'app.cantOpen': 'Can’t open this PDF: {msg}',
+    'app.cantOpen': 'Can’t open this PDF. The file may be damaged, or it may not be a PDF.',
     'app.encrypted': 'This PDF is password-protected, so this tool can’t open it.',
     'app.encryptedLink': 'Unlock PDF →',
     'app.moveEarlier': 'Move earlier',

@@ -306,10 +306,10 @@ const ja: Dict = {
   client: {
     'app.unsupported': '{name}：対応していない形式です',
     'app.tooLarge': '{name}：{mb} MB を超えています',
-    'app.loadFailed': 'ツールを読み込めませんでした：{msg}',
+    'app.loadFailed': 'ツールを読み込めませんでした。通信状況を確認して、ページを再読み込みしてください。',
     'app.maxFiles': '追加できるファイルは最大 {n} 個です。',
     'app.readingPages': 'ページを読み込み中…',
-    'app.cantOpen': 'このPDFを開けません：{msg}',
+    'app.cantOpen': 'このPDFを開けません。ファイルが壊れているか、PDFではない可能性があります。',
     'app.encrypted': 'このPDFはパスワードで保護されているため、このツールでは開けません。',
     'app.encryptedLink': 'PDFロック解除 →',
     'app.moveEarlier': '前へ移動',

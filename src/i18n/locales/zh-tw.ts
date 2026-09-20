@@ -306,10 +306,10 @@ const zhTw: Dict = {
   client: {
     'app.unsupported': '{name}：不支援的格式',
     'app.tooLarge': '{name}：超過 {mb} MB',
-    'app.loadFailed': '無法載入工具：{msg}',
+    'app.loadFailed': '無法載入工具，請檢查網路後重新整理頁面再試一次。',
     'app.maxFiles': '最多可加入 {n} 個檔案。',
     'app.readingPages': '正在讀取頁面…',
-    'app.cantOpen': '無法開啟這個 PDF：{msg}',
+    'app.cantOpen': '無法開啟這個 PDF，檔案可能已損毀，或者根本不是 PDF。',
     'app.encrypted': '這個 PDF 有密碼保護，本工具無法開啟。',
     'app.encryptedLink': '解鎖 PDF →',
     'app.moveEarlier': '往前移',

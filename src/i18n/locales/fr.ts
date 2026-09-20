@@ -306,10 +306,10 @@ const fr: Dict = {
   client: {
     'app.unsupported': '{name} : format non pris en charge',
     'app.tooLarge': '{name} : dépasse {mb} Mo',
-    'app.loadFailed': 'Impossible de charger l’outil : {msg}',
+    'app.loadFailed': 'Impossible de charger l’outil. Vérifiez votre connexion et rechargez la page.',
     'app.maxFiles': 'Vous pouvez ajouter jusqu’à {n} fichiers.',
     'app.readingPages': 'Lecture des pages…',
-    'app.cantOpen': 'Impossible d’ouvrir ce PDF : {msg}',
+    'app.cantOpen': 'Impossible d’ouvrir ce PDF. Le fichier est peut-être endommagé, ou ce n’est pas un PDF.',
     'app.encrypted': 'Ce PDF est protégé par mot de passe, cet outil ne peut donc pas l’ouvrir.',
     'app.encryptedLink': 'Déverrouiller PDF →',
     'app.moveEarlier': 'Déplacer avant',

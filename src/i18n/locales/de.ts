@@ -306,10 +306,10 @@ const de: Dict = {
   client: {
     'app.unsupported': '{name}: Format wird nicht unterstützt',
     'app.tooLarge': '{name}: größer als {mb} MB',
-    'app.loadFailed': 'Das Tool konnte nicht geladen werden: {msg}',
+    'app.loadFailed': 'Das Tool konnte nicht geladen werden. Prüfe deine Verbindung und lade die Seite neu.',
     'app.maxFiles': 'Es lassen sich bis zu {n} Dateien hinzufügen.',
     'app.readingPages': 'Seiten werden gelesen …',
-    'app.cantOpen': 'Dieses PDF lässt sich nicht öffnen: {msg}',
+    'app.cantOpen': 'Dieses PDF lässt sich nicht öffnen. Die Datei ist möglicherweise beschädigt oder gar kein PDF.',
     'app.encrypted': 'Dieses PDF ist passwortgeschützt und kann mit diesem Tool nicht geöffnet werden.',
     'app.encryptedLink': 'PDF entsperren →',
     'app.moveEarlier': 'Nach vorn',

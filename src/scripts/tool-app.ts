@@ -4,7 +4,7 @@ import type { ToolModule, OutputFile } from '@/lib/types';
 import { formatBytes, downloadBlob, zipOutputs, stripExt } from '@/lib/files';
 import { t, tn, th, escapeHtml } from '@/lib/i18n-client';
 import { reportError, installGlobalReporter } from '@/lib/report';
-import { isEncryptedError } from '@/lib/errors';
+import { isEncryptedError, UserError } from '@/lib/errors';
 
 const root = document.getElementById('tool-app')!;
 const cfg = {
@@ -57,14 +57,19 @@ function alertIn(el: HTMLElement, msg: string, link?: { href: string; text: stri
   el.classList.remove('is-hidden');
 }
 
-/** 加密的 PDF：别把 pdf-lib / pdf.js 的英文原文丢给用户，换成人话并指路解锁工具 */
+/**
+ * 界面上只出现当前语言的人话，绝不出现 pdf-lib / pdf.js / qpdf 的英文原文：
+ *   加密的 PDF → 换成人话并指路解锁工具
+ *   UserError  → message 本来就是 t() 出来的当前语言（lib/errors.ts）
+ *   其余（= 程序缺陷） → 统一的 fallback；原文只走 /api/error-report 的邮件
+ */
 function alertError(el: HTMLElement, e: unknown, fallback: string) {
   if (isEncryptedError(e) && cfg.slug !== 'unlock-pdf') {
     const loc = document.documentElement.dataset.locale || 'en';
     alertIn(el, t('app.encrypted'), { href: `${loc === 'en' ? '' : '/' + loc}/unlock-pdf/`, text: t('app.encryptedLink') });
     return;
   }
-  alertIn(el, fallback);
+  alertIn(el, e instanceof UserError ? e.message : fallback);
 }
 function clearAlert(el: HTMLElement) { el.textContent = ''; el.classList.add('is-hidden'); }
 function setProgress(msg: string, ratio?: number) {
@@ -107,7 +112,7 @@ async function acceptFiles(files: File[]) {
   if (!ok.length) return;
   if (!tool) {
     try { tool = await loadTool(cfg.slug); }
-    catch (e) { reportError(e, { stage: 'load', tool: cfg.slug }); alertIn(uploadAlert, t('app.loadFailed', { msg: (e as Error).message })); return; }
+    catch (e) { reportError(e, { stage: 'load', tool: cfg.slug }); alertError(uploadAlert, e, t('app.loadFailed')); return; }
     optionsForm.innerHTML = tool.optionsHtml();
     bindConditionalFields();
   }
@@ -120,7 +125,7 @@ async function acceptFiles(files: File[]) {
     closeWorkspace?.();
     itemsEl.innerHTML = '';
     try { closeWorkspace = await tool.workspace(itemsEl, ok[0], optionsForm); }
-    catch (e) { reportError(e, { stage: 'open', tool: cfg.slug, files: ok }); reset(); alertError(uploadAlert, e, t('app.cantOpen', { msg: (e as Error).message })); }
+    catch (e) { reportError(e, { stage: 'open', tool: cfg.slug, files: ok }); reset(); alertError(uploadAlert, e, t('app.cantOpen')); }
     return;
   }
   if (tool.mode === 'pages') {
@@ -151,7 +156,7 @@ async function expandPages(file: File): Promise<boolean> {
   } catch (e) {
     reportError(e, { stage: 'open', tool: cfg.slug, files: [file] });
     reset();
-    alertError(uploadAlert, e, t('app.cantOpen', { msg: (e as Error).message }));
+    alertError(uploadAlert, e, t('app.cantOpen'));
     return false;
   } finally { setProgress(''); }
 }
@@ -324,7 +329,7 @@ runBtn.addEventListener('click', async () => {
   } catch (e) {
     console.error(e);
     reportError(e, { stage: 'run', tool: cfg.slug, files, form: optionsForm });
-    alertError(runAlert, e, (e as Error).message || t('app.failed'));
+    alertError(runAlert, e, t('app.failed'));
     setProgress('', 0);
   } finally {
     busy = false;

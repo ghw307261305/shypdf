@@ -306,10 +306,10 @@ const zh: Dict = {
   client: {
     'app.unsupported': '{name}：不支持的格式',
     'app.tooLarge': '{name}：超过 {mb} MB',
-    'app.loadFailed': '工具加载失败：{msg}',
+    'app.loadFailed': '工具加载失败，请检查网络后刷新页面重试。',
     'app.maxFiles': '最多可添加 {n} 个文件。',
     'app.readingPages': '正在读取页面…',
-    'app.cantOpen': '无法打开这个 PDF：{msg}',
+    'app.cantOpen': '无法打开这个 PDF，文件可能已损坏，或者根本不是 PDF。',
     'app.encrypted': '这个 PDF 有密码保护，本工具打不开。',
     'app.encryptedLink': '解锁 PDF →',
     'app.moveEarlier': '前移',
