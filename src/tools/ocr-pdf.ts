@@ -17,6 +17,7 @@ const LANGS: { code: string; label: string; locale: string }[] = [
   { code: 'ita', label: 'Italiano', locale: 'it' },
   { code: 'jpn', label: '日本語', locale: 'ja' },
   { code: 'chi_sim', label: '简体中文', locale: 'zh' },
+  { code: 'chi_tra', label: '繁體中文', locale: 'zh-tw' },
 ];
 
 const DPI = 200;          // 识别用的渲染分辨率：再高收益很小，耗时和内存却线性涨
@@ -26,8 +27,9 @@ const HAS_TEXT = 25;      // 一页已有这么多可选中的字符，就当它
 const mod: ToolModule = {
   mode: 'files',
   optionsHtml: () => {
-    const pageLang = (typeof document !== 'undefined' ? document.documentElement.lang : 'en').slice(0, 2).toLowerCase();
-    const preferred = LANGS.find((l) => l.locale === pageLang)?.code ?? 'eng';
+    // 认站点语言（data-locale：'zh' / 'zh-tw'）而不是 html lang —— lang 是 zh-Hans / zh-Hant，截两位分不出简繁
+    const siteLocale = typeof document !== 'undefined' ? document.documentElement.dataset.locale || 'en' : 'en';
+    const preferred = LANGS.find((l) => l.locale === siteLocale)?.code ?? 'eng';
     return `
     <div class="opt-group">
       <label for="opt-lang">${th('ocr-pdf.language')}</label>

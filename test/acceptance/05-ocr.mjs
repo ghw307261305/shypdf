@@ -58,6 +58,11 @@ const cases = [
       before: async (page) => page.evaluate(() => document.querySelector('[name=lang]')?.value) },
     check: async (r) => [ok(r.beforeResult === 'chi_sim', '中文页面默认选简体中文，实际 ' + r.beforeResult)] },
 
+  // html lang 是 zh-Hans / zh-Hant，截两位分不出简繁，所以默认语言认的是 data-locale
+  { id: 'ocr/default-lang-zh-tw-page', spec: { slug: 'ocr-pdf', locale: 'zh-tw', files: [P('scanned-zh.pdf')], skipRun: true,
+      before: async (page) => page.evaluate(() => document.querySelector('[name=lang]')?.value) },
+    check: async (r) => [ok(r.beforeResult === 'chi_tra', '繁中页面默认选繁體中文，实际 ' + r.beforeResult)] },
+
   { id: 'ocr/poster-a0', spec: { slug: 'ocr-pdf', files: [P('poster-a0.pdf')], options: { lang: 'eng', output: 'txt', skipText: false }, timeout: T },
     check: async (r) => [ok(r.state === 'result', 'A0 巨幅页能跑完（按上限缩放），实际 ' + r.state),
       ok(/Poster|Acceptance|fixture/i.test(await readFile(one(r), 'utf8')), '识别出内容')] },

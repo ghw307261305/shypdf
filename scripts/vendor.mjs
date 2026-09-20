@@ -10,7 +10,7 @@ const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const nm = (p) => join(root, 'node_modules', p);
 const out = (p) => join(root, 'public/vendor', p);
 
-export const OCR_LANGS = ['eng', 'spa', 'por', 'fra', 'deu', 'ita', 'jpn', 'chi_sim'];
+export const OCR_LANGS = ['eng', 'spa', 'por', 'fra', 'deu', 'ita', 'jpn', 'chi_sim', 'chi_tra'];
 
 const font = (pkg, dir, file) => [`@expo-google-fonts/${pkg}/${dir}/${file}_${dir}.ttf`, `fonts/${file}-${dir}.ttf`];
 const family = (pkg, file) => ['400Regular', '400Regular_Italic', '700Bold', '700Bold_Italic'].map((d) => font(pkg, d, file));
