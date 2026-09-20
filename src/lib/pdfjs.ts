@@ -3,6 +3,39 @@ import type { PDFDocumentProxy } from 'pdfjs-dist';
 
 let lib: typeof import('pdfjs-dist') | null = null;
 
+// WebKit（也就是 iOS 上的所有浏览器）至今没实现 ReadableStream 的异步迭代，
+// 而 pdf.js 6 的 getTextContent 里正是 `for await (const v of stream)`，
+// 于是 iPhone 上一取文字就抛 "undefined is not a function"。补一个最小实现。
+export function installStreamAsyncIterator() {
+  if (typeof ReadableStream === 'undefined' || Symbol.asyncIterator in ReadableStream.prototype) return false;
+  const values = function (this: ReadableStream, { preventCancel = false } = {}) {
+    const reader = this.getReader();
+    return {
+      async next() {
+        try {
+          const r = await reader.read();
+          if (r.done) reader.releaseLock();
+          return r;
+        } catch (err) {
+          reader.releaseLock();
+          throw err;
+        }
+      },
+      async return(value?: unknown) {
+        if (!preventCancel) await reader.cancel(value);
+        reader.releaseLock();
+        return { done: true, value };
+      },
+      [Symbol.asyncIterator]() { return this; },
+    };
+  };
+  const desc = { value: values, writable: true, configurable: true };
+  Object.defineProperty(ReadableStream.prototype, Symbol.asyncIterator, desc);
+  Object.defineProperty(ReadableStream.prototype, 'values', desc);
+  return true;
+}
+installStreamAsyncIterator();
+
 /** Node 测试用：注入 pdfjs-dist 的 legacy 构建 */
 export function setPdfjs(l: typeof import('pdfjs-dist')) { lib = l; }
 

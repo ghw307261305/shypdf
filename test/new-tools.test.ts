@@ -9,6 +9,7 @@ import edit from '@/tools/edit-pdf';
 import fill from '@/tools/fill-pdf';
 import toText from '@/tools/pdf-to-text';
 import { readExifOrientation } from '@/tools/jpg-to-pdf';
+import { installStreamAsyncIterator } from '@/lib/pdfjs';
 
 async function makePdf(name: string, pages: number, w = 400, h = 600): Promise<File> {
   const doc = await PDFDocument.create();
@@ -98,6 +99,23 @@ out = await toText.run([a], fd({ pages: '1-2', breaks: 'on' }), ctx);
   assert(text.includes('a.pdf page 1') && text.includes('page 2') && !text.includes('page 3'), 'pdf-to-text: right pages extracted');
   assert(text.includes('----- Page 1 -----'), 'pdf-to-text: break marker written');
   assert(out[0].name === 'a.txt', 'pdf-to-text: .txt name');
+}
+
+// WebKit 没有 ReadableStream 的异步迭代，pdf.js 的 getTextContent 全靠 installStreamAsyncIterator 兜底。
+// 这里把原生的拿掉，模拟 iPhone 跑一遍。
+{
+  const proto = ReadableStream.prototype as any;
+  const saved = [Symbol.asyncIterator, 'values'].map((k) => [k, Object.getOwnPropertyDescriptor(proto, k)] as const);
+  for (const [k] of saved) delete proto[k];
+  try {
+    let broke = false; try { for await (const _ of new ReadableStream({ start: (c) => c.close() })) void _; } catch { broke = true; }
+    assert(broke, 'stream polyfill: 没有补丁时 for-await 确实会炸');
+    assert(installStreamAsyncIterator(), 'stream polyfill: 装上了');
+    const text = await (await toText.run([a], fd({ pages: '1' }), ctx))[0].blob.text();
+    assert(text.includes('a.pdf page 1'), 'stream polyfill: 没有原生异步迭代也能取到文字');
+  } finally {
+    for (const [k, d] of saved) if (d) Object.defineProperty(proto, k, d);
+  }
 }
 
 // EXIF 方向：PDF 不认 EXIF，方向不是 1 的图必须改走 canvas 重绘，否则手机竖拍的照片会躺倒
