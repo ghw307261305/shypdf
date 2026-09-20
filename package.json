@@ -12,7 +12,9 @@
     "preview": "astro preview",
     "check": "astro check",
     "pretest": "npm run vendor",
-    "test": "tsx --tsconfig tsconfig.json test/i18n.test.ts && tsx --tsconfig tsconfig.json test/pdflib-tools.test.ts && tsx --tsconfig tsconfig.json test/convert-tools.test.ts && tsx --tsconfig tsconfig.json test/new-tools.test.ts && tsx --tsconfig tsconfig.json test/report-worker.test.ts && node test/qpdf.test.mjs"
+    "test": "tsx --tsconfig tsconfig.json test/i18n.test.ts && tsx --tsconfig tsconfig.json test/pdflib-tools.test.ts && tsx --tsconfig tsconfig.json test/convert-tools.test.ts && tsx --tsconfig tsconfig.json test/new-tools.test.ts && tsx --tsconfig tsconfig.json test/report-worker.test.ts && node test/qpdf.test.mjs",
+    "fixtures": "node scripts/make-fixtures.mjs",
+    "test:accept": "node test/acceptance/run-all.mjs"
   },
   "dependencies": {
     "@expo-google-fonts/arimo": "^0.4.3",
@@ -41,6 +43,7 @@
   },
   "devDependencies": {
     "@xmldom/xmldom": "^0.9.12",
+    "playwright-core": "^1.63.0",
     "tsx": "^4.23.13",
     "typescript": "^5.9.3"
   }

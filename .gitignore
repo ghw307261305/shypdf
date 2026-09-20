@@ -7,3 +7,10 @@ dist
 public/vendor/tesseract
 public/vendor/fonts
 public/vendor/hb
+
+# macOS Finder 目录视图设置，和项目无关
+.DS_Store
+
+# 验收测试素材：用 node scripts/make-fixtures.mjs 重新生成
+test/fixtures/
+test/acceptance/results/
