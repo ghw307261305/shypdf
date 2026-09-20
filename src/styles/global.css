@@ -35,7 +35,7 @@ button { cursor: pointer; }
 .site-header { border-bottom: 1px solid var(--line); background: var(--bg); }
 .site-header .wrap { display: flex; align-items: center; justify-content: space-between; height: 64px; gap: 24px; }
 .brand { display: flex; align-items: center; gap: 10px; font-size: 20px; font-weight: 700; }
-.brand-mark { width: 28px; height: 28px; flex-shrink: 0; }
+.brand-mark { width: 30px; height: 30px; flex-shrink: 0; }
 .nav { display: flex; gap: 24px; font-weight: 500; white-space: nowrap; }
 .nav a[aria-current="page"] { color: var(--accent-ink); }
 .nav svg { display: none; }

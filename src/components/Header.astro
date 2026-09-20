@@ -20,7 +20,7 @@ const iconOf = (key: string) => toolIcon(key) ?? gridIcon;
 <header class="site-header">
   <div class="wrap">
     <div class="header-left">
-      <a class="brand" href={localePath(locale)}><img class="brand-mark" src="/favicon.svg" width="28" height="28" alt="" /><span>{SITE.name}</span></a>
+      <a class="brand" href={localePath(locale)}><img class="brand-mark" src="/logo.svg" width="30" height="30" alt="" /><span>{SITE.name}</span></a>
       <nav class="nav" aria-label={d.ui.nav.label}>
         {nav.map((n) => (
           <a href={localePath(locale, n.href)} aria-current={current === n.key ? 'page' : undefined}>
