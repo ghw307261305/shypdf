@@ -1,4 +1,4 @@
-// qpdf（WASM）封装：用于加密 / 解密。文件在 public/vendor/qpdf/，按需以 <script> 载入。
+// qpdf（WASM）封装：用于加密 / 解密 / 修复。文件来自 npm 包 @jspawn/qpdf-wasm，由 scripts/vendor.mjs 拷到 public/vendor/qpdf/，按需以 <script> 载入。
 // 每次调用新建一个 Module 实例（Emscripten 的 callMain 只能跑一次）。
 
 import { t } from './i18n-client';

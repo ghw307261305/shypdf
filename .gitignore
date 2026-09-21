@@ -3,10 +3,8 @@ dist
 .claude/
 .astro
 .wrangler
-# 由 scripts/vendor.mjs 从 node_modules 生成（qpdf 是手工编译的，仍在 git 里）
-public/vendor/tesseract
-public/vendor/fonts
-public/vendor/hb
+# 整个目录由 scripts/vendor.mjs 从 node_modules 生成，版本由 package-lock.json 锁定
+public/vendor
 
 # macOS Finder 目录视图设置，和项目无关
 .DS_Store
