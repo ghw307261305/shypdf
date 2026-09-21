@@ -45,6 +45,19 @@ const de: Dict = {
         { title: 'Kostenlos, ohne Anmeldung', body: 'Tool öffnen und loslegen. Kein Konto, keine E-Mail-Adresse, kein Wasserzeichen auf deinen Dateien.' },
         { title: 'Kein Warten auf Uploads', body: 'Deine Dateien müssen nicht erst durchs Netz. Ein Dutzend PDFs zusammenzufügen dauert deshalb nur ein, zwei Sekunden – auch bei langsamer Verbindung.' },
       ],
+      copy: [
+        { h: 'Wie ein PDF-Tool ohne Upload funktionieren kann', p: [
+          'Die meisten PDF-Seiten sind nur eine dünne Oberfläche vor einem Server: Deine Datei wird hochgeladen, irgendwo verarbeitet, wo du nicht hinsehen kannst, und zurückgeschickt. ShyPDF macht es umgekehrt und schickt den Programmcode zu dir. Wenn du ein Tool öffnest, lädt dein Browser das Programm herunter – Open-Source-Engines wie pdf-lib, PDF.js, qpdf und Tesseract, die für den Einsatz im Browser-Tab gebaut sind – und führt es auf deinem eigenen Gerät aus. Das gewählte PDF wird von deiner Festplatte in den Speicher des Tabs gelesen, und das Ergebnis landet direkt in deinem Download-Ordner.',
+          'Das musst du uns nicht einfach glauben. Öffne die Entwicklertools deines Browsers, wechsle zum Tab „Netzwerk“ und benutze ein beliebiges Tool: Keine Anfrage enthält deine Datei. Außerdem verbietet die Sicherheitsrichtlinie der Website ihren Seiten, sich mit irgendeiner anderen Domain zu verbinden – das Versprechen wird also von deinem Browser durchgesetzt, nicht von uns.',
+        ] },
+        { h: 'Was du hier tun kannst', p: [
+          'Es gibt {n} Tools, alle kostenlos und alle lokal: Seiten zusammenfügen, teilen, neu anordnen, drehen, zuschneiden und löschen; Seitenzahlen, Wasserzeichen, Text, Markierungen und Unterschriften hinzufügen; Formulare ausfüllen; zwischen PDF und Word, JPG, PNG und reinem Text konvertieren; Dateien für den E-Mail-Versand komprimieren; Scans per OCR durchsuchbar machen; beschädigte Dateien reparieren; ein Passwort setzen oder entfernen. Nichts davon braucht ein Konto, und nichts setzt ein Wasserzeichen auf dein Ergebnis.',
+        ] },
+        { h: 'Wann es passt – und wann nicht', p: [
+          'Lokale Verarbeitung passt zu den Dateien, die man am wenigsten gern hochlädt: Verträge, Kontoauszüge, Steuerunterlagen, Arztbefunde, eingescannte Ausweise. Schnell ist es auch: Es gibt weder Upload noch Download, auf die du warten müsstest – das Tempo hängt von deinem Gerät ab, nicht von deiner Verbindung.',
+          'Der Preis dafür ist der Arbeitsspeicher. Dateien sind auf je {mb} MB begrenzt, weil alles in einem Browser-Tab passiert, und ein sehr großer Scan kann auf einem älteren Handy den Speicher sprengen. Für ein eingescanntes Archiv mit mehreren Hundert Seiten ist ein Desktop-Programm nach wie vor die bessere Wahl. Für alltägliche Dokumente reicht ein Browser-Tab.',
+        ] },
+      ],
     },
     tool: {
       title: '{tool} – kostenlos, ohne Upload | {site}',

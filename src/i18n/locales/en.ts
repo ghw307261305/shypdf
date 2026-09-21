@@ -49,6 +49,20 @@ const en = {
         { title: 'Free, no sign-up', body: 'Open a tool and use it. No account, no email address, no watermark on your files.' },
         { title: 'No waiting on uploads', body: 'Your files don’t travel over the network, so merging a dozen PDFs takes a second or two, even on a slow connection.' },
       ],
+      // 工具卡片下面的正文：讲清“为什么能不上传”、能做什么、什么时候不合适。{n} = 工具数，{mb} = 单文件上限
+      copy: [
+        { h: 'How a PDF tool can work without uploads', p: [
+          'Most PDF sites are a thin page in front of a server: your file is uploaded, processed somewhere you can’t see, and sent back. ShyPDF ships the processing code to you instead. When you open a tool, your browser downloads the program — open-source engines such as pdf-lib, PDF.js, qpdf and Tesseract, built to run inside a browser tab — and runs it on your own device. The PDF you choose is read from your disk into the tab’s memory, and the result is saved straight to your downloads folder.',
+          'You don’t have to take that on trust. Open your browser’s developer tools, switch to the Network tab and run any tool: no request carries your file. The site’s security policy also forbids its pages from connecting to any other domain, so the promise is enforced by your browser rather than by us.',
+        ] },
+        { h: 'What you can do here', p: [
+          'There are {n} tools, all free and all local: merge, split, reorder, rotate, crop and delete pages; add page numbers, watermarks, text, highlights and signatures; fill in forms; convert between PDF and Word, JPG, PNG and plain text; compress files for email; make scans searchable with OCR; repair damaged files; and add or remove a password. Nothing needs an account, and nothing puts a watermark on your output.',
+        ] },
+        { h: 'When it fits, and when it doesn’t', p: [
+          'Working locally suits the files people are most reluctant to upload: contracts, bank statements, tax forms, medical records, ID scans. It is also quick — there is no upload or download to wait for, so the speed depends on your device, not your connection.',
+          'The trade-off is memory. Files are limited to {mb} MB each because everything happens inside a browser tab, and a very large scan on an older phone can run out of room. For a scanned archive of several hundred pages, a desktop app is still the better choice. For everyday documents, a browser tab is enough.',
+        ] },
+      ],
     },
     tool: {
       title: '{tool} — free, no upload | {site}',

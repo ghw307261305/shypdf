@@ -45,6 +45,19 @@ const es: Dict = {
         { title: 'Gratis y sin registro', body: 'Abre una herramienta y úsala. Sin cuenta, sin correo electrónico y sin marcas de agua en tus archivos.' },
         { title: 'Sin esperar subidas', body: 'Tus archivos no viajan por la red, así que unir una docena de PDF tarda uno o dos segundos, incluso con una conexión lenta.' },
       ],
+      copy: [
+        { h: 'Cómo puede funcionar una herramienta PDF sin subir nada', p: [
+          'La mayoría de los sitios de PDF son una página sencilla delante de un servidor: tu archivo se sube, se procesa en algún lugar que no puedes ver y te lo devuelven. ShyPDF hace lo contrario: te envía el código que hace el trabajo. Al abrir una herramienta, tu navegador descarga el programa —motores de código abierto como pdf-lib, PDF.js, qpdf y Tesseract, preparados para ejecutarse dentro de una pestaña— y lo ejecuta en tu propio dispositivo. El PDF que eliges se lee de tu disco a la memoria de la pestaña, y el resultado se guarda directamente en tu carpeta de descargas.',
+          'No hace falta que te fíes de nuestra palabra. Abre las herramientas para desarrolladores de tu navegador, ve a la pestaña «Red» y usa cualquier herramienta: ninguna petición lleva tu archivo. Además, la política de seguridad del sitio impide que sus páginas se conecten a cualquier otro dominio, así que la promesa la hace cumplir tu navegador, no nosotros.',
+        ] },
+        { h: 'Qué puedes hacer aquí', p: [
+          'Hay {n} herramientas, todas gratuitas y todas locales: unir, dividir, reordenar, rotar, recortar y eliminar páginas; añadir números de página, marcas de agua, texto, resaltados y firmas; rellenar formularios; convertir entre PDF y Word, JPG, PNG y texto sin formato; comprimir archivos para enviarlos por correo; hacer que los documentos escaneados se puedan buscar con OCR; reparar archivos dañados; y poner o quitar una contraseña. Nada requiere una cuenta y nada añade una marca de agua al resultado.',
+        ] },
+        { h: 'Cuándo encaja y cuándo no', p: [
+          'Trabajar en local es ideal para los archivos que menos apetece subir: contratos, extractos bancarios, impresos de impuestos, historiales médicos, documentos de identidad escaneados. También es rápido: no hay subida ni descarga que esperar, así que la velocidad depende de tu dispositivo y no de tu conexión.',
+          'La contrapartida es la memoria. Los archivos están limitados a {mb} MB cada uno porque todo ocurre dentro de una pestaña del navegador, y un escaneo muy grande en un móvil antiguo puede quedarse sin espacio. Para un archivo escaneado de varios cientos de páginas, una aplicación de escritorio sigue siendo mejor opción. Para los documentos de cada día, basta con una pestaña del navegador.',
+        ] },
+      ],
     },
     tool: {
       title: '{tool} gratis y sin subir archivos | {site}',

@@ -45,6 +45,19 @@ const fr: Dict = {
         { title: 'Gratuit, sans inscription', body: 'Ouvrez un outil et utilisez-le. Pas de compte, pas d’adresse e-mail, pas de filigrane sur vos fichiers.' },
         { title: 'Aucun envoi à attendre', body: 'Vos fichiers ne transitent pas par le réseau : fusionner une dizaine de PDF prend une ou deux secondes, même avec une connexion lente.' },
       ],
+      copy: [
+        { h: 'Comment un outil PDF peut fonctionner sans envoi', p: [
+          'La plupart des sites PDF ne sont qu’une page placée devant un serveur : votre fichier est envoyé, traité quelque part hors de votre vue, puis renvoyé. ShyPDF fait l’inverse : c’est le code de traitement qui vient à vous. Quand vous ouvrez un outil, votre navigateur télécharge le programme — des moteurs open source comme pdf-lib, PDF.js, qpdf et Tesseract, conçus pour tourner dans un onglet — et l’exécute sur votre propre appareil. Le PDF choisi est lu depuis votre disque dans la mémoire de l’onglet, et le résultat est enregistré directement dans votre dossier de téléchargements.',
+          'Vous n’avez pas à nous croire sur parole. Ouvrez les outils de développement de votre navigateur, passez à l’onglet « Réseau » et lancez n’importe quel outil : aucune requête ne transporte votre fichier. La politique de sécurité du site interdit en outre à ses pages de se connecter à un autre domaine ; c’est donc votre navigateur, et non nous, qui fait respecter la promesse.',
+        ] },
+        { h: 'Ce que vous pouvez faire ici', p: [
+          'Il y a {n} outils, tous gratuits et tous locaux : fusionner, diviser, réorganiser, faire pivoter, rogner et supprimer des pages ; ajouter des numéros de page, des filigranes, du texte, des surlignages et des signatures ; remplir des formulaires ; convertir entre PDF et Word, JPG, PNG et texte brut ; compresser des fichiers pour les envoyer par e-mail ; rendre des documents scannés interrogeables grâce à l’OCR ; réparer des fichiers endommagés ; ajouter ou retirer un mot de passe. Rien ne demande de compte, et rien n’ajoute de filigrane au résultat.',
+        ] },
+        { h: 'Quand c’est adapté, et quand ça ne l’est pas', p: [
+          'Le traitement local convient aux fichiers que l’on hésite le plus à envoyer : contrats, relevés bancaires, déclarations fiscales, dossiers médicaux, pièces d’identité scannées. C’est aussi rapide : il n’y a ni envoi ni téléchargement à attendre, la vitesse dépend donc de votre appareil et non de votre connexion.',
+          'La contrepartie, c’est la mémoire. Les fichiers sont limités à {mb} Mo chacun, car tout se passe dans un onglet du navigateur, et un très gros scan sur un téléphone ancien peut manquer de place. Pour une archive scannée de plusieurs centaines de pages, une application de bureau reste le meilleur choix. Pour les documents de tous les jours, un onglet de navigateur suffit.',
+        ] },
+      ],
     },
     tool: {
       title: '{tool} — gratuit, sans envoi de fichier | {site}',

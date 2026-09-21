@@ -19,6 +19,8 @@ const groups = [
   { key: 'soon', name: h.soonName, note: h.soonNote, tools: all.filter((t) => t.phase !== 1) },
 ].filter((g) => g.tools.length);
 const jsonLd = { '@context': 'https://schema.org', '@type': 'WebSite', name: SITE.name, url: new URL(localePath(locale), SITE.url).href, description: d.site.description, inLanguage: LOCALE_INFO[locale].htmlLang };
+// 正文里的 {n} / {mb}：从数据算出来，加了工具或改了上限不用回头改八种语言的文案
+const copyVars = { n: all.filter((t) => t.phase === 1).length, mb: SITE.limits.maxFileMB };
 const check = '<path d="M5 12l5 5 9-10"/>';
 ---
 <Base title={fmt(h.title, { site: SITE.name })} current="home" jsonLd={jsonLd} locale={locale}>
@@ -55,6 +57,10 @@ const check = '<path d="M5 12l5 5 9-10"/>';
         <div class="home-guides">{GUIDES.slice(0, 4).map((g) => <a href={`/guides/${g.slug}/`}><b>{g.title}</b><small>{g.description}</small></a>)}</div>
       </section>
     )}
+
+    <section class="tool-copy">
+      {h.copy.map((c) => (<><h2>{c.h}</h2>{c.p.map((p) => <p>{fmt(p, copyVars)}</p>)}</>))}
+    </section>
 
     <section class="pitch">
       {h.pitch.map((x) => <div><b>{x.title}</b><p>{x.body}</p></div>)}

@@ -45,6 +45,19 @@ const pt: Dict = {
         { title: 'Grátis, sem cadastro', body: 'Abra uma ferramenta e use. Sem conta, sem e-mail, sem marca d\'água nos seus arquivos.' },
         { title: 'Sem esperar o upload', body: 'Seus arquivos não viajam pela rede, então juntar uma dúzia de PDFs leva um ou dois segundos, mesmo com internet lenta.' },
       ],
+      copy: [
+        { h: 'Como uma ferramenta de PDF funciona sem upload', p: [
+          'A maioria dos sites de PDF é uma página simples na frente de um servidor: seu arquivo é enviado, processado em algum lugar que você não vê e devolvido. O ShyPDF faz o contrário: envia para você o código que faz o trabalho. Ao abrir uma ferramenta, seu navegador baixa o programa — motores de código aberto como pdf-lib, PDF.js, qpdf e Tesseract, preparados para rodar dentro de uma aba — e o executa no seu próprio dispositivo. O PDF escolhido é lido do seu disco para a memória da aba, e o resultado é salvo direto na sua pasta de downloads.',
+          'Você não precisa acreditar só na nossa palavra. Abra as ferramentas de desenvolvedor do navegador, vá até a aba “Rede” e use qualquer ferramenta: nenhuma requisição leva o seu arquivo. Além disso, a política de segurança do site proíbe que suas páginas se conectem a qualquer outro domínio — quem garante a promessa é o seu navegador, não a gente.',
+        ] },
+        { h: 'O que dá para fazer aqui', p: [
+          'São {n} ferramentas, todas gratuitas e todas locais: juntar, dividir, reordenar, girar, cortar e excluir páginas; adicionar números de página, marcas d’água, texto, destaques e assinaturas; preencher formulários; converter entre PDF e Word, JPG, PNG e texto simples; comprimir arquivos para enviar por e-mail; tornar documentos escaneados pesquisáveis com OCR; reparar arquivos corrompidos; e colocar ou remover uma senha. Nada exige conta e nada coloca marca d’água no resultado.',
+        ] },
+        { h: 'Quando serve — e quando não serve', p: [
+          'Trabalhar localmente combina com os arquivos que mais dão receio de enviar: contratos, extratos bancários, declarações de imposto, prontuários médicos, documentos de identidade escaneados. Também é rápido: não há upload nem download para esperar, então a velocidade depende do seu dispositivo, não da sua internet.',
+          'O preço disso é a memória. Os arquivos são limitados a {mb} MB cada porque tudo acontece dentro de uma aba do navegador, e uma digitalização muito grande em um celular antigo pode ficar sem espaço. Para um arquivo escaneado de várias centenas de páginas, um aplicativo de desktop ainda é a melhor escolha. Para os documentos do dia a dia, uma aba do navegador dá conta.',
+        ] },
+      ],
     },
     tool: {
       title: '{tool} — grátis, sem upload | {site}',
