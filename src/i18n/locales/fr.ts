@@ -18,7 +18,7 @@ const fr: Dict = {
     footer: {
       blurb: 'Des outils PDF qui fonctionnent dans votre navigateur. Vos fichiers ne quittent jamais votre appareil : tout est traité en local.',
       popular: 'Outils populaires', categories: 'Catégories', about: 'À propos', aboutLink: 'À propos de {site}',
-      guides: 'Guides', privacy: 'Politique de confidentialité', terms: 'Conditions d’utilisation', licenses: 'Open source',
+      guides: 'Guides', privacy: 'Politique de confidentialité', terms: 'Conditions d’utilisation', licenses: 'Open source', source: 'Code source',
       promise: 'Vos fichiers ne quittent jamais votre appareil · Tout se fait dans votre navigateur',
     },
     lang: {
@@ -98,6 +98,9 @@ const fr: Dict = {
       howTitle: 'Comment ça marche',
       howBody: 'Les outils reposent sur des bibliothèques open source — pdf-lib, PDF.js, ainsi que qpdf et Tesseract compilés en WebAssembly — que votre navigateur télécharge une seule fois, puis exécute en local. La liste complète figure sur la page {link}.',
       howLink: 'Licences open source',
+      sourceTitle: 'Lire le code',
+      sourceBody: 'Le code source est public, vous pouvez donc vérifier précisément ce qui s’exécute dans votre navigateur : {link}.',
+      sourceLink: '{site} sur GitHub',
       contactTitle: 'Contact',
       contactBody: 'Une question, un bug, une idée :',
     },

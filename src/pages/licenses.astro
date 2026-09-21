@@ -24,6 +24,7 @@ const libs = [
 <Base title={`Open-source licenses | ${SITE.name}`} description={`The open-source software that ${SITE.name} is built on, and its licenses.`} translated={false}>
   <div class="wrap prose">
     <h1>Open-source licenses</h1>
+    {SITE.repo.live && <p>{SITE.name}’s own code is open source under {SITE.repo.license}: <a href={SITE.repo.url} rel="noopener">{SITE.repo.url.replace('https://', '')}</a>.</p>}
     <p>{SITE.name} is built on the work of these open-source projects. Each remains under its own license.</p>
     <ul class="lib-list">
       {libs.map((l) => (

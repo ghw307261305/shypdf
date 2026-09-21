@@ -18,7 +18,7 @@ const zh: Dict = {
     footer: {
       blurb: '在浏览器内运行的 PDF 工具。文件不离开你的设备，全部处理在本机完成。',
       popular: '热门工具', categories: '工具分类', about: '关于', aboutLink: '关于 {site}',
-      guides: '使用指南', privacy: '隐私政策', terms: '使用条款', licenses: '开源许可',
+      guides: '使用指南', privacy: '隐私政策', terms: '使用条款', licenses: '开源许可', source: '源代码',
       promise: '文件不离开你的设备 · 全部处理在浏览器内完成',
     },
     lang: {
@@ -98,6 +98,9 @@ const zh: Dict = {
       howTitle: '工作原理',
       howBody: '这些工具基于开源库构建——pdf-lib、PDF.js，以及编译为 WebAssembly 的 qpdf 和 Tesseract。浏览器下载一次后，就全部在本地运行。完整列表见{link}。',
       howLink: '开源许可',
+      sourceTitle: '查看源码',
+      sourceBody: '源代码是公开的，你可以确切地核对浏览器里运行的是什么：{link}。',
+      sourceLink: 'GitHub 上的 {site}',
       contactTitle: '联系我们',
       contactBody: '问题、bug 或建议，请发送至：',
     },

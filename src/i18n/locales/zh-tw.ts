@@ -18,7 +18,7 @@ const zhTw: Dict = {
     footer: {
       blurb: '在瀏覽器中執行的 PDF 工具。檔案不會離開你的裝置，所有處理都在本機完成。',
       popular: '熱門工具', categories: '工具分類', about: '關於', aboutLink: '關於 {site}',
-      guides: '使用指南', privacy: '隱私權政策', terms: '服務條款', licenses: '開源授權',
+      guides: '使用指南', privacy: '隱私權政策', terms: '服務條款', licenses: '開源授權', source: '原始碼',
       promise: '檔案不會離開你的裝置 · 所有處理都在瀏覽器中完成',
     },
     lang: {
@@ -98,6 +98,9 @@ const zhTw: Dict = {
       howTitle: '運作方式',
       howBody: '這些工具建立在開源程式庫之上——pdf-lib、PDF.js，以及編譯成 WebAssembly 的 qpdf 和 Tesseract——瀏覽器下載一次之後，就一直在本機執行。完整清單請見{link}。',
       howLink: '開源授權',
+      sourceTitle: '查看原始碼',
+      sourceBody: '原始碼是公開的，你可以確切地核對瀏覽器裡執行的是什麼：{link}。',
+      sourceLink: 'GitHub 上的 {site}',
       contactTitle: '聯絡我們',
       contactBody: '有問題、錯誤回報或建議：',
     },

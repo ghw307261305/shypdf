@@ -18,7 +18,14 @@ const groups = [
   ...order.map((c) => ({ key: c, name: d.ui.categories[c], note: c === order[0] ? h.liveNote : undefined, tools: all.filter((t) => t.category === c && t.phase === 1) })),
   { key: 'soon', name: h.soonName, note: h.soonNote, tools: all.filter((t) => t.phase !== 1) },
 ].filter((g) => g.tools.length);
-const jsonLd = { '@context': 'https://schema.org', '@type': 'WebSite', name: SITE.name, url: new URL(localePath(locale), SITE.url).href, description: d.site.description, inLanguage: LOCALE_INFO[locale].htmlLang };
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    { '@type': 'WebSite', name: SITE.name, url: new URL(localePath(locale), SITE.url).href, description: d.site.description, inLanguage: LOCALE_INFO[locale].htmlLang, publisher: { '@id': `${SITE.url}/#org` } },
+    // sameAs 把站点和公开的源码仓库认作同一个实体；仓库公开前不输出
+    { '@type': 'Organization', '@id': `${SITE.url}/#org`, name: SITE.name, url: `${SITE.url}/`, logo: new URL('/apple-touch-icon.png', SITE.url).href, ...(SITE.repo.live ? { sameAs: [SITE.repo.url] } : {}) },
+  ],
+};
 // 正文里的 {n} / {mb}：从数据算出来，加了工具或改了上限不用回头改八种语言的文案
 const copyVars = { n: all.filter((t) => t.phase === 1).length, mb: SITE.limits.maxFileMB };
 const check = '<path d="M5 12l5 5 9-10"/>';

@@ -32,6 +32,7 @@ const popular = ['merge-pdf', 'compress-pdf', 'pdf-to-word', 'split-pdf', 'jpg-t
       <a href="/privacy/">{f.privacy}</a>
       <a href="/terms/">{f.terms}</a>
       <a href="/licenses/">{f.licenses}</a>
+      {SITE.repo.live && <a href={SITE.repo.url} rel="noopener">{f.source}</a>}
       {SITE.sibling.live && <a href={SITE.sibling.url} rel="noopener">{SITE.sibling.name}</a>}
     </nav>
   </div>

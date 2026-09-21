@@ -21,7 +21,7 @@ const en = {
     footer: {
       blurb: 'PDF tools that run in your browser. Your files never leave your device — everything is processed locally.',
       popular: 'Popular tools', categories: 'Categories', about: 'About', aboutLink: 'About {site}',
-      guides: 'Guides', privacy: 'Privacy policy', terms: 'Terms of use', licenses: 'Open source',
+      guides: 'Guides', privacy: 'Privacy policy', terms: 'Terms of use', licenses: 'Open source', source: 'Source code',
       promise: 'Your files never leave your device · Everything runs in your browser',
     },
     lang: {
@@ -104,6 +104,10 @@ const en = {
       // {link} 会被替换成指向开源许可页的链接，链接文字是 howLink
       howBody: 'The tools are built on open-source libraries — pdf-lib, PDF.js, and qpdf and Tesseract compiled to WebAssembly — that your browser downloads once and then runs locally. See {link} for the full list.',
       howLink: 'Open-source licenses',
+      // 仓库公开（SITE.repo.live）后才显示这一节；{link} 换成指向仓库的链接，链接文字是 sourceLink
+      sourceTitle: 'Read the code',
+      sourceBody: 'The source code is public, so you can check exactly what runs in your browser: {link}.',
+      sourceLink: '{site} on GitHub',
       contactTitle: 'Contact',
       contactBody: 'Questions, bugs or ideas:',
     },

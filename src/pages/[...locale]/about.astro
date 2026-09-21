@@ -9,6 +9,7 @@ const a = getDict(locale).ui.about;
 const site = { site: SITE.name };
 // howBody 里的 {link} 换成指向开源许可页（只有英文版）的链接
 const [howBefore, howAfter = ''] = a.howBody.split('{link}');
+const [sourceBefore, sourceAfter = ''] = a.sourceBody.split('{link}');
 ---
 <Base title={fmt(a.title, site)} description={fmt(a.description, site)} locale={locale}>
   <div class="wrap prose">
@@ -18,6 +19,10 @@ const [howBefore, howAfter = ''] = a.howBody.split('{link}');
     <p>{a.whyBody}</p>
     <h2>{a.howTitle}</h2>
     <p>{howBefore}<a href="/licenses/">{a.howLink}</a>{howAfter}</p>
+    {SITE.repo.live && (<>
+      <h2>{a.sourceTitle}</h2>
+      <p>{sourceBefore}<a href={SITE.repo.url} rel="noopener">{fmt(a.sourceLink, site)}</a>{sourceAfter}</p>
+    </>)}
     <h2>{a.contactTitle}</h2>
     <p>{a.contactBody} <a href={`mailto:${SITE.contactEmail}`}>{SITE.contactEmail}</a></p>
   </div>

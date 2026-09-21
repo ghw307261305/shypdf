@@ -18,7 +18,7 @@ const es: Dict = {
     footer: {
       blurb: 'Herramientas PDF que funcionan en tu navegador. Tus archivos nunca salen de tu dispositivo: todo se procesa de forma local.',
       popular: 'Herramientas populares', categories: 'Categorías', about: 'Acerca de', aboutLink: 'Acerca de {site}',
-      guides: 'Guías', privacy: 'Política de privacidad', terms: 'Términos de uso', licenses: 'Código abierto',
+      guides: 'Guías', privacy: 'Política de privacidad', terms: 'Términos de uso', licenses: 'Código abierto', source: 'Código fuente',
       promise: 'Tus archivos nunca salen de tu dispositivo · Todo funciona en tu navegador',
     },
     lang: {
@@ -98,6 +98,9 @@ const es: Dict = {
       howTitle: 'Cómo funciona',
       howBody: 'Las herramientas se basan en bibliotecas de código abierto (pdf-lib, PDF.js, y qpdf y Tesseract compilados a WebAssembly) que tu navegador descarga una sola vez y luego ejecuta en tu dispositivo. Consulta {link} para ver la lista completa.',
       howLink: 'Licencias de código abierto',
+      sourceTitle: 'Lee el código',
+      sourceBody: 'El código fuente es público, así que puedes comprobar exactamente qué se ejecuta en tu navegador: {link}.',
+      sourceLink: '{site} en GitHub',
       contactTitle: 'Contacto',
       contactBody: 'Preguntas, errores o ideas:',
     },

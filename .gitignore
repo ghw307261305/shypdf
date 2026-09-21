@@ -6,6 +6,9 @@ dist
 # 整个目录由 scripts/vendor.mjs 从 node_modules 生成，版本由 package-lock.json 锁定
 public/vendor
 
+# 维护者的内部文档（中文：架构、需求、运维、上线清单）。只留在本地，不随仓库公开
+docs/
+
 # macOS Finder 目录视图设置，和项目无关
 .DS_Store
 

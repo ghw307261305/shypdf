@@ -18,7 +18,7 @@ const ja: Dict = {
     footer: {
       blurb: 'ブラウザの中で動くPDFツール。ファイルが端末の外に出ることはなく、すべて端末上で処理されます。',
       popular: '人気のツール', categories: 'カテゴリ', about: 'このサイトについて', aboutLink: '{site}について',
-      guides: 'ガイド', privacy: 'プライバシーポリシー', terms: '利用規約', licenses: 'オープンソース',
+      guides: 'ガイド', privacy: 'プライバシーポリシー', terms: '利用規約', licenses: 'オープンソース', source: 'ソースコード',
       promise: 'ファイルが端末の外に出ることはありません · すべてブラウザの中で動きます',
     },
     lang: {
@@ -98,6 +98,9 @@ const ja: Dict = {
       howTitle: '仕組み',
       howBody: 'ツールはオープンソースのライブラリ（pdf-lib、PDF.js、WebAssemblyにコンパイルしたqpdfとTesseract）で作られています。ブラウザが一度ダウンロードしたあとは、すべて端末上で動きます。ライブラリの一覧は{link}をご覧ください。',
       howLink: 'オープンソースライセンス',
+      sourceTitle: 'コードを読む',
+      sourceBody: 'ソースコードは公開されているので、ブラウザで実際に何が動いているかを確かめられます：{link}。',
+      sourceLink: 'GitHub の {site}',
       contactTitle: 'お問い合わせ',
       contactBody: 'ご質問、不具合のご報告、ご提案はこちらへ：',
     },
