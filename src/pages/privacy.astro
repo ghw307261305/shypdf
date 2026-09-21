@@ -1,13 +1,13 @@
 ---
 import Base from '@/layouts/Base.astro';
-import { SITE } from '@/config/site';
+import { SITE, formatDate } from '@/config/site';
 // 这份政策描述的是「无统计、无广告、无 Cookie」的现状；自动错误报告那一段要和 src/lib/report.ts 实际发送的字段保持一致。
 // 接入统计或广告（SITE.ads）之前，必须先更新 “What we collect” 和 “Advertising” 两节，并更新 SITE.legalUpdated。
 ---
 <Base title={`Privacy Policy | ${SITE.name}`} description={`How ${SITE.name} handles your data: your files are processed in your browser and never uploaded.`} translated={false}>
   <div class="wrap prose">
     <h1>Privacy Policy</h1>
-    <p>Last updated: {SITE.legalUpdated}</p>
+    <p>Last updated: {formatDate(SITE.legalUpdated)}</p>
 
     <h2>The short version</h2>
     <p>{SITE.name} processes your files inside your browser. They are never uploaded to us or to anyone else. We have no accounts, set no cookies, and run no analytics or advertising trackers.</p>

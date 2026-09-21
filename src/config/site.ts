@@ -7,8 +7,22 @@ export const SITE = {
   // 广告开关：审核通过后改为 true，并在 components/AdSlot.astro 里贴代码
   ads: false,
   contactEmail: 'hello@shypdf.com', // TODO: 上线前确认这个邮箱能收信（Cloudflare Email Routing 可免费转发）
-  // 隐私政策 / 使用条款的「Last updated」
-  legalUpdated: 'September 19, 2026',
+  // 隐私政策 / 使用条款的「Last updated」。ISO 日期：页面上由 formatDate 显示成 “September 19, 2026”，
+  // sitemap.xml 直接拿它当这几页的 <lastmod>。
+  legalUpdated: '2026-09-19',
+  // 工具页 / 首页 / 关于页的正文最后一次实质改动（sitemap.xml 的 <lastmod>）。
+  // 只在改了文案、加了工具、换了译文时才动它 —— 每次构建都刷新的 lastmod 会被搜索引擎忽略。
+  contentUpdated: '2026-09-20',
+  // 个别页面比 contentUpdated 更晚改过时单独记在这里（key 是不带语言前缀的路径），免得把没动的页面也标成刚改过。
+  // 下次整体更新 contentUpdated 时，把早于它的条目删掉。
+  contentUpdatedOverrides: { '/': '2026-09-21' } as Record<string, string>,
   // 姐妹站互链（页脚 About 栏）。shypic.com 还没解析，上线后把 live 改成 true
   sibling: { name: 'ShyPic', url: 'https://shypic.com', live: false },
 };
+
+// '2026-09-19' → 'September 19, 2026'。法律页只有英文版，固定用 en-US；
+// 按 UTC 解析和格式化，免得本地时区把日期推前一天。
+export const formatDate = (iso: string) =>
+  new Date(`${iso}T00:00:00Z`).toLocaleDateString('en-US', {
+    year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC',
+  });
