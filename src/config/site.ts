@@ -15,10 +15,10 @@ export const SITE = {
   contentUpdated: '2026-09-20',
   // 个别页面比 contentUpdated 更晚改过时单独记在这里（key 是不带语言前缀的路径），免得把没动的页面也标成刚改过。
   // 下次整体更新 contentUpdated 时，把早于它的条目删掉。
-  contentUpdatedOverrides: { '/': '2026-09-21' } as Record<string, string>,
+  contentUpdatedOverrides: { '/': '2026-09-21', '/about/': '2026-09-21', '/licenses/': '2026-09-21' } as Record<string, string>,
   // 源码仓库（页脚、About、开源许可页的链接，以及首页结构化数据的 sameAs）。
-  // 仓库转成 public 之后才把 live 改成 true —— 私有仓库的链接对访客是 404。
-  repo: { url: 'https://github.com/ghw307261305/shypdf', license: 'AGPL-3.0', live: false },
+  // live 是总开关：仓库如果改回 private，要先把它关掉 —— 私有仓库的链接对访客是 404。
+  repo: { url: 'https://github.com/ghw307261305/shypdf', license: 'AGPL-3.0', live: true },
   // 姐妹站互链（页脚 About 栏）。shypic.com 还没解析，上线后把 live 改成 true
   sibling: { name: 'ShyPic', url: 'https://shypic.com', live: false },
 };

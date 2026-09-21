@@ -19,7 +19,8 @@ export const GET: APIRoute = () => {
     ...GUIDES.map((g): [string, string] => [`/guides/${g.slug}/`, guideLastmod(g)]),
     ['/privacy/', SITE.legalUpdated],
     ['/terms/', SITE.legalUpdated],
-    ['/licenses/', SITE.legalUpdated],
+    // 开源许可页不是法律文本，改它不该动 legalUpdated（那个日期还显示在隐私政策和条款上）
+    ['/licenses/', SITE.contentUpdatedOverrides['/licenses/'] ?? SITE.legalUpdated],
   ];
   const entries = [
     ...translated.flatMap((path) => {
